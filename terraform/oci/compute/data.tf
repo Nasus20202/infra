@@ -3,9 +3,7 @@ data "oci_identity_availability_domain" "ad" {
   ad_number      = var.availability_domain
 }
 
-data "oci_core_images" "oracle_linux" {
-  compartment_id   = data.oci_identity_availability_domain.ad.compartment_id
-  operating_system = "Oracle Linux"
-  sort_by          = "TIMECREATED"
-  sort_order       = "DESC"
+data "oci_core_images" "ubuntu" {
+  compartment_id = data.oci_identity_availability_domain.ad.compartment_id
+  display_name   = "Canonical-Ubuntu-24.04-aarch64-2024.09.30-0"
 }
