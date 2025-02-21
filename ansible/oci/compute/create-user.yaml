@@ -1,0 +1,55 @@
+- name: Create user
+  hosts: all
+  become: true
+
+  vars_prompt:
+    - name: "username"
+      prompt: "Enter name"
+      private: false
+    - name: "password"
+      prompt: "Enter password"
+      private: true
+    - name: "comment"
+      prompt: "Enter comment"
+      private: false
+
+  tasks:
+    - name: Create 'wheel' group
+      ansible.builtin.group:
+        name: wheel
+        state: present
+
+    - name: Allow 'wheel' group to run with root privileges
+      ansible.builtin.lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: "^%wheel"
+        line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+        validate: "visudo -cf %s"
+
+    - name: Create user '{{ username }}'
+      ansible.builtin.user:
+        name: "{{ username }}"
+        password: "{{ password | password_hash('sha512', 'A512') }}"
+        comment: "{{ comment }}"
+        groups: wheel,adm
+        append: true
+        shell: /usr/bin/bash
+        create_home: true
+
+    - name: Create .ssh directory
+      ansible.builtin.file:
+        path: "/home/{{ username }}/.ssh"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0700"
+
+    - name: Copy authorized_keys
+      ansible.builtin.copy:
+        src: /home/ubuntu/.ssh/authorized_keys
+        remote_src: true
+        dest: /home/{{ username }}/.ssh/authorized_keys
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0600"

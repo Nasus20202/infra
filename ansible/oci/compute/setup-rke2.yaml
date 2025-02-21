@@ -1,0 +1,36 @@
+- name: Setup RKE2 Server
+  hosts: rke2-server
+  become: true
+
+  vars:
+    tls_san_domain: k8s.nasus.dev
+
+  roles:
+    - rke2-server
+
+  post_tasks:
+    - name: Download node token
+      ansible.builtin.fetch:
+        src: /var/lib/rancher/rke2/server/node-token
+        dest: /tmp/node-token
+        flat: true
+    - name: Download kubeconfig
+      ansible.builtin.fetch:
+        src: /etc/rancher/rke2/rke2.yaml
+        dest: /tmp/kubeconfig
+        flat: true
+
+- name: Setup RKE2 worker
+  hosts: rke2-worker
+  become: true
+
+  vars_prompt:
+    - name: server_ip
+      prompt: RKE2 Server private IP address
+      private: false
+    - name: node_token
+      prompt: RKE2 Server Node Token (/tmp/node-token)
+      private: false
+
+  roles:
+    - rke2-worker

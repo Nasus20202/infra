@@ -1,0 +1,30 @@
+- name: Download RKE2 Worker installation script
+  ansible.builtin.get_url:
+    url: https://get.rke2.io
+    dest: /tmp/rke2_install.sh
+    mode: "0755"
+
+- name: Install RKE2 Worker
+  ansible.builtin.command:
+    creates: /usr/bin/rke2
+    cmd: sh /tmp/rke2_install.sh
+  environment:
+    INSTALL_RKE2_TYPE: agent
+
+- name: Create RKE2 config directory
+  ansible.builtin.file:
+    path: /etc/rancher/rke2/
+    state: directory
+    mode: "755"
+
+- name: Copy RKE2 config
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: /etc/rancher/rke2/config.yaml
+    mode: "0644"
+
+- name: Start RKE2
+  ansible.builtin.systemd:
+    name: rke2-agent
+    enabled: true
+    state: started

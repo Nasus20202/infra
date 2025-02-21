@@ -21,11 +21,7 @@ resource "oci_core_security_list" "private_sl" {
     source      = oci_core_vcn.vcn.cidr_block
     source_type = "CIDR_BLOCK"
     protocol    = "6" # TCP
-    tcp_options {
-      min = 22
-      max = 22
-    }
-    description = "Allow SSH from the VCN"
+    description = "Allow TCP from the VCN"
   }
 
   compartment_id = oci_identity_compartment.compartment.id
@@ -44,9 +40,11 @@ resource "oci_core_security_list" "public_sl" {
   }
 
   ingress_security_rules {
-    protocol  = "all"
-    source    = "0.0.0.0/0"
-    stateless = false
+    stateless   = false
+    source      = oci_core_vcn.vcn.cidr_block
+    source_type = "CIDR_BLOCK"
+    protocol    = "6" # TCP
+    description = "Allow TCP from the VCN"
   }
 
   ingress_security_rules {
@@ -56,7 +54,6 @@ resource "oci_core_security_list" "public_sl" {
     protocol    = "1" # ICMP
     description = "Allow ICMP from the Internet"
   }
-
 
   ingress_security_rules {
     stateless   = false
@@ -92,6 +89,66 @@ resource "oci_core_security_list" "public_sl" {
       max = 443
     }
     description = "Allow HTTPS from the Internet"
+  }
+
+  ingress_security_rules {
+    stateless   = false
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    protocol    = "6" # TCP
+    tcp_options {
+      min = 6443
+      max = 6443
+    }
+    description = "Allow RKE2 ports from the Internet"
+  }
+
+  ingress_security_rules {
+    stateless   = false
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    protocol    = "6" # TCP
+    tcp_options {
+      min = 9345
+      max = 9345
+    }
+    description = "Allow RKE2 ports from the Internet"
+  }
+
+  ingress_security_rules {
+    stateless   = false
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    protocol    = "6" # TCP
+    tcp_options {
+      min = 10250
+      max = 10250
+    }
+    description = "Allow RKE2 ports from the Internet"
+  }
+
+  ingress_security_rules {
+    stateless   = false
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    protocol    = "6" # TCP
+    tcp_options {
+      min = 2379
+      max = 2381
+    }
+    description = "Allow RKE2 ports from the Internet"
+  }
+
+  ingress_security_rules {
+    stateless   = false
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    protocol    = "6" # TCP
+    tcp_options {
+      min = 30000
+      max = 32767
+    }
+    description = "Allow RKE2 ports from the Internet"
   }
 
   compartment_id = oci_identity_compartment.compartment.id

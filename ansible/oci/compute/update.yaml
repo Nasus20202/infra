@@ -1,0 +1,10 @@
+- name: Update system packages
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update and upgrade apt packages
+      ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
+        cache_valid_time: 86400 # One day
