@@ -16,7 +16,7 @@ terraform {
   backend "s3" {
     bucket         = "nasus-tfstate"
     region         = "eu-central-1"
-    key            = "infra/terraform/oci/terraform.tfstate"
+    key            = "infra/terraform/oci/compute/terraform.tfstate"
     dynamodb_table = "nasus-tfstate-lock"
   }
 }
