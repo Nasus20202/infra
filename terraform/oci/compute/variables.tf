@@ -21,3 +21,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "availability_domain" {
+  description = "The availability domain to create the instance in"
+  type        = number
+  default     = 3
+}
