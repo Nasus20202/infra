@@ -44,6 +44,12 @@ resource "oci_core_security_list" "public_sl" {
   }
 
   ingress_security_rules {
+    protocol  = "all"
+    source    = "0.0.0.0/0"
+    stateless = false
+  }
+
+  ingress_security_rules {
     stateless   = false
     source      = "0.0.0.0/0"
     source_type = "CIDR_BLOCK"

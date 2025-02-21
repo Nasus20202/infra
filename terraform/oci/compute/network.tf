@@ -23,6 +23,7 @@ resource "oci_core_subnet" "public_subnet" {
   cidr_block        = var.public_subnet_cidr
   dns_label         = "publicsubnet"
   security_list_ids = [oci_core_security_list.public_sl.id]
+  route_table_id    = oci_core_route_table.public_route_table.id
 
   compartment_id = oci_identity_compartment.compartment.id
   display_name   = "${local.prefix}-public-subnet"
