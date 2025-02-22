@@ -1,12 +1,12 @@
 - name: Setup RKE2 Server
-  hosts: rke2-server
+  hosts: rke2server
   become: true
 
   vars:
     tls_san_domain: k8s.nasus.dev
 
   roles:
-    - rke2-server
+    - rke-2server
 
   post_tasks:
     - name: Download node token
@@ -21,7 +21,7 @@
         flat: true
 
 - name: Setup RKE2 worker
-  hosts: rke2-worker
+  hosts: rke2worker
   become: true
 
   vars_prompt:

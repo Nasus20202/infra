@@ -1,0 +1,42 @@
+- name: Configure iptables
+  hosts: all
+  become: true
+
+  vars:
+    vcn_cidr: "10.0.0.0/16"
+    public_cidr: "0.0.0.0/0"
+    public_ports:
+      - { port: 22, description: "Allow SSH traffic" }
+      - { port: 80, description: "Allow HTTP traffic" }
+      - { port: 443, description: "Allow HTTPS traffic" }
+      - { port: 6443, description: "Allow Kubernetes API traffic" }
+      - { port: 9345, description: "Allow RKE2 supervisor API traffic" }
+      - { port: 10250, description: "Allow kubelet metrics traffic" }
+      - { port: "30000:32767", description: "Allow NodePort traffic range" }
+
+  tasks:
+    - name: Allow all traffic from VCN CIDR
+      ansible.builtin.iptables:
+        chain: INPUT
+        source: "{{ vcn_cidr }}"
+        protocol: all
+        jump: ACCEPT
+        action: insert
+        rule_num: 1
+      notify:
+        - Save iptables rules
+
+    - name: Allow specific traffic from public CIDR
+      ansible.builtin.iptables:
+        chain: INPUT
+        source: "{{ public_cidr }}"
+        protocol: tcp
+        destination_port: "{{ item.port }}"
+        jump: ACCEPT
+        action: insert
+        rule_num: 1
+      loop: "{{ public_ports }}"
+      loop_control:
+        label: "{{ item.description }}"
+      notify:
+        - Save iptables rules
