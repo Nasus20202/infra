@@ -1,0 +1,11 @@
+grafana:
+  ingress:
+    enabled: true
+    hosts:
+      - grafana.nasus.dev
+    tls:
+    - secretName: grafana-general-tls
+      hosts:
+      - grafana.nasus.dev
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
