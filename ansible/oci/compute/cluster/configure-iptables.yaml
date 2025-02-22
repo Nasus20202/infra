@@ -1,4 +1,4 @@
-- name: Configure iptables
+- name: Configure iptables with systemd service
   hosts: all
   become: true
 
@@ -6,37 +6,50 @@
     vcn_cidr: "10.0.0.0/16"
     public_cidr: "0.0.0.0/0"
     public_ports:
-      - { port: 22, description: "Allow SSH traffic" }
-      - { port: 80, description: "Allow HTTP traffic" }
-      - { port: 443, description: "Allow HTTPS traffic" }
-      - { port: 6443, description: "Allow Kubernetes API traffic" }
-      - { port: 9345, description: "Allow RKE2 supervisor API traffic" }
-      - { port: 10250, description: "Allow kubelet metrics traffic" }
-      - { port: "30000:32767", description: "Allow NodePort traffic range" }
+      - { port: 22, protocol: tcp, description: "Allow SSH traffic" }
+      - { port: 80, protocol: tcp, description: "Allow HTTP traffic" }
+      - { port: 443, protocol: tcp, description: "Allow HTTPS traffic" }
+      - { port: 6443, protocol: tcp, description: "Allow Kubernetes API traffic" }
+      - { port: 9345, protocol: tcp, description: "Allow RKE2 supervisor API traffic" }
+      - { port: 10250, protocol: tcp, description: "Allow kubelet metrics traffic" }
+      - { port: "30000:32767", protocol: tcp, description: "Allow NodePort traffic range" }
 
   tasks:
-    - name: Allow all traffic from VCN CIDR
-      ansible.builtin.iptables:
-        chain: INPUT
-        source: "{{ vcn_cidr }}"
-        protocol: all
-        jump: ACCEPT
-        action: insert
-        rule_num: 1
-      notify:
-        - Save iptables rules
+    - name: Create iptables configuration script
+      ansible.builtin.copy:
+        dest: /usr/local/bin/configure-iptables.sh
+        content: |
+          #!/bin/bash
+          iptables -I INPUT 1 -s {{ vcn_cidr }} -j ACCEPT
+          {% for item in public_ports %}
+          iptables -I INPUT 1 -p {{ item.protocol }} --dport {{ item.port }} -s {{ public_cidr }} -j ACCEPT
+          {% endfor %}
+          iptables-save > /etc/iptables/rules.v4
+        mode: "0755"
+        notify: Enable configure-iptables service
 
-    - name: Allow specific traffic from public CIDR
-      ansible.builtin.iptables:
-        chain: INPUT
-        source: "{{ public_cidr }}"
-        protocol: tcp
-        destination_port: "{{ item.port }}"
-        jump: ACCEPT
-        action: insert
-        rule_num: 1
-      loop: "{{ public_ports }}"
-      loop_control:
-        label: "{{ item.description }}"
-      notify:
-        - Save iptables rules
+    - name: Create systemd service file
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/configure-iptables.service
+        content: |
+          [Unit]
+          Description=Configure iptables rules
+          After=network.target
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/local/bin/configure-iptables.sh
+          RemainAfterExit=yes
+
+          [Install]
+          WantedBy=multi-user.target
+        mode: "0644"
+        notify: Enable configure-iptables service
+
+  handlers:
+    - name: Enable configure-iptables service
+      ansible.builtin.systemd_service:
+        name: configure-iptables
+        enabled: true
+        state: restarted
+        daemon_reload: true
