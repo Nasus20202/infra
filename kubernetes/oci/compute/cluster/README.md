@@ -2,6 +2,14 @@
 
 Kubernetes configuration file for the RKE2 cluster created with [this script](../../../../ansible/oci/compute/cluster/).
 
+### RKE2 configuration
+
+- Enable TLS passthrough for the ingress controller.
+
+```bash
+kubectl apply -f rke2
+```
+
 ### Upgrade controller
 
 Setup automated upgrades for the cluster.
@@ -39,3 +47,19 @@ Setup monitoring for the cluster.
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install prometheus prometheus-community/kube-prometheus-stack -f monitoring/values.yaml --create-namespace --namespace monitoring
 ```
+
+### Argo CD
+
+Setup GitOps for the cluster.
+
+```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -f argocd
+```
+
+Now you can configure and add the Argo CD application repository.
+
+- [Argo CD - Getting Started](https://argo-cd.readthedocs.io/en/stable/getting_started/)
+- [Argo CD - Add private repository](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/)
+- [Argo CD- Declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/)
