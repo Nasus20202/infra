@@ -1,7 +1,8 @@
 # OCI - Compute
 
-This script creates 2 A1 instances in the OCI cloud, each with 2 oCPU, 12GB of RAM and 100GB of block storage. The instances are created in the same VCN and subnet
-
+This script creates VCNs with both public and private subnets and this compute instances:
+- 2 `VM.Standard.A1.Flex` instances each with 2 OCPU and 12 GB memory for RKE2 cluster
+  
 ## Usage
 
 ### Required tools

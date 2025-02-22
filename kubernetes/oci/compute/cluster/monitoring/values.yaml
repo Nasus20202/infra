@@ -9,3 +9,15 @@ grafana:
       - grafana.nasus.dev
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+prometheus:
+  prometheusSpec:
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: longhorn
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+              
