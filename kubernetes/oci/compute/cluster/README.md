@@ -62,4 +62,4 @@ Now you can configure and add the Argo CD application repository.
 
 - [Argo CD - Getting Started](https://argo-cd.readthedocs.io/en/stable/getting_started/)
 - [Argo CD - Add private repository](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/)
-- [Argo CD- Declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/)
+- [Argo CD - Declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/)

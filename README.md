@@ -14,7 +14,7 @@
   - [Compute](./ansible/oci/compute)
     - [Cluster](./ansible/oci/compute/cluster) - RKE2 cluster with 2 nodes
       - Automated installation for both server and worker node
-  
+
 ## Kubernetes
 
 - [Oracle Cloud Infrastructure (OCI)](./kubernetes/oci/)
@@ -24,3 +24,4 @@
       - Cert manager - `cert-manager` for SSL certificates
       - Longhorn - `longhorn` block storage
       - Monitoring - `kube-prometheus-stack` with Prometheus and Grafana
+      - ArgoCD - `argocd` for GitOps

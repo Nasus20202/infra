@@ -9,10 +9,26 @@
       - { port: 22, protocol: tcp, description: "Allow SSH traffic" }
       - { port: 80, protocol: tcp, description: "Allow HTTP traffic" }
       - { port: 443, protocol: tcp, description: "Allow HTTPS traffic" }
-      - { port: 6443, protocol: tcp, description: "Allow Kubernetes API traffic" }
-      - { port: 9345, protocol: tcp, description: "Allow RKE2 supervisor API traffic" }
-      - { port: 10250, protocol: tcp, description: "Allow kubelet metrics traffic" }
-      - { port: "30000:32767", protocol: tcp, description: "Allow NodePort traffic range" }
+      - {
+          port: 6443,
+          protocol: tcp,
+          description: "Allow Kubernetes API traffic",
+        }
+      - {
+          port: 9345,
+          protocol: tcp,
+          description: "Allow RKE2 supervisor API traffic",
+        }
+      - {
+          port: 10250,
+          protocol: tcp,
+          description: "Allow kubelet metrics traffic",
+        }
+      - {
+          port: "30000:32767",
+          protocol: tcp,
+          description: "Allow NodePort traffic range",
+        }
 
   tasks:
     - name: Create iptables configuration script

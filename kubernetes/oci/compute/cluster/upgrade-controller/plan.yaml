@@ -9,12 +9,16 @@ spec:
   concurrency: 1
   nodeSelector:
     matchExpressions:
-       - {key: node-role.kubernetes.io/control-plane, operator: In, values: ["true"]}
+      - {
+          key: node-role.kubernetes.io/control-plane,
+          operator: In,
+          values: ["true"],
+        }
   tolerations:
-  - key: "CriticalAddonsOnly"
-    operator: "Equal"
-    value: "true"
-    effect: "NoExecute"
+    - key: "CriticalAddonsOnly"
+      operator: "Equal"
+      value: "true"
+      effect: "NoExecute"
   serviceAccountName: system-upgrade
   cordon: true
   upgrade:
@@ -32,14 +36,18 @@ spec:
   concurrency: 2
   nodeSelector:
     matchExpressions:
-      - {key: beta.kubernetes.io/os, operator: In, values: ["linux"]}
-      - {key: rke2-upgrade, operator: Exists}
-      - {key: rke2-upgrade, operator: NotIn, values: ["disabled", "false"]}
-      - {key: node-role.kubernetes.io/control-plane, operator: NotIn, values: ["true"]}
+      - { key: beta.kubernetes.io/os, operator: In, values: ["linux"] }
+      - { key: rke2-upgrade, operator: Exists }
+      - { key: rke2-upgrade, operator: NotIn, values: ["disabled", "false"] }
+      - {
+          key: node-role.kubernetes.io/control-plane,
+          operator: NotIn,
+          values: ["true"],
+        }
   prepare:
     args:
-    - prepare
-    - server-plan
+      - prepare
+      - server-plan
     image: rancher/rke2-upgrade
   serviceAccountName: system-upgrade
   cordon: true

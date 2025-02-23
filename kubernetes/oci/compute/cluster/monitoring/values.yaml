@@ -4,9 +4,9 @@ grafana:
     hosts:
       - grafana.nasus.dev
     tls:
-    - secretName: grafana-general-tls
-      hosts:
-      - grafana.nasus.dev
+      - secretName: grafana-general-tls
+        hosts:
+          - grafana.nasus.dev
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
 
@@ -20,4 +20,3 @@ prometheus:
           resources:
             requests:
               storage: 10Gi
-              
