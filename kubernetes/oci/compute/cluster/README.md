@@ -36,7 +36,7 @@ Setup storage for the cluster.
 
 ```bash
 helm repo add longhorn https://charts.longhorn.io
-helm install longhorn longhorn/longhorn --create-namespace --namespace longhorn-system
+helm install longhorn longhorn/longhorn -f longhorn/values.yaml --create-namespace --namespace longhorn-system
 ```
 
 ### Monitoring
