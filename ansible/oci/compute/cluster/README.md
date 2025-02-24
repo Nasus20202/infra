@@ -1,6 +1,6 @@
 # OCI - Compute - Cluster
 
-This module provides a set of resources to manage a RKE2 cluster with 2 nodes created with this [Terraform script](../../../terraform/oci/compute/).
+This module provides a set of resources to manage a RKE2 cluster with 2 nodes created with this [Terraform script](../../../../terraform/oci/compute/).
 
 #### Playbooks
 
