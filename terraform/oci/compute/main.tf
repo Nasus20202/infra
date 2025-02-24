@@ -32,6 +32,14 @@ resource "oci_core_instance" "arm" {
     hostname_label            = "${local.prefix}-arm-${count.index}"
   }
 
+  // Use this to enable PV encryption in transit on creation
+  // is_pv_encryption_in_transit_enabled = true
+
+  // Use this to enable PV encryption in transit on launch
+  launch_options {
+    is_pv_encryption_in_transit_enabled = true
+  }
+
   metadata = {
     ssh_authorized_keys = tls_private_key.ssh_key.public_key_openssh
   }
