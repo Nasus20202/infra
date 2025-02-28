@@ -6,7 +6,7 @@
     tls_san_domain: k8s.nasus.dev
 
   roles:
-    - rke-2server
+    - rke2-server
 
   post_tasks:
     - name: Download node token

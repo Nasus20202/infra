@@ -40,7 +40,7 @@ helm install longhorn longhorn/longhorn -f longhorn/values.yaml --create-namespa
 ```
 
 > [!NOTE]
-> You might want to setup [recurring snapshots or filesystem trim jobs](https://longhorn.io/docs/1.8.0/snapshots-and-backups/scheduling-backups-and-snapshots/) for the Longhorn volumes. 
+> You might want to setup [recurring snapshots or filesystem trim jobs](https://longhorn.io/docs/1.8.0/snapshots-and-backups/scheduling-backups-and-snapshots/) for the Longhorn volumes.
 > You can setup it via the Longhorn UI (`kubectl port-forward -n longhorn-system svc/longhorn-frontend 8000:80` and open `http://localhost:8000`).
 
 ### Monitoring

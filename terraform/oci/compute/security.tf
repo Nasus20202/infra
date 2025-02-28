@@ -139,6 +139,18 @@ resource "oci_core_security_list" "public_sl" {
     description = "Allow NodePort port range from the Internet"
   }
 
+  ingress_security_rules {
+    stateless   = false
+    source      = "0.0.0.0/0"
+    source_type = "CIDR_BLOCK"
+    protocol    = "17" # UDP
+    udp_options {
+      min = 30000
+      max = 32767
+    }
+    description = "Allow NodePort port range from the Internet"
+  }
+
   compartment_id = oci_identity_compartment.compartment.id
   display_name   = "${local.prefix}-public-sl"
   freeform_tags  = local.tags

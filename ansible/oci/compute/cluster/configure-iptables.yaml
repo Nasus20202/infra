@@ -29,6 +29,11 @@
           protocol: tcp,
           description: "Allow NodePort traffic range",
         }
+      - {
+          port: "30000:32767",
+          protocol: udp,
+          description: "Allow NodePort traffic range",
+        }
 
   tasks:
     - name: Create iptables configuration script
@@ -42,7 +47,7 @@
           {% endfor %}
           iptables-save > /etc/iptables/rules.v4
         mode: "0755"
-        notify: Enable configure-iptables service
+      notify: Enable configure-iptables service
 
     - name: Create systemd service file
       ansible.builtin.copy:
@@ -60,7 +65,7 @@
           [Install]
           WantedBy=multi-user.target
         mode: "0644"
-        notify: Enable configure-iptables service
+      notify: Enable configure-iptables service
 
   handlers:
     - name: Enable configure-iptables service
