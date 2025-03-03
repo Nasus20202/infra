@@ -19,6 +19,9 @@ spec:
       operator: "Equal"
       value: "true"
       effect: "NoExecute"
+  window:
+    startTime: "02:00"
+    endTime: "04:00"
   serviceAccountName: system-upgrade
   cordon: true
   upgrade:
@@ -36,9 +39,6 @@ spec:
   concurrency: 2
   nodeSelector:
     matchExpressions:
-      - { key: beta.kubernetes.io/os, operator: In, values: ["linux"] }
-      - { key: rke2-upgrade, operator: Exists }
-      - { key: rke2-upgrade, operator: NotIn, values: ["disabled", "false"] }
       - {
           key: node-role.kubernetes.io/control-plane,
           operator: NotIn,
@@ -49,10 +49,11 @@ spec:
       - prepare
       - server-plan
     image: rancher/rke2-upgrade
+  window:
+    startTime: "02:00"
+    endTime: "04:00"
   serviceAccountName: system-upgrade
   cordon: true
-  drain:
-    force: true
   upgrade:
     image: rancher/rke2-upgrade
   channel: https://update.rke2.io/v1-release/channels/stable
