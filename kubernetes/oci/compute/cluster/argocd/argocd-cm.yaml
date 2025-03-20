@@ -8,3 +8,4 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
   timeout.reconciliation: 180s
+  accounts.nasus: login
