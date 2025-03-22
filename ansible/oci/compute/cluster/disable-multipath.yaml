@@ -1,0 +1,10 @@
+- name: Disable multipath
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Disable multipath
+      ansible.builtin.service:
+        name: multipathd
+        state: stopped
+        enabled: false
