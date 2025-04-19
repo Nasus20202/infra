@@ -21,6 +21,10 @@ echo "Installing Monitoring"
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install prometheus prometheus-community/kube-prometheus-stack -f monitoring/values.yaml --create-namespace --namespace monitoring
 
+echo "Installing Portainer"
+helm repo add portainer https://portainer.github.io/k8s/
+helm install portainer portainer/portainer -f portainer/values.yaml --create-namespace --namespace portainer
+
 echo "Installing Argo CD"
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml

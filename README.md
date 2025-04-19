@@ -24,4 +24,5 @@
       - Cert manager - `cert-manager` for SSL certificates
       - Longhorn - `longhorn` block storage
       - Monitoring - `kube-prometheus-stack` with Prometheus and Grafana
+      - Portainer - `portainer` for cluster management
       - ArgoCD - `argocd` for GitOps

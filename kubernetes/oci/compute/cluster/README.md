@@ -52,6 +52,15 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 helm install prometheus prometheus-community/kube-prometheus-stack -f monitoring/values.yaml --create-namespace --namespace monitoring
 ```
 
+### Portainer
+
+Setup Portainer for the cluster.
+
+```bash
+helm repo add portainer https://portainer.github.io/k8s/
+helm install portainer portainer/portainer -f portainer/values.yaml --create-namespace --namespace portainer
+```
+
 ### Argo CD
 
 Setup GitOps for the cluster.
