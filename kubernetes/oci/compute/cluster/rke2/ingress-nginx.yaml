@@ -8,7 +8,9 @@ spec:
     controller:
       config:
         use-forwarded-headers: true
-        use-gzip: "true"
+        enable-real-ip: true
+        forwarded-for-header: proxy_protocol
+        use-gzip: true
         gzip-level: "5"
         gzip-types: |
           text/plain
