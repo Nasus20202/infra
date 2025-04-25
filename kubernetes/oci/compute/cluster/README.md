@@ -62,15 +62,6 @@ helm install loki grafana/loki-stack -f monitoring/loki-values.yaml --create-nam
 helm install loki-k8s grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --create-namespace --namespace monitoring
 ```
 
-### Portainer
-
-Setup Portainer for the cluster.
-
-```bash
-helm repo add portainer https://portainer.github.io/k8s/
-helm install portainer portainer/portainer -f portainer/values.yaml --create-namespace --namespace portainer
-```
-
 ### Argo CD
 
 Setup GitOps for the cluster.

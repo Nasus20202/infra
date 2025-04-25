@@ -23,6 +23,6 @@
       - Upgrade controller - `system-upgrade-controller` for automated RKE2 upgrades
       - Cert manager - `cert-manager` for SSL certificates
       - Longhorn - `longhorn` block storage
-      - Monitoring - `kube-prometheus-stack` with Prometheus and Grafana
-      - Portainer - `portainer` for cluster management
+      - Monitoring - Kube Prometheus Stack - `kube-prometheus-stack` with Prometheus and Grafana
+      - Monitoring - Grafana Loki - `loki` for log collection
       - ArgoCD - `argocd` for GitOps

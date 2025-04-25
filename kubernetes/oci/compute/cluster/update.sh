@@ -19,8 +19,5 @@ echo "Updating Monitoring - Loki"
 helm upgrade loki grafana/loki -f monitoring/loki-values.yaml --namespace monitoring
 helm upgrade loki-k8s grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --namespace monitoring
 
-echo "Updating Portainer"
-helm upgrade portainer portainer/portainer -f portainer/values.yaml --namespace portainer
-
 echo "Updating Argo CD"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
