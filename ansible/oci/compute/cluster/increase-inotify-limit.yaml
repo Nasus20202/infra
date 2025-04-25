@@ -1,0 +1,16 @@
+- name: Increase inotify limit
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Increase max user instance
+      ansible.posix.sysctl:
+        name: fs.inotify.max_user_instances
+        value: 8192
+        sysctl_set: true
+
+    - name: Increase max user watches
+      ansible.posix.sysctl:
+        name: fs.inotify.max_user_watches
+        value: 524288
+        sysctl_set: true
