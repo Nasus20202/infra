@@ -7,3 +7,7 @@ persistence:
   defaultClassReplicaCount: 1
   reclaimPolicy: Retain
   defaultDataLocality: best-effort
+
+metrics:
+  serviceMonitor:
+    enabled: true

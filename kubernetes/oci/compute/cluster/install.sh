@@ -15,7 +15,7 @@ kubectl apply -f cert-manager/clusterissuer -n cert-manager
 
 echo "Installing Longhorn"
 helm repo add longhorn https://charts.longhorn.io
-helm install longhorn longhorn/longhorn -f longhorn/values.yaml --create-namespace --namespace longhorn-system
+helm install longhorn longhorn/longhorn -f longhorn/values.yaml --create-namespace --namespace longhorn-system --set metrics.serviceMonitor.enabled=false
 
 echo "Installing Monitoring - Kube Prometheus Stack"
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -25,6 +25,9 @@ echo "Installing Monitoring - Loki"
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install loki grafana/loki -f monitoring/loki-values.yaml --create-namespace --namespace monitoring
 helm install loki-k8s grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --create-namespace --namespace monitoring
+
+echo "Enable Longhorn metrics"
+helm upgrade longhorn longhorn/longhorn -f longhorn/values.yaml --namespace longhorn-system
 
 echo "Installing Argo CD"
 kubectl create namespace argocd

@@ -37,6 +37,7 @@ Setup storage for the cluster.
 ```bash
 helm repo add longhorn https://charts.longhorn.io
 helm install longhorn longhorn/longhorn -f longhorn/values.yaml --create-namespace --namespace longhorn-system
+# Optionally --set metrics.serviceMonitor.enabled=false to disable the Prometheus service monitor before installing the Kube Prometheus Stack.
 ```
 
 > [!NOTE]

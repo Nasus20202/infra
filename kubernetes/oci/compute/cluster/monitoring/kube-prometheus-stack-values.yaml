@@ -31,3 +31,8 @@ prometheus:
           resources:
             requests:
               storage: 10Gi
+    retention: 10d
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
