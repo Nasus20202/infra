@@ -17,6 +17,7 @@ helm upgrade prometheus prometheus-community/kube-prometheus-stack -f monitoring
 
 echo "Updating Monitoring - Loki"
 helm upgrade loki grafana/loki -f monitoring/loki-values.yaml --namespace monitoring
+helm upgrade loki-k8s grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --namespace monitoring
 
 echo "Updating Portainer"
 helm upgrade portainer portainer/portainer -f portainer/values.yaml --namespace portainer
