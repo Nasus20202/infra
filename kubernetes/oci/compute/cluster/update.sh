@@ -12,8 +12,11 @@ helm upgrade cert-manager jetstack/cert-manager --namespace cert-manager --set c
 echo "Updating Longhorn"
 helm upgrade longhorn longhorn/longhorn -f longhorn/values.yaml --namespace longhorn-system
 
-echo "Updating Monitoring"
-helm upgrade prometheus prometheus-community/kube-prometheus-stack -f monitoring/values.yaml --namespace monitoring
+echo "Updating Monitoring - Kube Prometheus Stack"
+helm upgrade prometheus prometheus-community/kube-prometheus-stack -f monitoring/kube-prometheus-stack-values.yaml --namespace monitoring
+
+echo "Updating Monitoring - Loki"
+helm upgrade loki grafana/loki -f monitoring/loki-values.yaml --namespace monitoring
 
 echo "Updating Portainer"
 helm upgrade portainer portainer/portainer -f portainer/values.yaml --namespace portainer

@@ -17,9 +17,13 @@ echo "Installing Longhorn"
 helm repo add longhorn https://charts.longhorn.io
 helm install longhorn longhorn/longhorn -f longhorn/values.yaml --create-namespace --namespace longhorn-system
 
-echo "Installing Monitoring"
+echo "Installing Monitoring - Kube Prometheus Stack"
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install prometheus prometheus-community/kube-prometheus-stack -f monitoring/values.yaml --create-namespace --namespace monitoring
+helm install prometheus prometheus-community/kube-prometheus-stack -f monitoring/kube-prometheus-stack-values.yaml --create-namespace --namespace monitoring
+
+echo "Installing Monitoring - Loki"
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install loki grafana/loki -f monitoring/loki-values.yaml --create-namespace --namespace monitoring
 
 echo "Installing Portainer"
 helm repo add portainer https://portainer.github.io/k8s/

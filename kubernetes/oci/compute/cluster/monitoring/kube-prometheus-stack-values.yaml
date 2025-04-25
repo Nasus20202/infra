@@ -1,4 +1,16 @@
 grafana:
+  persistence:
+    enabled: true
+    size: 1Gi
+    accessModes: ["ReadWriteOnce"]
+  additionalDataSources:
+    - access: proxy
+      isDefault: false
+      name: loki
+      orgId: 1
+      type: loki
+      url: http://loki-gateway
+      version: 1
   ingress:
     enabled: true
     hosts:
