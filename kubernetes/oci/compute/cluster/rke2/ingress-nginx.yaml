@@ -36,3 +36,7 @@ spec:
           font/woff2
       extraArgs:
         enable-ssl-passthrough: true
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true

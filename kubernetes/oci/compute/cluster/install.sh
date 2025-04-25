@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "Installing RKE2 configuration"
-kubectl apply -f rke2
-
 echo "Installing Upgrade controller"
 kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
 kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/crd.yaml
@@ -33,3 +30,6 @@ echo "Installing Argo CD"
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl apply -f argocd
+
+echo "Installing RKE2 configuration"
+kubectl apply -f rke2
