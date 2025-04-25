@@ -15,14 +15,30 @@ loki:
         index:
           prefix: loki_index_
           period: 24h
+  compactor:
+    compaction_interval: 10m
+    delete_request_store: filesystem
+    retention_delete_delay: 2h
+    retention_delete_worker_count: 150
+    retention_enabled: true
+    working_directory: /tmp/loki/compactor
   pattern_ingester:
     enabled: true
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
+    retention_period: 168h
   ruler:
     enable_api: true
   auth_enabled: false
+
+deploymentMode: SingleBinary
+
+singleBinary:
+  replicas: 1
+  persistence:
+    enabled: true
+    size: 10Gi
 
 minio:
   enabled: false
@@ -33,10 +49,11 @@ chunksCache:
 resultsCache:
   enabled: false
 
-deploymentMode: SingleBinary
+test:
+  enabled: false
 
-singleBinary:
-  replicas: 1
+lokiCanary:
+  enabled: false
 
 # Zero out replica counts of other deployment modes
 backend:
