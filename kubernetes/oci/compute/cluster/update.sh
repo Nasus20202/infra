@@ -17,6 +17,11 @@ helm upgrade prometheus prometheus-community/kube-prometheus-stack -f monitoring
 
 echo "Updating Monitoring - Loki"
 helm upgrade loki grafana/loki -f monitoring/loki-values.yaml --namespace monitoring
+
+echo "Updating Monitoring - Tempo"
+helm upgrade tempo grafana/tempo -f monitoring/tempo-values.yaml --namespace monitoring
+
+echo "Updating Monitoring - K8s Monitoring"
 helm upgrade k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --namespace monitoring
 
 echo "Updating Argo CD"

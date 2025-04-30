@@ -4,12 +4,18 @@ grafana:
     size: 1Gi
     accessModes: ["ReadWriteOnce"]
   additionalDataSources:
-    - access: proxy
+    - name: Loki
+      access: proxy
       isDefault: false
-      name: loki
       orgId: 1
       type: loki
       url: http://loki-gateway
+      version: 1
+    - name: Tempo
+      isDefault: false
+      orgId: 1
+      type: tempo
+      url: http://tempo:3100
       version: 1
   ingress:
     enabled: true
@@ -31,7 +37,7 @@ prometheus:
           resources:
             requests:
               storage: 10Gi
-    retention: 10d
+    retention: 14d
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false

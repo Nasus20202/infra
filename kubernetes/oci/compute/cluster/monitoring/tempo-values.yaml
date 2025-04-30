@@ -1,0 +1,26 @@
+tempo:
+  retention: 336h
+  storage:
+    trace:
+      backend: local
+
+persistence:
+  enabled: true
+  size: 10Gi
+
+traces:
+  otlp:
+    http:
+      enabled: true
+    grpc:
+      enabled: true
+
+distributor:
+  config:
+    log_received_spans:
+      enabled: true
+    log_discarded_spans:
+      enabled: true
+
+minio:
+  enabled: false

@@ -25,4 +25,5 @@
       - Longhorn - `longhorn` block storage
       - Monitoring - Kube Prometheus Stack - `kube-prometheus-stack` with Prometheus and Grafana
       - Monitoring - Grafana Loki - `loki` for log collection
+      - Monitoring - Grafana Tempo - `tempo` for distributed tracing
       - ArgoCD - `argocd` for GitOps

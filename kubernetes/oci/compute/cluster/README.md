@@ -62,6 +62,14 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm install loki grafana/loki-stack -f monitoring/loki-values.yaml --create-namespace --namespace monitoring
 ```
 
+### Monitoring - Grafana Tempo
+
+Setup tracing for the cluster.
+
+```bash
+helm install tempo grafana/tempo -f monitoring/tempo-values.yaml --create-namespace --namespace monitoring
+```
+
 ### Monitoring - Grafana K8s monitoring
 
 Setup Alloy for Grafana.

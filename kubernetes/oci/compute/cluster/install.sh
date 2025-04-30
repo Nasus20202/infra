@@ -21,6 +21,11 @@ helm install prometheus prometheus-community/kube-prometheus-stack -f monitoring
 echo "Installing Monitoring - Loki"
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install loki grafana/loki -f monitoring/loki-values.yaml --create-namespace --namespace monitoring
+
+echo "Installing Monitoring - Tempo"
+helm install tempo grafana/tempo -f monitoring/tempo-values.yaml --create-namespace --namespace monitoring
+
+echo "Installing Monitoring - K8s Monitoring"
 helm install k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --create-namespace --namespace monitoring
 
 echo "Enable Longhorn metrics"
