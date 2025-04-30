@@ -17,7 +17,7 @@ helm upgrade prometheus prometheus-community/kube-prometheus-stack -f monitoring
 
 echo "Updating Monitoring - Loki"
 helm upgrade loki grafana/loki -f monitoring/loki-values.yaml --namespace monitoring
-helm upgrade loki-k8s grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --namespace monitoring
+helm upgrade k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --namespace monitoring
 
 echo "Updating Argo CD"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml

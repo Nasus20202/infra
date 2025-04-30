@@ -60,7 +60,14 @@ Setup log collection for the cluster.
 ```bash
 helm repo add grafana https://grafana.github.io/helm-charts
 helm install loki grafana/loki-stack -f monitoring/loki-values.yaml --create-namespace --namespace monitoring
-helm install loki-k8s grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --create-namespace --namespace monitoring
+```
+
+### Monitoring - Grafana K8s monitoring
+
+Setup Alloy for Grafana.
+
+```bash
+helm install k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --create-namespace --namespace monitoring
 ```
 
 ### Argo CD
