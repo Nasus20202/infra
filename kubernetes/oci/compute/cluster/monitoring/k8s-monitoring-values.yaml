@@ -10,6 +10,12 @@ destinations:
     url: http://tempo:4317
     tls:
       insecure: true
+    metrics: { enabled: false }
+    logs: { enabled: false }
+    traces: { enabled: true }
+  - name: prometheus
+    type: prometheus
+    url: http://prometheus-kube-prometheus-prometheus:9090/api/v1/write
 
 clusterEvents:
   enabled: true
@@ -23,7 +29,7 @@ podLogs:
   gatherMethod: kubernetesApi
   collector: alloy-logs
   structuredMetadata:
-    pod: pod # Set structured metadata "pod" from label "pod"
+    pod: pod
 
 applicationObservability:
   enabled: true
@@ -46,7 +52,6 @@ alloy-metrics:
 
 alloy-logs:
   enabled: true
-  # Required when using the Kubernetes API to pod logs
   alloy:
     mounts:
       varlog: false
