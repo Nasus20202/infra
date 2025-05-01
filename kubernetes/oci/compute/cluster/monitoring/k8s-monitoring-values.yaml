@@ -88,6 +88,12 @@ alloy-receiver:
           logs = [loki.write.loki.receiver]
           traces = [otelcol.exporter.otlp.tempo.input]
       }
+      extra_log_labels = {
+        app_name = "",
+        app_environment = "",
+        kind = "",
+        source = "faro-sdk",
+      }
     }
   ingress:
     enabled: true
