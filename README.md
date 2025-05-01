@@ -26,4 +26,5 @@
       - Monitoring - Kube Prometheus Stack - `kube-prometheus-stack` with Prometheus and Grafana
       - Monitoring - Grafana Loki - `loki` for log collection
       - Monitoring - Grafana Tempo - `tempo` for distributed tracing
+      - Monitoring - K8s Monitoring - `alloy` both as a logging agent and OpenTelemetry collector
       - ArgoCD - `argocd` for GitOps
