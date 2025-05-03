@@ -22,11 +22,11 @@ clusterEvents:
   collector: alloy-logs
 
 nodeLogs:
-  enabled: false
+  enabled: true
+  collector: alloy-logs
 
 podLogs:
   enabled: true
-  gatherMethod: kubernetesApi
   collector: alloy-logs
   structuredMetadata:
     pod: pod
@@ -54,9 +54,7 @@ alloy-logs:
   enabled: true
   alloy:
     mounts:
-      varlog: false
-    clustering:
-      enabled: true
+      varlog: true
 
 alloy-profiles:
   enabled: false
