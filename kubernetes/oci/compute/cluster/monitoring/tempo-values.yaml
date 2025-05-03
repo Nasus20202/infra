@@ -3,6 +3,14 @@ tempo:
   storage:
     trace:
       backend: local
+  metricsGenerator:
+    enabled: true
+    remoteWriteUrl: http://prometheus-kube-prometheus-prometheus:9090/api/v1/write
+  overrides:
+    defaults:
+      metrics_generator:
+        processors: [service-graphs, span-metrics, local-blocks]
+        generate_native_histograms: both
 
 persistence:
   enabled: true

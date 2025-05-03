@@ -17,6 +17,11 @@ grafana:
       type: tempo
       url: http://tempo:3100
       version: 1
+      jsonData:
+        tracesToMetrics:
+          datasourceUid: prometheus
+        serviceMap:
+          datasourceUid: prometheus
   ingress:
     enabled: true
     hosts:
@@ -38,8 +43,12 @@ prometheus:
             requests:
               storage: 10Gi
     retention: 14d
+    retentionSize: 9GiB
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     enableRemoteWriteReceiver: true
+    additionalArgs:
+      - name: enable-feature
+        value: native-histograms
