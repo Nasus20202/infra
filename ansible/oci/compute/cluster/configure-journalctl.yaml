@@ -1,0 +1,17 @@
+- name: Configure journalctl
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Configure journalctl
+      ansible.builtin.lineinfile:
+        path: /etc/systemd/journald.conf
+        line: SystemMaxUse=250M
+      notify:
+        - Restart systemd-journald
+
+  handlers:
+    - name: Restart systemd-journald
+      ansible.builtin.systemd:
+        name: systemd-journald
+        state: restarted

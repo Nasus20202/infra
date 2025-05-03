@@ -1,0 +1,15 @@
+- name: Configure fail2ban
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install fail2ban
+      ansible.builtin.apt:
+        name: fail2ban
+        state: present
+
+    - name: Start and enable fail2ban service
+      ansible.builtin.systemd:
+        name: fail2ban
+        state: started
+        enabled: true
