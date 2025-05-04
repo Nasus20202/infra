@@ -3,18 +3,39 @@ grafana:
     enabled: true
     size: 1Gi
     accessModes: ["ReadWriteOnce"]
+  sidecar:
+    datasources:
+      skipReload: true
+      initDatasources: true
+      exemplarTraceIdDestinations:
+        datasourceUid: tempo
+        traceIdLabelName: traceID
   additionalDataSources:
     - name: Loki
+      uid: loki
       access: proxy
       isDefault: false
       orgId: 1
       type: loki
       url: http://loki-gateway
       version: 1
+      jsonData:
+        derivedFields:
+          - name: traceID
+            matcherRegex: "traceid[\": ]*(\\w+)"
+            url: "$${__value.raw}"
+            datasourceUid: Tempo
+          - name: traceid
+            matcherRegex: traceid
+            matcherType: label
+            url: "$${__value.raw}"
+            datasourceUid: Tempo
     - name: Tempo
+      uid: tempo
       isDefault: false
       orgId: 1
       type: tempo
+      access: proxy
       url: http://tempo:3100
       version: 1
       jsonData:
@@ -22,6 +43,13 @@ grafana:
           datasourceUid: prometheus
         serviceMap:
           datasourceUid: prometheus
+        tracesToLogsV2:
+          datasourceUid: loki
+          spanStartTimeShift: -10m
+          spanEndTimeShift: 10m
+          tags: []
+          filterByTraceID: true
+          filterBySpanID: false
   ingress:
     enabled: true
     hosts:
