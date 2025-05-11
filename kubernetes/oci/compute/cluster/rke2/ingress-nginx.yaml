@@ -36,9 +36,22 @@ spec:
           font/otf
           font/woff
           font/woff2
+        custom-http-errors: 500,501,502,503,504,505,506,507,508,510,511
       extraArgs:
         enable-ssl-passthrough: true
       metrics:
         enabled: true
         serviceMonitor:
           enabled: true
+    defaultBackend:
+      enabled: true
+      image:
+        repository: ghcr.io/tarampampam/error-pages
+        tag: '3'
+      extraEnvs:
+      - name: TEMPLATE_NAME
+        value:  app-down
+      - name: SHOW_DETAILS
+        value: 'true'
+      - name: SEND_SAME_HTTP_CODE
+        value: 'true'

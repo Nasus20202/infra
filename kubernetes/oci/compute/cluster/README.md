@@ -4,7 +4,13 @@ Kubernetes configuration file for the RKE2 cluster created with [this script](..
 
 ### RKE2 configuration
 
-- Enable TLS passthrough for the ingress controller.
+- Nginx Ingress Controller
+  - Enable TLS passthrough for the ingress controller.
+  - Enable gzip compression.
+  - Enable metrics.
+  - Enable configuration snippets.
+  - Enable real IP address forwarding.
+  - Change the default backend to a custom one.
 
 ```bash
 kubectl apply -f rke2
