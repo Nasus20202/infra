@@ -6,10 +6,12 @@ metadata:
 spec:
   valuesContent: |-
     controller:
+      allowSnippetAnnotations: true
       config:
         use-forwarded-headers: true
         enable-real-ip: true
         forwarded-for-header: proxy_protocol
+        annotations-risk-level: Critical
         use-gzip: true
         gzip-level: "5"
         gzip-types: |
