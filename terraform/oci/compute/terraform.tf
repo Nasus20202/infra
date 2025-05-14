@@ -2,12 +2,12 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.88"
+      version = "~> 5.97"
     }
 
     oci = {
       source  = "oracle/oci"
-      version = "~> 6.27"
+      version = "~> 7.0"
     }
   }
 
@@ -17,7 +17,7 @@ terraform {
     bucket         = "nasus-tfstate"
     region         = "eu-central-1"
     key            = "infra/terraform/oci/compute/terraform.tfstate"
-    dynamodb_table = "nasus-tfstate-lock"
+    use_lockfile   = true
   }
 }
 
@@ -28,4 +28,3 @@ provider "aws" {
 provider "oci" {
   region = "eu-frankfurt-1"
 }
-
