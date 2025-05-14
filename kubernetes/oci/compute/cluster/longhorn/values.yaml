@@ -2,6 +2,8 @@ defaultSettings:
   defaultReplicaCount: 1
   replicaSoftAntiAffinity: true
   defaultDataLocality: best-effort
+  storageOverProvisioningPercentage: 150
+  concurrentAutomaticEngineUpgradePerNodeLimit: 1
 
 persistence:
   defaultClassReplicaCount: 1
