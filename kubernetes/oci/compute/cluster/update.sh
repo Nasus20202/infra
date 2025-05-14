@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "Add Helm repos"
 helm repo add jetstack https://charts.jetstack.io
 helm repo add longhorn https://charts.longhorn.io
@@ -13,23 +15,23 @@ kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/l
 kubectl apply -f upgrade-controller
 
 echo "Updating Cert Manager"
-helm upgrade cert-manager jetstack/cert-manager --namespace cert-manager --set crds.enabled=true
+helm upgrade cert-manager jetstack/cert-manager --namespace cert-manager --set crds.enabled=true --atomic
 kubectl apply -f cert-manager/clusterissuer -n cert-manager
 
 echo "Updating Longhorn"
-helm upgrade longhorn longhorn/longhorn -f longhorn/values.yaml --namespace longhorn-system
+helm upgrade longhorn longhorn/longhorn -f longhorn/values.yaml --namespace longhorn-system --atomic
 
 echo "Updating Monitoring - Kube Prometheus Stack"
-helm upgrade prometheus prometheus-community/kube-prometheus-stack -f monitoring/kube-prometheus-stack-values.yaml --namespace monitoring
+helm upgrade prometheus prometheus-community/kube-prometheus-stack -f monitoring/kube-prometheus-stack-values.yaml --namespace monitoring --atomic
 
 echo "Updating Monitoring - Loki"
-helm upgrade loki grafana/loki -f monitoring/loki-values.yaml --namespace monitoring
+helm upgrade loki grafana/loki -f monitoring/loki-values.yaml --namespace monitoring --atomic
 
 echo "Updating Monitoring - Tempo"
-helm upgrade tempo grafana/tempo -f monitoring/tempo-values.yaml --namespace monitoring
+helm upgrade tempo grafana/tempo -f monitoring/tempo-values.yaml --namespace monitoring --atomic
 
 echo "Updating Monitoring - K8s Monitoring"
-helm upgrade k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --namespace monitoring
+helm upgrade k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --namespace monitoring --atomic
 
 echo "Updating Argo CD"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml

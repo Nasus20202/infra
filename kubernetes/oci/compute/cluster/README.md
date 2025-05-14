@@ -2,6 +2,10 @@
 
 Kubernetes configuration file for the RKE2 cluster created with [this script](../../../../ansible/oci/compute/cluster/).
 
+Automated deployment is configured with a [Github Actions workflow](../../../../.github/workflows/kubernetes_oci_compute_cluster_deployment.yaml).
+
+First installation should be applied with the [`install.sh`](install.sh) script, and subsequent updates can be applied with the [`update.sh`](update.sh) script.
+
 ### RKE2 configuration
 
 - Nginx Ingress Controller

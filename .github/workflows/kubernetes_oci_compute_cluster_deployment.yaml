@@ -1,0 +1,47 @@
+name: kubernetes/oci/compute/cluster - deployment
+run-name: kubernetes/oci/compute/cluster - deployment - ${{ github.event_name }}
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 6" # every friday at 4:00 UTC
+  push:
+    branches:
+      - main
+    paths:
+      - kubernetes/oci/compute/cluster/**
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  deployment:
+    name: Deployment
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: kubernetes/oci/compute/cluster
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: "latest"
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: "latest"
+
+      - name: Configure kubeconfig
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBERNETES_OCI_COMPUTE_CLUSTER_KUBECONFIG }}
+
+      - name: Deploy applications
+        run: ./update.sh
