@@ -21,7 +21,7 @@ resource "oci_core_instance" "arm" {
     source_type             = "image"
     source_id               = data.oci_core_images.ubuntu.images[0].id
     boot_volume_size_in_gbs = 100
-    boot_volume_vpus_per_gb = 10
+    boot_volume_vpus_per_gb = 120
   }
 
   create_vnic_details {
@@ -47,4 +47,10 @@ resource "oci_core_instance" "arm" {
   compartment_id = oci_identity_compartment.compartment.id
   display_name   = "${local.prefix}-arm-${count.index}"
   freeform_tags  = local.tags
+
+  lifecycle {
+    ignore_changes = [
+        source_details[0].source_id,
+    ]
+  }
 }
