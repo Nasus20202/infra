@@ -22,7 +22,7 @@ spec:
   window:
     days: ["sa"]
     startTime: "02:00"
-    endTime: "04:00"
+    endTime: "03:00"
     timeZone: "UTC"
   serviceAccountName: system-upgrade
   cordon: true
@@ -54,7 +54,7 @@ spec:
   window:
     days: ["sa"]
     startTime: "02:00"
-    endTime: "04:00"
+    endTime: "03:00"
     timeZone: "UTC"
   serviceAccountName: system-upgrade
   cordon: true
