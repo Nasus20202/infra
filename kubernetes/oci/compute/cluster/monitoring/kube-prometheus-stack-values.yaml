@@ -60,6 +60,9 @@ grafana:
           - grafana.nasus.dev
     annotations:
       cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  grafana.ini:
+    server:
+      root_url: https://grafana.nasus.dev
 
 prometheus:
   prometheusSpec:
