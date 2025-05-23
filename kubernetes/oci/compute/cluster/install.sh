@@ -7,6 +7,7 @@ helm repo add jetstack https://charts.jetstack.io
 helm repo add longhorn https://charts.longhorn.io
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo add grafana https://grafana.github.io/helm-charts
+helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
 
 echo "Installing Upgrade controller"
@@ -15,7 +16,7 @@ kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/l
 kubectl apply -f upgrade-controller
 
 echo "Installing Cert manager"
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set crds.enabled=true --atomic
+helm install cert-manager jetstack/cert-manager -f cert-manager/values.yaml --create-namespace --namespace cert-manager --atomic
 kubectl apply -f cert-manager/clusterissuer -n cert-manager
 
 echo "Installing Longhorn"
@@ -37,9 +38,7 @@ echo "Enable Longhorn metrics"
 helm upgrade longhorn longhorn/longhorn -f longhorn/values.yaml --namespace longhorn-system --atomic
 
 echo "Installing Argo CD"
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl apply -f argocd
+helm install argocd argo/argo-cd -f argocd/values.yaml --create-namespace --namespace argocd --atomic
 
 echo "Installing RKE2 configuration"
 kubectl apply -f rke2

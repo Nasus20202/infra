@@ -36,7 +36,7 @@ Setup SSL certificates for the cluster.
 
 ```bash
 helm repo add jetstack https://charts.jetstack.io
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set crds.enabled=true
+helm install cert-manager jetstack/cert-manager -f cert-manager/values.yaml --create-namespace --namespace cert-manager
 kubectl apply -f cert-manager/clusterissuer -n cert-manager
 ```
 
@@ -93,9 +93,8 @@ helm install k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-
 Setup GitOps for the cluster.
 
 ```bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl apply -f argocd
+helm repo add argo https://argoproj.github.io/argo-helm
+helm install argocd argo/argo-cd -f argocd/values.yaml --create-namespace --namespace argocd
 ```
 
 Now you can configure and add the Argo CD application repository.
