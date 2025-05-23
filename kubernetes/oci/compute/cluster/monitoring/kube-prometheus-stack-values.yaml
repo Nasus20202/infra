@@ -83,3 +83,8 @@ prometheus:
     additionalArgs:
       - name: enable-feature
         value: native-histograms
+    resources:
+      requests:
+        cpu: 100m
+      limits:
+        cpu: 500m
