@@ -17,80 +17,36 @@ server:
     enabled: true
     serviceMonitor:
       enabled: true
-  resources:
-    requests:
-      cpu: 10m
-      memory: 100Mi
-    limits:
-      memory: 100Mi
 
 controller:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
-  resources:
-    requests:
-      cpu: 50m
-      memory: 750Mi
-    limits:
-      memory: 750Mi
 
 dex:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
-  resources:
-    requests:
-      cpu: 10m
-      memory: 100Mi
-    limits:
-      memory: 100Mi
 
 repoServer:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
-  resources:
-    requests:
-      cpu: 10m
-      memory: 100Mi
-    limits:
-      memory: 100Mi
 
 notifications:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
-  resources:
-    requests:
-      cpu: 10m
-      memory: 50Mi
-    limits:
-      memory: 50Mi
 
 applicationSet:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
-  resources:
-    requests:
-      cpu: 10m
-      memory: 50Mi
-    limits:
-      memory: 50Mi
-
-redis:
-  resources:
-    requests:
-      cpu: 10m
-      memory: 50Mi
-    limits:
-      memory: 50Mi
 
 configs:
   cm:
