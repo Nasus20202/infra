@@ -39,6 +39,21 @@ singleBinary:
   persistence:
     enabled: true
     size: 10Gi
+  resources:
+    requests:
+      cpu: 30m
+      memory: 250Mi
+    limits:
+      memory: 500Mi
+
+gateway:
+  enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 20Mi
+    limits:
+      memory: 20Mi
 
 minio:
   enabled: false

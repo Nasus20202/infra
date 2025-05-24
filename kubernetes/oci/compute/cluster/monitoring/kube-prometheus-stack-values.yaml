@@ -63,6 +63,12 @@ grafana:
   grafana.ini:
     server:
       root_url: https://grafana.nasus.dev
+  resources:
+    requests:
+      cpu: 50m
+      memory: 500Mi
+    limits:
+      memory: 500Mi
 
 prometheus:
   prometheusSpec:
@@ -84,3 +90,42 @@ prometheus:
       - name: enable-feature
         value: native-histograms
     maximumStartupDurationSeconds: 300
+    resources:
+      requests:
+        cpu: 100m
+        memory: 750Mi
+      limits:
+        memory: 1.25Gi
+
+kube-state-metrics:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100Mi
+    limits:
+      memory: 100Mi
+
+prometheus-node-exporter:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 30Mi
+    limits:
+      memory: 30Mi
+
+alertmanager:
+  alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 75Mi
+      limits:
+        memory: 75Mi
+
+prometheusOperator:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 75Mi
+    limits:
+      memory: 75Mi

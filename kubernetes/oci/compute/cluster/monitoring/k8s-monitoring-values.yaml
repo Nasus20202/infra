@@ -55,6 +55,12 @@ alloy-logs:
   alloy:
     mounts:
       varlog: true
+    resources:
+      requests:
+        cpu: 30m
+        memory: 150Mi
+      limits:
+        memory: 150Mi
 
 alloy-profiles:
   enabled: false
@@ -75,6 +81,12 @@ alloy-receiver:
         port: 12347
         targetPort: 12347
         protocol: TCP
+    resources:
+      requests:
+        cpu: 10m
+        memory: 150Mi
+      limits:
+        memory: 150Mi
   extraConfig: |
     faro.receiver "default" {
       server {
@@ -109,3 +121,9 @@ alloy-receiver:
 alloy-operator:
   crds:
     deployAlloyCRD: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 75Mi
+    limits:
+      memory: 75Mi

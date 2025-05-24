@@ -30,9 +30,7 @@ kubectl apply -f rke2
 Setup automated upgrades for the cluster.
 
 ```bash
-kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
-kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/crd.yaml
-kubectl apply -f upgrade-controller
+kubectl apply -k upgrade-controller
 ```
 
 ### Cert manager

@@ -11,6 +11,12 @@ tempo:
       metrics_generator:
         processors: [service-graphs, span-metrics, local-blocks]
         generate_native_histograms: both
+  resources:
+    requests:
+      cpu: 10m
+      memory: 350Mi
+    limits:
+      memory: 1Gi
 
 persistence:
   enabled: true

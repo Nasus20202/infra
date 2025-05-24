@@ -14,9 +14,7 @@ echo "Updating RKE2 configuration"
 kubectl apply -f rke2
 
 echo "Updating Upgrade controller"
-kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
-kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/crd.yaml
-kubectl apply -f upgrade-controller
+kubectl apply -k upgrade-controller
 
 echo "Updating Cert Manager"
 helm upgrade cert-manager jetstack/cert-manager -f cert-manager/values.yaml --create-namespace --namespace cert-manager --atomic
