@@ -21,4 +21,18 @@ This module provides a set of resources to manage a RKE2 cluster with 2 nodes cr
 - [`rke2-worker`](./roles/rke2-worker) - Install RKE2 on a worker node
 
 > [!WARNING]  
-> Due to problem when using the `canal` network plugin, the `cilium` network plugin is used instead.
+> Due to problem when using the `canal` network plugin, the `cilium` network plugin is used instead. It runs in BPF mode, so `kube-proxy` has been disabled.
+> Additional `cilium` configuration for the RKE2 cluster is required to enable the `kubeProxyReplacement` feature:
+>
+> ```yaml
+> apiVersion: helm.cattle.io/v1
+> kind: HelmChartConfig
+> metadata:
+>   name: rke2-cilium
+>   namespace: kube-system
+> spec:
+>   valuesContent: |-
+>     kubeProxyReplacement: true
+>     k8sServiceHost: {{ internal_server_node_ip}}
+>     k8sServicePort: 6443
+> ```

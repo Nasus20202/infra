@@ -10,6 +10,9 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
 
+echo "Updating RKE2 configuration"
+kubectl apply -f rke2
+
 echo "Updating Upgrade controller"
 kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/system-upgrade-controller.yaml
 kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/latest/download/crd.yaml
@@ -36,6 +39,3 @@ helm upgrade k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-
 
 echo "Updating Argo CD"
 helm upgrade argocd argo/argo-cd -f argocd/values.yaml --namespace argocd --atomic
-
-echo "Updating RKE2 configuration"
-kubectl apply -f rke2

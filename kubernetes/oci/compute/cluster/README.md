@@ -8,6 +8,11 @@ First installation should be applied with the [`install.sh`](install.sh) script,
 
 ### RKE2 configuration
 
+- Cilium CNI
+
+  - Enable Cilium CNI with BPF support.
+  - Enable Prometheus ServiceMonitor.
+
 - Nginx Ingress Controller
   - Enable TLS passthrough for the ingress controller.
   - Enable gzip compression.
