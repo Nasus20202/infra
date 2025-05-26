@@ -42,9 +42,9 @@ singleBinary:
   resources:
     requests:
       cpu: 30m
-      memory: 250Mi
+      memory: 350Mi
     limits:
-      memory: 500Mi
+      memory: 1Gi
 
 gateway:
   enabled: true
