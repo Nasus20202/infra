@@ -3,3 +3,8 @@ tls-san:
   - {{ tls_san_domain }}
 cni: cilium
 disable-kube-proxy: true
+etcd-expose-metrics: true
+kube-scheduler-arg:
+- "--bind-address=0.0.0.0"
+kube-controller-manager-arg:
+- "--bind-address=0.0.0.0"
