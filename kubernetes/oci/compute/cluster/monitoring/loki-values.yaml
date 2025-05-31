@@ -42,7 +42,7 @@ singleBinary:
   resources:
     requests:
       cpu: 30m
-      memory: 350Mi
+      memory: 300Mi
     limits:
       memory: 1Gi
 
