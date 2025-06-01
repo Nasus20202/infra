@@ -121,9 +121,3 @@ alloy-receiver:
 alloy-operator:
   crds:
     deployAlloyCRD: true
-  resources:
-    requests:
-      cpu: 10m
-      memory: 75Mi
-    limits:
-      memory: 75Mi
