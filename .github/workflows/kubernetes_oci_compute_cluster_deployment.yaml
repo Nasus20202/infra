@@ -45,3 +45,19 @@ jobs:
 
       - name: Deploy applications
         run: ./update.sh
+
+      - name: Send success Discord notification
+        uses: Ilshidur/action-discord@master
+        if: success()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.KUBERNETES_OCI_COMPUTE_CLUSTER_DISCORD_WEBHOOK }}
+        with:
+          args: "Deployment for `compute-k8s` cluster finished successfully."
+
+      - name: Send failure Discord notification
+        uses: Ilshidur/action-discord@master
+        if: failure()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.KUBERNETES_OCI_COMPUTE_CLUSTER_DISCORD_WEBHOOK }}
+        with:
+          args: "Deployment failed for `compute-k8s` cluster. Please check the logs at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
