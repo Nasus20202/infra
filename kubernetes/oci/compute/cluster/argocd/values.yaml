@@ -44,9 +44,9 @@ dex:
   resources:
     requests:
       cpu: 10m
-      memory: 100Mi
+      memory: 150Mi
     limits:
-      memory: 100Mi
+      memory: 150Mi
 
 repoServer:
   metrics:
@@ -96,7 +96,12 @@ configs:
   cm:
     accounts.nasus: login
   rbac:
+    policy.default: role:user
     policy.csv: |
+      p, role:user, applications, get, *, allow
+      p, role:user, applications, list, *, allow
+      p, role:user, applications, sync, *, allow
+      p, role:user, applications, refresh, *, allow
+      p, role:user, clusters, get, *, allow
+      p, role:user, repositories, get, *, allow
       g, admin, role:admin
-      g, nasus, role:readonly
-      p, nasus, applications, sync, *, allow
