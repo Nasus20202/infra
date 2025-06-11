@@ -58,9 +58,9 @@ alloy-logs:
     resources:
       requests:
         cpu: 30m
-        memory: 150Mi
+        memory: 200Mi
       limits:
-        memory: 150Mi
+        memory: 200Mi
 
 alloy-profiles:
   enabled: false
