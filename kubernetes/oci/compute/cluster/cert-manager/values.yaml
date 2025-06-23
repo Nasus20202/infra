@@ -1,6 +1,8 @@
 crds:
   enabled: true
 
+featureGates: "ACMEHTTP01IngressPathTypeExact=false"
+
 resources:
   requests:
     cpu: 10m
