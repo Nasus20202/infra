@@ -21,6 +21,12 @@
     dest: /etc/rancher/rke2/config.yaml
     mode: "0644"
 
+- name: Copy kubelet configuration file
+  ansible.builtin.copy:
+    src: ../shared/files/10-custom-kubelet-configuration.conf
+    dest: /var/lib/rancher/rke2/agent/etc/kubelet.conf.d/
+    mode: "0644"
+
 - name: Start RKE2
   ansible.builtin.systemd:
     name: rke2-server
