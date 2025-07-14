@@ -61,16 +61,190 @@ repoServer:
       memory: 200Mi
 
 notifications:
+  enabled: true
+
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
+
   resources:
     requests:
       cpu: 10m
       memory: 50Mi
     limits:
       memory: 50Mi
+
+  notifiers:
+    service.webhook.discord: |
+      url: $discord-webhook-url
+      headers:
+      - name: Content-Type
+        value: application/json
+
+  subscriptions:
+    - recipients:
+        - discord:general
+      triggers:
+        - on-sync-failed
+        - on-health-degraded
+
+  templates:
+    template.app-sync-status: |
+      webhook:
+        discord:
+          method: POST
+          body: |
+            {
+              "embeds": [
+                {
+                  "title": "Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}",
+                  "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+                  "color": 16776960,
+                  "fields": [
+                    {
+                      "name": "Sync Status",
+                      "value": "{{.app.status.sync.status}}",
+                      "inline": "true"
+                    },
+                    {
+                      "name": "Repository",
+                      "value": "{{.app.spec.source.repoURL}}",
+                      "inline": "false"
+                    }
+                  ]
+                }
+              ]
+            }
+
+    template.app-sync-succeeded: |
+      webhook:
+        discord:
+          method: POST
+          body: |
+            {
+              "embeds": [
+                {
+                  "title": "✅ Application {{.app.metadata.name}} synced successfully",
+                  "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+                  "color": 65280,
+                  "fields": [
+                    {
+                      "name": "Sync Status",
+                      "value": "{{.app.status.sync.status}}",
+                      "inline": "true"
+                    },
+                    {
+                      "name": "Sync Revision",
+                      "value": "{{.app.status.sync.revision}}",
+                      "inline": "true"
+                    },
+                    {
+                      "name": "Repository",
+                      "value": "{{.app.spec.source.repoURL}}",
+                      "inline": "false"
+                    }
+                  ]
+                }
+              ]
+            }
+
+    template.app-sync-failed: |
+      webhook:
+        discord:
+          method: POST
+          body: |
+            {
+              "embeds": [
+                {
+                  "title": "❌ Application {{.app.metadata.name}} sync failed",
+                  "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+                  "color": 16711680,
+                  "fields": [
+                    {
+                      "name": "Sync Status",
+                      "value": "{{.app.status.sync.status}}",
+                      "inline": "true"
+                    },
+                    {
+                      "name": "Repository",
+                      "value": "{{.app.spec.source.repoURL}}",
+                      "inline": "false"
+                    }
+                    {{range $index, $c := .app.status.conditions}}
+                    {{if not $index}},{{end}}
+                    {{if $index}},{{end}}
+                    {
+                      "name": "{{$c.type}}",
+                      "value": "{{$c.message}}",
+                      "inline": "true"
+                    }
+                    {{end}}
+                  ]
+                }
+              ]
+            }
+
+    template.app-health-degraded: |
+      webhook:
+        discord:
+          method: POST
+          body: |
+            {
+              "embeds": [
+                {
+                  "title": "⚠️ Application {{.app.metadata.name}} has degraded",
+                  "url": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+                  "color": 16776960,
+                  "fields": [
+                    {
+                      "name": "Health Status",
+                      "value": "{{.app.status.health.status}}",
+                      "inline": "true"
+                    },
+                    {
+                      "name": "Repository",
+                      "value": "{{.app.spec.source.repoURL}}",
+                      "inline": "false"
+                    }
+                    {{range $index, $c := .app.status.conditions}}
+                    {{if not $index}},{{end}}
+                    {{if $index}},{{end}}
+                    {
+                      "name": "{{$c.type}}",
+                      "value": "{{$c.message}}",
+                      "inline": "true"
+                    }
+                    {{end}}
+                  ]
+                }
+              ]
+            }
+
+  triggers:
+    trigger.on-sync-status-unknown: |
+      - description: Application status is 'Unknown'
+        send:
+        - app-sync-status
+        when: app.status.sync.status == 'Unknown'
+
+    trigger.on-sync-succeeded: |
+      - description: Application syncing has succeeded
+        send:
+        - app-sync-succeeded
+        when: app.status.operationState.phase in ['Succeeded']
+
+    trigger.on-sync-failed: |
+      - description: Application syncing has failed
+        send:
+        - app-sync-failed
+        when: app.status.operationState.phase in ['Error', 'Failed']
+
+    trigger.on-health-degraded: |
+      - description: Application has degraded
+        send:
+        - app-health-degraded
+        when: app.status.health.status == 'Degraded'
 
 applicationSet:
   metrics:
