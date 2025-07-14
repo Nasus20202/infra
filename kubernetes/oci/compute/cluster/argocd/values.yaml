@@ -34,7 +34,7 @@ controller:
       cpu: 30m
       memory: 500Mi
     limits:
-      memory: 1Gi
+      memory: 1.25Gi
 
 dex:
   metrics:
