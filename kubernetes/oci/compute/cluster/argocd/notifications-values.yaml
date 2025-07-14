@@ -10,6 +10,8 @@ notifications:
     - recipients:
         - discord:general
       triggers:
+        - on-sync-status-unknown
+        - on-sync-succeeded
         - on-sync-failed
         - on-health-degraded
 
