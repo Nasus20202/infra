@@ -55,10 +55,10 @@ repoServer:
       enabled: true
   resources:
     requests:
-      cpu: 10m
-      memory: 100Mi
+      cpu: 30m
+      memory: 200Mi
     limits:
-      memory: 100Mi
+      memory: 200Mi
 
 notifications:
   metrics:
