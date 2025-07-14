@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "schedule": ["after 2am and before 5am"],
+  "timezone": "Europe/Warsaw",
+  "labels": ["dependencies"],
+  "assignees": ["@nasus20202"],
+  "reviewers": ["@nasus20202"],
+  "prConcurrentLimit": 25,
+  "prHourlyLimit": 5,
+  "commitMessagePrefix": "ci:",
+  "semanticCommits": "enabled",
+  "dependencyDashboard": true,
+  "automergeType": "pr",
+  "automergeStrategy": "fast-forward",
+  "platformAutomerge": true,
+  "ignoreTests": true,
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    }
+  ],
+  "kubernetes": {
+    "managerFilePatterns": ["/kubernetes/oci/compute/cluster/.+\\.ya?ml$/"]
+  },
+  "argocd": {
+    "managerFilePatterns": [
+      "/kubernetes/oci/compute/cluster/argocd-apps.+\\.ya?ml$/"
+    ]
+  },
+  "helm-values": {
+    "managerFilePatterns": [
+      "/kubernetes/oci/compute/cluster/.+values\\.ya?ml$/"
+    ]
+  }
+}

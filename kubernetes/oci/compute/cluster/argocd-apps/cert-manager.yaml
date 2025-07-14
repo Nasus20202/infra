@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: infra
+  sources:
+    - repoURL: https://charts.jetstack.io
+      chart: cert-manager
+      targetRevision: "v1.18.2"
+      helm:
+        valueFiles:
+          - $values/kubernetes/oci/compute/cluster/cert-manager/values.yaml
+    - repoURL: https://github.com/Nasus20202/infra.git
+      targetRevision: main
+      ref: values
+    - repoURL: https://github.com/Nasus20202/infra.git
+      targetRevision: main
+      path: kubernetes/oci/compute/cluster/cert-manager/clusterissuer
+  destination:
+    name: in-cluster
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
