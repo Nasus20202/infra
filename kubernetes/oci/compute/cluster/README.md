@@ -1,107 +1,71 @@
 # OCI - Compute - Cluster
 
-Kubernetes configuration file for the RKE2 cluster created with [this script](../../../../ansible/oci/compute/cluster/).
+Kubernetes configuration files for the RKE2 cluster created with [this script](../../../../ansible/oci/compute/cluster/).
 
-Automated deployment is configured with a [Github Actions workflow](../../../../.github/workflows/kubernetes_oci_compute_cluster_deployment.yaml).
+This cluster uses **ArgoCD** for GitOps-based deployment and management of all infrastructure applications.
 
-First installation should be applied with the [`install.sh`](install.sh) script, and subsequent updates can be applied with the [`update.sh`](update.sh) script.
+## ArgoCD Applications
 
-### RKE2 configuration
+The cluster is managed through ArgoCD applications defined in the [`argocd-apps/`](argocd-apps/) directory:
 
-- Cilium CNI
+- **ArgoCD** - GitOps controller and UI
+- **Cert-Manager** - SSL certificate management
+- **Longhorn** - Distributed storage system
+- **Monitoring Stack** - Prometheus, Grafana, Loki, Tempo, and K8s monitoring
+- **RKE2 Configs** - CNI and ingress controller configuration
+- **Upgrade Controller** - Automated cluster upgrades
 
-  - Enable Cilium CNI with BPF support.
-  - Enable Prometheus ServiceMonitor.
+## Initial Setup
 
-- Nginx Ingress Controller
-  - Enable TLS passthrough for the ingress controller.
-  - Enable gzip compression.
-  - Enable metrics.
-  - Enable configuration snippets.
-  - Enable real IP address forwarding.
-  - Change the default backend to a custom one.
+### Prerequisites
 
-```bash
-kubectl apply -f rke2
-```
-
-### Upgrade controller
-
-Setup automated upgrades for the cluster.
+1. **ArgoCD Installation**: Install ArgoCD first using the manual installation script:
 
 ```bash
-kubectl apply -k upgrade-controller
+./install.sh
 ```
 
-### Cert manager
-
-Setup SSL certificates for the cluster.
+2. **Root Application**: Apply the root application to bootstrap all other applications:
 
 ```bash
-helm repo add jetstack https://charts.jetstack.io
-helm install cert-manager jetstack/cert-manager -f cert-manager/values.yaml --create-namespace --namespace cert-manager
-kubectl apply -f cert-manager/clusterissuer -n cert-manager
+kubectl apply -f argocd-apps/argocd-infra-root-app.yaml
 ```
 
-### Longhorn
+## Configuration
 
-Setup storage for the cluster.
+### ArgoCD OIDC Authentication
 
-```bash
-helm repo add longhorn https://charts.longhorn.io
-helm install longhorn longhorn/longhorn -f longhorn/values.yaml --create-namespace --namespace longhorn-system
-# Optionally --set metrics.serviceMonitor.enabled=false to disable the Prometheus service monitor before installing the Kube Prometheus Stack.
+ArgoCD is configured with OIDC authentication. Add the following to the `argocd-cm` ConfigMap:
+
+```yaml
+dex.config: |
+  connectors:
+  - type: oidc
+    id: nasus-sso
+    name: Nasus SSO
+    config:
+      issuer: [ISSUER_URL]
+      clientID: [CLIENT_ID]
+      clientSecret: $argocd-oidc-secret:clientSecret
+      redirectURI: [REDIRECT_URI]
+      scopes:
+        - openid
+        - profile
+        - email
 ```
 
-> [!NOTE]
-> You might want to setup [recurring snapshots or filesystem trim jobs](https://longhorn.io/docs/1.8.0/snapshots-and-backups/scheduling-backups-and-snapshots/) for the Longhorn volumes.
-> You can setup it via the Longhorn UI (`kubectl port-forward -n longhorn-system svc/longhorn-frontend 8000:80` and open `http://localhost:8000`).
+Client secret is stored in the `argocd-oidc-secret` Kubernetes secret with the key `clientSecret`. It should be created before applying the ArgoCD configuration.
 
-### Monitoring - Kube Prometheus Stack
-
-Setup monitoring for the cluster.
-
-```bash
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install prometheus prometheus-community/kube-prometheus-stack -f monitoring/kube-prometheus-stack-values.yaml --create-namespace --namespace monitoring
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-oidc-secret
+  namespace: argocd
+stringData:
+  clientSecret: [YOUR_CLIENT_SECRET]
 ```
 
-### Monitoring - Grafana Loki
+### ArgoCD Notifications
 
-Setup log collection for the cluster.
-
-```bash
-helm repo add grafana https://grafana.github.io/helm-charts
-helm install loki grafana/loki-stack -f monitoring/loki-values.yaml --create-namespace --namespace monitoring
-```
-
-### Monitoring - Grafana Tempo
-
-Setup tracing for the cluster.
-
-```bash
-helm install tempo grafana/tempo -f monitoring/tempo-values.yaml --create-namespace --namespace monitoring
-```
-
-### Monitoring - Grafana K8s monitoring
-
-Setup Alloy for Grafana.
-
-```bash
-helm install k8s-monitoring grafana/k8s-monitoring -f monitoring/k8s-monitoring-values.yaml --create-namespace --namespace monitoring
-```
-
-### Argo CD
-
-Setup GitOps for the cluster.
-
-```bash
-helm repo add argo https://argoproj.github.io/argo-helm
-helm install argocd argo/argo-cd -f argocd/values.yaml --create-namespace --namespace argocd
-```
-
-Now you can configure and add the Argo CD application repository.
-
-- [Argo CD - Getting Started](https://argo-cd.readthedocs.io/en/stable/getting_started/)
-- [Argo CD - Add private repository](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/)
-- [Argo CD - Declarative setup](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/)
+ArgoCD Discord webhook URL should be set in the `argocd-notifications-secret` secret. It should be created before applying the ArgoCD configuration. Webhook URL is stored in the `discord-webhook-url` key.
