@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "schedule": ["after 2am and before 5am"],
   "timezone": "Europe/Warsaw",
   "labels": ["dependencies"],
   "assignees": ["@nasus20202"],
@@ -14,6 +13,7 @@
   "automergeType": "pr",
   "automergeStrategy": "fast-forward",
   "platformAutomerge": true,
+  "automergeSchedule": ["after 2am and before 5am"],
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "minor"],
