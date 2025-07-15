@@ -11,7 +11,7 @@
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "automergeType": "pr",
-  "automergeStrategy": "fast-forward",
+  "automergeStrategy": "rebase",
   "platformAutomerge": true,
   "automergeSchedule": ["after 2am and before 5am"],
   "packageRules": [
