@@ -1,0 +1,48 @@
+name: kubernetes/oci/compute/cluster - deployment validation
+run-name: |
+  kubernetes/oci/compute/cluster - validate `${{ github.event.head_commit.message || github.event.pull_request.title }}`
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - kubernetes/oci/compute/cluster/**
+  pull_request:
+    branches:
+      - main
+    paths:
+      - kubernetes/oci/compute/cluster/**
+
+jobs:
+  validate-manifests:
+    defaults:
+      run:
+        working-directory: kubernetes/oci/compute/cluster
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Set up helm
+        uses: azure/setup-helm@v4
+
+      - name: Build all manifests
+        run: |
+          ./build-local-manifests.sh
+
+      - name: Validate Kubernetes manifests
+        uses: docker://ghcr.io/yannh/kubeconform:latest
+        with:
+          entrypoint: "/kubeconform"
+          args: >-
+            -summary
+            -output pretty
+            -schema-location default
+            -schema-location https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
+            -skip CustomResourceDefinition,Alloy,Plan,HelmChartConfig
+            ./kubernetes/oci/compute/cluster/manifests
