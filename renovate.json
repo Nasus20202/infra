@@ -13,7 +13,6 @@
   "automergeType": "pr",
   "automergeStrategy": "fast-forward",
   "platformAutomerge": true,
-  "automergeSchedule": ["after 2am and before 5am"],
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "minor"],
