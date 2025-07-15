@@ -16,6 +16,8 @@ on:
 
 jobs:
   validate-manifests:
+    name: Validate ${{ github.event.head_commit.message || github.event.pull_request.title }}
+
     defaults:
       run:
         working-directory: kubernetes/oci/compute/cluster
