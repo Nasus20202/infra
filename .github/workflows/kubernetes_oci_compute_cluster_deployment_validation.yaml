@@ -1,13 +1,8 @@
 name: kubernetes/oci/compute/cluster - deployment validation
 run-name: |
-  kubernetes/oci/compute/cluster - validate `${{ github.event.head_commit.message || github.event.pull_request.title }}`
+  kubernetes/oci/compute/cluster - validate `${{ github.event.pull_request.title }}`
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - kubernetes/oci/compute/cluster/**
   pull_request:
     branches:
       - main
@@ -16,7 +11,7 @@ on:
 
 jobs:
   validate-manifests:
-    name: Validate ${{ github.event.head_commit.message || github.event.pull_request.title }}
+    name: Validate ${{ github.event.pull_request.title }}
 
     defaults:
       run:
