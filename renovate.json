@@ -3,8 +3,6 @@
   "extends": ["config:recommended"],
   "timezone": "Europe/Warsaw",
   "labels": ["dependencies"],
-  "assignees": ["@nasus20202"],
-  "reviewers": ["@nasus20202"],
   "prConcurrentLimit": 25,
   "prHourlyLimit": 5,
   "commitMessagePrefix": "ci:",
