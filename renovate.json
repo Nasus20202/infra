@@ -16,6 +16,10 @@
     {
       "matchUpdateTypes": ["patch", "minor"],
       "automerge": true
+    },
+    {
+      "matchDatasources": ["docker"],
+      "versioning": "docker"
     }
   ],
   "kubernetes": {
