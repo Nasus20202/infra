@@ -10,7 +10,7 @@
   "dependencyDashboard": true,
   "automergeType": "pr",
   "automergeStrategy": "rebase",
-  "platformAutomerge": true,
+  "platformAutomerge": false,
   "automergeSchedule": ["after 2am and before 5am"],
   "packageRules": [
     {
