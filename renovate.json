@@ -5,7 +5,7 @@
   "labels": ["dependencies"],
   "prConcurrentLimit": 25,
   "prHourlyLimit": 5,
-  "commitMessagePrefix": "ci:",
+  "commitMessagePrefix": "chore:",
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "automergeType": "pr",
