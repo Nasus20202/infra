@@ -3,14 +3,15 @@
   "extends": ["config:recommended"],
   "timezone": "Europe/Warsaw",
   "labels": ["dependencies"],
-  "prConcurrentLimit": 25,
-  "prHourlyLimit": 5,
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
   "commitMessagePrefix": "chore:",
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "automergeType": "pr",
   "automergeStrategy": "rebase",
   "platformAutomerge": false,
+  "rebaseWhen": "conflicted",
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "minor"],
