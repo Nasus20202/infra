@@ -34,7 +34,7 @@ controller:
       cpu: 30m
       memory: 500Mi
     limits:
-      memory: 1.25Gi
+      memory: 2Gi
 
 dex:
   metrics:
@@ -58,7 +58,7 @@ repoServer:
       cpu: 30m
       memory: 200Mi
     limits:
-      memory: 200Mi
+      memory: 1Gi
 
 notifications:
   enabled: true
