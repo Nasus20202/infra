@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://charts.longhorn.io
       chart: longhorn
-      targetRevision: "1.9.0"
+      targetRevision: "1.9.1"
       helm:
         valueFiles:
           - $values/kubernetes/oci/compute/cluster/longhorn/values.yaml
