@@ -15,8 +15,6 @@ tempo:
     requests:
       cpu: 10m
       memory: 500Mi
-    limits:
-      memory: 1Gi
 
 persistence:
   enabled: true

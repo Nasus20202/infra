@@ -21,8 +21,6 @@ server:
     requests:
       cpu: 10m
       memory: 100Mi
-    limits:
-      memory: 100Mi
 
 controller:
   metrics:
@@ -33,8 +31,6 @@ controller:
     requests:
       cpu: 30m
       memory: 500Mi
-    limits:
-      memory: 2Gi
 
 dex:
   metrics:
@@ -44,8 +40,6 @@ dex:
   resources:
     requests:
       cpu: 10m
-      memory: 150Mi
-    limits:
       memory: 150Mi
 
 repoServer:
@@ -57,8 +51,6 @@ repoServer:
     requests:
       cpu: 30m
       memory: 200Mi
-    limits:
-      memory: 1Gi
 
 notifications:
   enabled: true
@@ -72,8 +64,6 @@ notifications:
     requests:
       cpu: 10m
       memory: 50Mi
-    limits:
-      memory: 50Mi
 
 applicationSet:
   metrics:
@@ -84,15 +74,11 @@ applicationSet:
     requests:
       cpu: 10m
       memory: 100Mi
-    limits:
-      memory: 100Mi
 
 redis:
   resources:
     requests:
       cpu: 10m
-      memory: 50Mi
-    limits:
       memory: 50Mi
 
 configs:

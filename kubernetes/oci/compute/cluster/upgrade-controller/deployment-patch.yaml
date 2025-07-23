@@ -4,8 +4,6 @@
     requests:
       cpu: 10m
       memory: 100Mi
-    limits:
-      memory: 100Mi
 - op: add
   path: /spec/template/spec/priorityClassName
   value: system-cluster-critical

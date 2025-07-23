@@ -43,16 +43,12 @@ singleBinary:
     requests:
       cpu: 30m
       memory: 500Mi
-    limits:
-      memory: 1Gi
 
 gateway:
   enabled: true
   resources:
     requests:
       cpu: 10m
-      memory: 20Mi
-    limits:
       memory: 20Mi
 
 minio:

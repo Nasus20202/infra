@@ -67,8 +67,6 @@ grafana:
     requests:
       cpu: 50m
       memory: 500Mi
-    limits:
-      memory: 500Mi
 
 prometheus:
   prometheusSpec:
@@ -94,23 +92,17 @@ prometheus:
       requests:
         cpu: 100m
         memory: 1Gi
-      limits:
-        memory: 2Gi
 
 kube-state-metrics:
   resources:
     requests:
       cpu: 10m
       memory: 125Mi
-    limits:
-      memory: 125Mi
 
 prometheus-node-exporter:
   resources:
     requests:
       cpu: 10m
-      memory: 30Mi
-    limits:
       memory: 30Mi
 
 alertmanager:
@@ -119,13 +111,9 @@ alertmanager:
       requests:
         cpu: 10m
         memory: 75Mi
-      limits:
-        memory: 75Mi
 
 prometheusOperator:
   resources:
     requests:
       cpu: 10m
-      memory: 75Mi
-    limits:
       memory: 75Mi
