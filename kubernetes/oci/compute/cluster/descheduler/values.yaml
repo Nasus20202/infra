@@ -3,18 +3,22 @@ resources:
     cpu: 10m
     memory: 50Mi
 
+schedule: "*/5 * * * *"
+successfulJobsHistoryLimit: 1
+failedJobsHistoryLimit: 1
+
 deschedulerPolicy:
   profiles:
     - name: default
       pluginConfig:
         - name: DefaultEvictor
           args:
-            ignorePvcPods: true
+            ignorePvcPods: false
             evictLocalStoragePods: true
         - name: RemoveDuplicates
         - name: RemovePodsHavingTooManyRestarts
           args:
-            podRestartThreshold: 100
+            podRestartThreshold: 10
             includingInitContainers: true
         - name: RemovePodsViolatingNodeAffinity
           args:
@@ -28,9 +32,11 @@ deschedulerPolicy:
             thresholds:
               cpu: 60
               memory: 60
+              pods: 40
             targetThresholds:
-              cpu: 70
-              memory: 70
+              cpu: 75
+              memory: 75
+              pods: 60
       plugins:
         balance:
           enabled:
