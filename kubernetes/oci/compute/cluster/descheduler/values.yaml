@@ -3,7 +3,7 @@ resources:
     cpu: 10m
     memory: 50Mi
 
-schedule: "*/5 * * * *"
+schedule: "0 * * * *"
 successfulJobsHistoryLimit: 1
 failedJobsHistoryLimit: 1
 
