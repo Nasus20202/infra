@@ -1,8 +1,8 @@
 defaultSettings:
   defaultReplicaCount: 1
   replicaSoftAntiAffinity: true
-  defaultDataLocality: best-effort
-  replicaAutoBalance: best-effort
+  defaultDataLocality: disabled # Options: disabled, best-effort, strict-local
+  replicaAutoBalance: best-effort # disabled, least-effort, best-effort
   storageOverProvisioningPercentage: 200
   storageMinimalAvailablePercentage: 15
   concurrentAutomaticEngineUpgradePerNodeLimit: 1
@@ -10,7 +10,7 @@ defaultSettings:
 persistence:
   defaultClassReplicaCount: 1
   reclaimPolicy: Retain
-  defaultDataLocality: best-effort
+  defaultDataLocality: disabled
 
 metrics:
   serviceMonitor:
