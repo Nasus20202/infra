@@ -3,6 +3,8 @@ grafana:
     enabled: true
     size: 1Gi
     accessModes: ["ReadWriteOnce"]
+  deploymentStrategy:
+    type: Recreate
   sidecar:
     datasources:
       skipReload: true
@@ -65,8 +67,8 @@ grafana:
       root_url: https://grafana.nasus.dev
   resources:
     requests:
-      cpu: 50m
-      memory: 500Mi
+      cpu: 10m
+      memory: 300Mi
 
 prometheus:
   prometheusSpec:
@@ -104,16 +106,3 @@ prometheus-node-exporter:
     requests:
       cpu: 10m
       memory: 30Mi
-
-alertmanager:
-  alertmanagerSpec:
-    resources:
-      requests:
-        cpu: 10m
-        memory: 75Mi
-
-prometheusOperator:
-  resources:
-    requests:
-      cpu: 10m
-      memory: 75Mi

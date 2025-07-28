@@ -57,8 +57,8 @@ alloy-logs:
       varlog: true
     resources:
       requests:
-        cpu: 30m
-        memory: 200Mi
+        cpu: 40m
+        memory: 400Mi
 
 alloy-profiles:
   enabled: false
@@ -82,7 +82,7 @@ alloy-receiver:
     resources:
       requests:
         cpu: 10m
-        memory: 150Mi
+        memory: 200Mi
   extraConfig: |
     faro.receiver "default" {
       server {

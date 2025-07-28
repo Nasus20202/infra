@@ -41,14 +41,13 @@ singleBinary:
     size: 10Gi
   resources:
     requests:
-      cpu: 30m
-      memory: 500Mi
+      cpu: 20m
+      memory: 300Mi
 
 gateway:
   enabled: true
   resources:
     requests:
-      cpu: 10m
       memory: 20Mi
 
 minio:
