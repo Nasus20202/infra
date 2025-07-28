@@ -22,7 +22,6 @@
     - [Cluster](./kubernetes/oci/compute/cluster) - K8s configuration for:
       - Upgrade controller - `system-upgrade-controller` for automated RKE2 upgrades
       - Cert manager - `cert-manager` for SSL certificates
-      - Descheduler - `descheduler` for node balancing
       - Longhorn - `longhorn` block storage
       - Monitoring - Kube Prometheus Stack - `kube-prometheus-stack` with Prometheus and Grafana
       - Monitoring - Grafana Loki - `loki` for log collection
