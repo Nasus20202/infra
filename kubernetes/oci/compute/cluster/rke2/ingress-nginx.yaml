@@ -6,6 +6,10 @@ metadata:
 spec:
   valuesContent: |-
     controller:
+      resources:
+        requests:
+          cpu: 25m
+          memory: 100Mi
       allowSnippetAnnotations: true
       config:
         use-forwarded-headers: true
