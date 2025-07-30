@@ -20,7 +20,7 @@ spec:
       value: "true"
       effect: "NoExecute"
   window:
-    days: ["sa"]
+    days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
     startTime: "02:00"
     endTime: "03:00"
     timeZone: "UTC"
@@ -52,7 +52,7 @@ spec:
       - server-plan
     image: rancher/rke2-upgrade
   window:
-    days: ["sa"]
+    days: ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
     startTime: "02:00"
     endTime: "03:00"
     timeZone: "UTC"
