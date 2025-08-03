@@ -13,8 +13,10 @@ tempo:
         generate_native_histograms: both
   resources:
     requests:
-      cpu: 10m
-      memory: 500Mi
+      cpu: 20m
+      memory: 750Mi
+    limits:
+      cpu: 250m
 
 persistence:
   enabled: true
