@@ -12,6 +12,11 @@ output "arm_ips" {
   }
 }
 
+output "nlb_ips" {
+  description = "The IPs of the Network Load Balancer"
+  value       = [for ip in oci_network_load_balancer_network_load_balancer.nlb.ip_addresses : ip.ip_address if ip.is_public]
+}
+
 output "longhorn_backup_target" {
   description = "The S3 target for Longhorn backups"
   value       = "s3://${oci_objectstorage_bucket.longhorn_backup.name}@${var.region}/"

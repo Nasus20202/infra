@@ -7,4 +7,6 @@ locals {
       "project" = "infra/terraform/oci/compute"
     }
   )
+
+  nlb_ports = ["80", "443"]
 }
