@@ -8,13 +8,13 @@ output "arm_ips" {
   description = "ARM machines IPs"
   value = {
     for instance in oci_core_instance.arm
-    : instance.display_name => instance.public_ip
+    : instance.display_name => [instance.public_ip, instance.private_ip]
   }
 }
 
 output "nlb_ips" {
   description = "The IPs of the Network Load Balancer"
-  value       = [for ip in oci_network_load_balancer_network_load_balancer.nlb.ip_addresses : ip.ip_address if ip.is_public]
+  value       = [for ip in oci_network_load_balancer_network_load_balancer.nlb.ip_addresses : ip.ip_address]
 }
 
 output "longhorn_backup_target" {

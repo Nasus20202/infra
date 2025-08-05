@@ -10,10 +10,12 @@ resource "oci_network_load_balancer_network_load_balancer" "nlb" {
 resource "oci_network_load_balancer_backend_set" "nlb_backend_set" {
   for_each = toset(local.nlb_ports)
 
-  name                     = "${oci_network_load_balancer_network_load_balancer.nlb.display_name}-backend-set-port-${each.key}"
-  network_load_balancer_id = oci_network_load_balancer_network_load_balancer.nlb.id
-  policy                   = "FIVE_TUPLE"
-  is_preserve_source       = false
+  name                        = "${oci_network_load_balancer_network_load_balancer.nlb.display_name}-backend-set-port-${each.key}"
+  network_load_balancer_id    = oci_network_load_balancer_network_load_balancer.nlb.id
+  policy                      = "FIVE_TUPLE"
+  is_preserve_source          = true
+  is_fail_open                = true
+  is_instant_failover_enabled = true
 
   health_checker {
     protocol = "TCP"
@@ -43,7 +45,7 @@ resource "oci_network_load_balancer_backend" "nlb_backend" {
 
 resource "oci_network_load_balancer_listener" "nlb_listener" {
   for_each                 = toset(local.nlb_ports)
-  name                     = "${oci_network_load_balancer_network_load_balancer.nlb.display_name}-listener-${each.key}"
+  name                     = "${oci_network_load_balancer_network_load_balancer.nlb.display_name}-listener-port-${each.key}"
   default_backend_set_name = oci_network_load_balancer_backend_set.nlb_backend_set[each.key].name
   network_load_balancer_id = oci_network_load_balancer_network_load_balancer.nlb.id
   port                     = each.key
