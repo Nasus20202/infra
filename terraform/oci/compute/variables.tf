@@ -1,3 +1,9 @@
+variable "cloudflare_api_token" {
+  description = "The API token for Cloudflare"
+  type        = string
+  sensitive   = true
+}
+
 variable "region" {
   description = "The OCI region to deploy resources in"
   type        = string
@@ -38,4 +44,10 @@ variable "availability_domain" {
   description = "The availability domain to create the instance in"
   type        = number
   default     = 3
+}
+
+variable "domains" {
+  description = "A list of domains to create DNS records for"
+  type        = list(string)
+  default     = ["nasuta.dev", "nasus.dev"]
 }

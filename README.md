@@ -7,6 +7,9 @@
   - [Compute](./terraform/oci/compute) - All compute resources
     - Virtual Cloud Network (VCN) with private and public subnet
     - 2 `VM.Standard.A1.Flex` instances each with 2 OCPU and 12 GB memory for RKE2 cluster
+    - Network Load Balancer (NLB) with nodes behind it
+    - OCI Object Storage bucket for Longhorn backups
+    - DNS records for NLB in Cloudflare
 
 ## Ansible
 
@@ -22,7 +25,7 @@
     - [Cluster](./kubernetes/oci/compute/cluster) - K8s configuration for:
       - Upgrade controller - `system-upgrade-controller` for automated RKE2 upgrades
       - Cert manager - `cert-manager` for SSL certificates
-      - Longhorn - `longhorn` block storage
+      - Longhorn - `longhorn` distributed block storage
       - Monitoring - Kube Prometheus Stack - `kube-prometheus-stack` with Prometheus and Grafana
       - Monitoring - Grafana Loki - `loki` for log collection
       - Monitoring - Grafana Tempo - `tempo` for distributed tracing

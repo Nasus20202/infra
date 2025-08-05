@@ -9,6 +9,11 @@ terraform {
       source  = "oracle/oci"
       version = "~> 7.0"
     }
+
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 5.0"
+    }
   }
 
   required_version = ">= 1.10"
@@ -27,4 +32,8 @@ provider "aws" {
 
 provider "oci" {
   region = var.region
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
 }

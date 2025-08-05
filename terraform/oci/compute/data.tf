@@ -13,3 +13,5 @@ data "oci_core_images" "ubuntu" {
 }
 
 data "oci_objectstorage_namespace" "ns" {}
+
+data "cloudflare_zones" "cf_zones" {}
