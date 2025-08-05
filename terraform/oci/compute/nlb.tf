@@ -18,8 +18,11 @@ resource "oci_network_load_balancer_backend_set" "nlb_backend_set" {
   is_instant_failover_enabled = true
 
   health_checker {
-    protocol = "TCP"
-    port     = each.key
+    protocol    = each.key == "443" ? "HTTPS" : "HTTP"
+    port        = each.key
+    url_path    = "/healthz"
+    return_code = 200
+    retries     = 2
   }
 }
 
