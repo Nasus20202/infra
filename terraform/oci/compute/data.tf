@@ -11,3 +11,5 @@ data "oci_core_images" "ubuntu" {
   sort_order               = "DESC"
   shape                    = "VM.Standard.A1.Flex"
 }
+
+data "oci_objectstorage_namespace" "ns" {}

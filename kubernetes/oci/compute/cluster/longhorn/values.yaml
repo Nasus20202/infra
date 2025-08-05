@@ -12,6 +12,9 @@ persistence:
   reclaimPolicy: Retain
   defaultDataLocality: disabled
 
+defaultBackupStore:
+  backupTargetCredentialSecret: longhorn-backup-secret
+
 metrics:
   serviceMonitor:
     enabled: true

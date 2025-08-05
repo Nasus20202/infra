@@ -14,10 +14,10 @@ terraform {
   required_version = ">= 1.10"
 
   backend "s3" {
-    bucket         = "nasus-tfstate"
-    region         = "eu-central-1"
-    key            = "infra/terraform/oci/compute/terraform.tfstate"
-    use_lockfile   = true
+    bucket       = "nasus-tfstate"
+    region       = "eu-central-1"
+    key          = "infra/terraform/oci/compute/terraform.tfstate"
+    use_lockfile = true
   }
 }
 
@@ -26,5 +26,5 @@ provider "aws" {
 }
 
 provider "oci" {
-  region = "eu-frankfurt-1"
+  region = var.region
 }
