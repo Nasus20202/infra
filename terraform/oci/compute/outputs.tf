@@ -37,3 +37,19 @@ output "longhorn_backup_secret_access_key" {
   value       = oci_identity_customer_secret_key.longhorn_backup_user_access_key.key
   sensitive   = true
 }
+
+output "grafana_metrics_user_id" {
+  description = "The ID of the Grafana metrics user"
+  value       = oci_identity_user.grafana_metrics_user.id
+}
+
+output "grafana_metrics_fingerprint" {
+  description = "The fingerprint for the Grafana metrics user"
+  value       = oci_identity_api_key.grafana_api_key.fingerprint
+}
+
+output "grafana_metrics_private_key" {
+  description = "The private key for the Grafana metrics user"
+  value       = tls_private_key.grafana_metrics_user_private_key.private_key_pem
+  sensitive   = true
+}
