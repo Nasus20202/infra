@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kyverno
+  name: kyverno-policy-reporter
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: infra
   sources:
-    - repoURL: https://kyverno.github.io/kyverno/
-      chart: kyverno
-      targetRevision: "3.5.1"
+    - repoURL: https://kyverno.github.io/policy-reporter/
+      chart: policy-reporter
+      targetRevision: "3.4.2"
       helm:
         releaseName: kyverno
         valueFiles:
-          - $values/kubernetes/oci/compute/cluster/kyverno/kyverno-values.yaml
+          - $values/kubernetes/oci/compute/cluster/kyverno/kyverno-policy-reporter-values.yaml
     - repoURL: https://github.com/Nasus20202/infra.git
       targetRevision: main
       ref: values
@@ -27,4 +27,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true

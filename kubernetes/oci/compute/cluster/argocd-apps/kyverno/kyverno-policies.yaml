@@ -14,7 +14,7 @@ spec:
       helm:
         releaseName: kyverno-policies
         valueFiles:
-          - $values/kubernetes/oci/compute/cluster/kyverno/policies-values.yaml
+          - $values/kubernetes/oci/compute/cluster/kyverno/kyverno-policies-values.yaml
     - repoURL: https://github.com/Nasus20202/infra.git
       targetRevision: main
       ref: values
