@@ -12,7 +12,7 @@ spec:
       chart: policy-reporter
       targetRevision: "3.4.2"
       helm:
-        releaseName: kyverno
+        releaseName: kyverno-policy-reporter
         valueFiles:
           - $values/kubernetes/oci/compute/cluster/kyverno/kyverno-policy-reporter-values.yaml
     - repoURL: https://github.com/Nasus20202/infra.git

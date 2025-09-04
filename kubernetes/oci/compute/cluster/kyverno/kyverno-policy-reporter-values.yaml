@@ -1,6 +1,22 @@
-plugin:
-  kyverno:
-    enabled: true
+fullnameOverride: "kyverno-policy-reporter"
 
 metrics:
   enabled: true
+
+monitoring:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 60Mi
+
+plugin:
+  kyverno:
+    enabled: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 40Mi
