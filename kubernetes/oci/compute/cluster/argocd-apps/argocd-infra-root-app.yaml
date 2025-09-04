@@ -11,6 +11,8 @@ spec:
     repoURL: https://github.com/Nasus20202/infra.git
     targetRevision: main
     path: kubernetes/oci/compute/cluster/argocd-apps
+    directory:
+      recurse: true
   destination:
     name: in-cluster
     namespace: argocd

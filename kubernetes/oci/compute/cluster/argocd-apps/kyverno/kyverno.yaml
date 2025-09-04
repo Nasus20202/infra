@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyverno
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: infra
+  sources:
+    - repoURL: https://kyverno.github.io/kyverno/
+      chart: kyverno
+      targetRevision: "3.5.1"
+      helm:
+        releaseName: kyverno
+        valueFiles:
+          - $values/kubernetes/oci/compute/cluster/kyverno/values.yaml
+    - repoURL: https://github.com/Nasus20202/infra.git
+      targetRevision: main
+      ref: values
+  destination:
+    name: in-cluster
+    namespace: kyverno
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

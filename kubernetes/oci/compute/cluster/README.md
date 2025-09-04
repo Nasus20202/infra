@@ -14,6 +14,7 @@ The cluster is managed through ArgoCD applications defined in the [`argocd-apps/
 - **Monitoring Stack** - Prometheus, Grafana, Loki, Tempo, and K8s monitoring
 - **RKE2 Configs** - CNI and ingress controller configuration
 - **Upgrade Controller** - Automated cluster upgrades
+- **Kyverno** - Kubernetes native policy management
 
 ## Initial Setup
 

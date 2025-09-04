@@ -10,7 +10,7 @@ spec:
     - "https://grafana.github.io/helm-charts"
     - "https://prometheus-community.github.io/helm-charts"
     - "https://charts.longhorn.io"
-    - "https://kubernetes-sigs.github.io/descheduler"
+    - "https://kyverno.github.io/kyverno/"
   destinations:
     - namespace: "*"
       server: "*"
