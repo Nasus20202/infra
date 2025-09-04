@@ -1,0 +1,32 @@
+admissionController:
+  container:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 60Mi
+  serviceMonitor:
+    enabled: true
+
+backgroundController:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+  serviceMonitor:
+    enabled: true
+
+cleanupController:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 30Mi
+  serviceMonitor:
+    enabled: true
+
+reportsController:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 80Mi
+  serviceMonitor:
+    enabled: true
