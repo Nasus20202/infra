@@ -18,6 +18,7 @@ policyExclude:
             - Pod
           namespaces:
             - kube-system
+            - longhorn-system
             - monitoring
 
   disallow-host-path:
