@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tetragon
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: infra
+  sources:
+    - repoURL: https://helm.cilium.io
+      chart: tetragon
+      targetRevision: "1.5.0"
+      helm:
+        valueFiles:
+          - $values/kubernetes/oci/compute/cluster/tetragon/values.yaml
+    - repoURL: https://github.com/Nasus20202/infra.git
+      targetRevision: main
+      ref: values
+  destination:
+    name: in-cluster
+    namespace: tetragon
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

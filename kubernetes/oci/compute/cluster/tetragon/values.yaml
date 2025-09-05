@@ -1,0 +1,17 @@
+tetragon:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 200Mi
+  prometheus:
+    serviceMonitor:
+      enabled: true
+
+tetragonOperator:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 20Mi
+  prometheus:
+    serviceMonitor:
+      enabled: true

@@ -31,4 +31,5 @@
       - Monitoring - Grafana Loki - `loki` for log collection
       - Monitoring - Grafana Tempo - `tempo` for distributed tracing
       - Monitoring - K8s Monitoring - `alloy` both as a logging agent and OpenTelemetry collector
+      - Tetragon - `tetragon` for runtime observability
       - ArgoCD - `argocd` for GitOps

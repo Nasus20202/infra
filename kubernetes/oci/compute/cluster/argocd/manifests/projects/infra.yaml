@@ -12,6 +12,7 @@ spec:
     - "https://charts.longhorn.io"
     - "https://kyverno.github.io/kyverno/"
     - "https://kyverno.github.io/policy-reporter/"
+    - "https://helm.cilium.io"
   destinations:
     - namespace: "*"
       server: "*"

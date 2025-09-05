@@ -20,6 +20,7 @@ policyExclude:
             - kube-system
             - longhorn-system
             - monitoring
+            - tetragon
 
   disallow-host-path:
     any:
@@ -31,6 +32,7 @@ policyExclude:
             - kube-system
             - monitoring
             - system-upgrade
+            - tetragon
 
   disallow-host-ports:
     any:
@@ -49,6 +51,7 @@ policyExclude:
           namespaces:
             - longhorn-system
             - kube-system
+            - tetragon
 
   disallow-selinux:
     any:

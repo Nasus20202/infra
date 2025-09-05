@@ -15,6 +15,7 @@ The cluster is managed through ArgoCD applications defined in the [`argocd-apps/
 - **RKE2 Configs** - CNI and ingress controller configuration
 - **Upgrade Controller** - Automated cluster upgrades
 - **Kyverno** - Kubernetes native policy management
+- **Tetragon** - Runtime observability
 
 ## Initial Setup
 
