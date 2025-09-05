@@ -1,3 +1,5 @@
+validationFailureAction: Enforce
+
 policyExclude:
   disallow-capabilities:
     any:
