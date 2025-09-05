@@ -3,7 +3,7 @@ admissionController:
     resources:
       requests:
         cpu: 10m
-        memory: 60Mi
+        memory: 80Mi
   serviceMonitor:
     enabled: true
 
@@ -11,7 +11,7 @@ backgroundController:
   resources:
     requests:
       cpu: 10m
-      memory: 50Mi
+      memory: 80Mi
   serviceMonitor:
     enabled: true
 
@@ -19,7 +19,7 @@ cleanupController:
   resources:
     requests:
       cpu: 10m
-      memory: 30Mi
+      memory: 60Mi
   serviceMonitor:
     enabled: true
 
@@ -27,6 +27,6 @@ reportsController:
   resources:
     requests:
       cpu: 10m
-      memory: 80Mi
+      memory: 120Mi
   serviceMonitor:
     enabled: true
