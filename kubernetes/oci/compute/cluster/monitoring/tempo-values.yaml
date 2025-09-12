@@ -1,5 +1,5 @@
 tempo:
-  retention: 336h
+  retention: 168h
   storage:
     trace:
       backend: local
@@ -20,7 +20,7 @@ tempo:
 
 persistence:
   enabled: true
-  size: 10Gi
+  size: 1Gi
 
 traces:
   otlp:

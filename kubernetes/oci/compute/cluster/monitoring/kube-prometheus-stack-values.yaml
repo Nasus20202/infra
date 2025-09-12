@@ -78,9 +78,9 @@ prometheus:
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 15Gi
-    retention: 14d
-    retentionSize: 12.5GiB
+              storage: 5Gi
+    retention: 7d
+    retentionSize: 4.5GiB
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
