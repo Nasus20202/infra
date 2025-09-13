@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "timezone": "Europe/Warsaw",
-  "labels": ["dependencies"],
+  "labels": ["version-update"],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "commitMessagePrefix": "chore:",
