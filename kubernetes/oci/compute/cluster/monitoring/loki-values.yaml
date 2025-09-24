@@ -47,10 +47,7 @@ singleBinary:
       cpu: 250m
 
 gateway:
-  enabled: true
-  resources:
-    requests:
-      memory: 20Mi
+  enabled: false
 
 minio:
   enabled: false
