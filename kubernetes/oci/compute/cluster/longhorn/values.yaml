@@ -1,11 +1,11 @@
 defaultSettings:
-  defaultReplicaCount: 1
+  defaultReplicaCount: "1"
   replicaSoftAntiAffinity: true
   defaultDataLocality: disabled # Options: disabled, best-effort, strict-local
   replicaAutoBalance: best-effort # disabled, least-effort, best-effort
-  storageOverProvisioningPercentage: 200
-  storageMinimalAvailablePercentage: 15
-  concurrentAutomaticEngineUpgradePerNodeLimit: 1
+  storageOverProvisioningPercentage: "200"
+  storageMinimalAvailablePercentage: "15"
+  concurrentAutomaticEngineUpgradePerNodeLimit: "1"
 
 persistence:
   defaultClassReplicaCount: 1
