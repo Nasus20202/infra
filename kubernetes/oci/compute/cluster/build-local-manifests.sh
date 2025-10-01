@@ -186,7 +186,7 @@ mkdir -p "$MANIFESTS_DIR"
 
 # Auto-detect and process ArgoCD app files
 echo "Auto-detecting ArgoCD applications..."
-for app_file in argocd-apps/*.yaml; do
+find argocd-apps -name "*.yaml" -type f | while read -r app_file; do
     if [ ! -f "$app_file" ]; then
         continue
     fi
