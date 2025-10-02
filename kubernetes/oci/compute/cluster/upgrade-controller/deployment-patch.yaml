@@ -3,7 +3,9 @@
   value:
     requests:
       cpu: 10m
-      memory: 30Mi
+      memory: 50Mi
+    limits:
+      memory: 200Mi
 - op: add
   path: /spec/template/spec/priorityClassName
   value: system-cluster-critical

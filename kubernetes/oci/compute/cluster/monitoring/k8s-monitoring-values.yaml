@@ -59,6 +59,8 @@ alloy-logs:
       requests:
         cpu: 30m
         memory: 300Mi
+      limits:
+        memory: 600Mi
 
 alloy-profiles:
   enabled: false
@@ -83,6 +85,8 @@ alloy-receiver:
       requests:
         cpu: 10m
         memory: 200Mi
+      limits:
+        memory: 400Mi
   extraConfig: |
     faro.receiver "default" {
       server {
@@ -117,3 +121,9 @@ alloy-receiver:
 alloy-operator:
   crds:
     deployAlloyCRD: true
+  resources:
+    requests:
+      cpu: 20m
+      memory: 50Mi
+    limits:
+      memory: 100Mi

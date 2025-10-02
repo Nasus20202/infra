@@ -7,15 +7,21 @@ resources:
   requests:
     cpu: 10m
     memory: 50Mi
+  limits:
+    memory: 150Mi
 
 cainjector:
   resources:
     requests:
       cpu: 10m
-      memory: 80Mi
+      memory: 50Mi
+    limits:
+      memory: 150Mi
 
 webhook:
   resources:
     requests:
       cpu: 10m
       memory: 50Mi
+    limits:
+      memory: 150Mi
