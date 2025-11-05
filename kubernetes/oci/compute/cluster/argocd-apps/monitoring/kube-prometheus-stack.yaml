@@ -28,3 +28,14 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      name: prometheus-grafana
+      jsonPointers:
+        - /data
+    - group: apps
+      kind: Deployment
+      name: prometheus-grafana
+      jqPathExpressions:
+        - .spec.template.metadata.annotations."checksum/secret"
