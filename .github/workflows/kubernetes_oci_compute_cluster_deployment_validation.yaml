@@ -1,6 +1,6 @@
-name: kubernetes/oci/compute/cluster - deployment validation
+name: kubernetes/oci/compute/cluster - Deployment validation
 run-name: |
-  kubernetes/oci/compute/cluster - validate `${{ github.event.head_commit.message }}`
+  kubernetes/oci/compute/cluster - Validate `${{ github.event.head_commit.message }}`
 
 on:
   push:
@@ -10,10 +10,6 @@ on:
 jobs:
   validate-manifests:
     name: Validate ${{ github.event.head_commit.message }}
-
-    defaults:
-      run:
-        working-directory: kubernetes/oci/compute/cluster
 
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +24,7 @@ jobs:
 
       - name: Build all manifests
         run: |
-          ./build-local-manifests.sh
+          ./kubernetes/oci/compute/cluster/build-local-manifests.sh
 
       - name: Validate Kubernetes manifests
         uses: docker://ghcr.io/yannh/kubeconform:latest
@@ -40,4 +36,4 @@ jobs:
             -schema-location default
             -schema-location https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
             -skip CustomResourceDefinition,Alloy,Plan,HelmChartConfig
-            ./kubernetes/oci/compute/cluster/manifests
+            ./manifests

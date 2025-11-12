@@ -1,8 +1,11 @@
 #!/bin/bash
 
-MANIFESTS_DIR=${1:-"manifests"}
-
 set -e -u -o pipefail
+
+MANIFESTS_DIR=${1:-"manifests"}
+APPS_DIR=${2:-"kubernetes/oci/compute/cluster/argocd-apps"}
+BASE_PATH=${3:-"kubernetes/oci/compute/cluster"}
+SKIP_FILES=${4:-""}
 
 # Function to extract version from ArgoCD app manifest
 get_chart_version() {
@@ -59,9 +62,12 @@ get_values_files() {
         while IFS= read -r values_file; do
             # Convert ArgoCD $values reference to actual file path
             if [[ "$values_file" == *"\$values/"* ]]; then
-                # Remove $values/ prefix and convert to relative path
-                # Handle both single and double slashes
-                local_path=$(echo "$values_file" | sed 's|$values/kubernetes/oci/compute/cluster//*||')
+                # Remove $values/ prefix
+                local_path=$(echo "$values_file" | sed "s|\$values/||")
+                # If BASE_PATH is set and the path doesn't start with BASE_PATH, prepend it
+                if [[ -n "$BASE_PATH" && "$local_path" != "$BASE_PATH"* ]]; then
+                    local_path="$BASE_PATH/$local_path"
+                fi
                 if [ -f "$local_path" ]; then
                     # Convert to absolute path
                     absolute_path="$current_dir/$local_path"
@@ -110,8 +116,11 @@ get_path_sources() {
     if [ -n "$source_paths" ]; then
         while IFS= read -r path; do
             if [ -n "$path" ] && [ "$path" != "null" ]; then
-                # Convert full path to relative path
-                local_path=$(echo "$path" | sed 's|kubernetes/oci/compute/cluster/||')
+                local_path="$path"
+                # If BASE_PATH is set and the path doesn't start with BASE_PATH, prepend it
+                if [[ -n "$BASE_PATH" && "$local_path" != "$BASE_PATH"* ]]; then
+                    local_path="$BASE_PATH/$local_path"
+                fi
                 if [ -d "$local_path" ]; then
                     paths="$paths $local_path"
                 fi
@@ -130,7 +139,7 @@ is_kustomize_app() {
     if [ -n "$path_source" ]; then
         # Check if the path contains kustomization files
         for path in $path_source; do
-            if [ -f "$path/kustomization.yaml" ] || [ -f "$path/kustomize.yaml" ]; then
+            if [ -f "$path/kustomization.yaml" ] || [ -f "$path/kustomization.yml" ] || [ -f "$path/kustomize.yaml" ] || [ -f "$path/kustomize.yml" ]; then
                 return 0
             fi
         done
@@ -167,7 +176,7 @@ process_path_based_app() {
             }
         else
             echo "  Copying manifests from: $path"
-            cp "$path"/*.yaml "$output_dir/" || {
+            find "$path" \( -name "*.yaml" -o -name "*.yml" \) -exec cp {} "$output_dir/" \; || {
                 echo "Error: Failed to copy manifests from $path"
                 exit 1
             }
@@ -186,83 +195,95 @@ mkdir -p "$MANIFESTS_DIR"
 
 # Auto-detect and process ArgoCD app files
 echo "Auto-detecting ArgoCD applications..."
-find argocd-apps -name "*.yaml" -type f | while read -r app_file; do
+find "$APPS_DIR" \( -name "*.yaml" -o -name "*.yml" \) -type f | while read -r app_file; do
     if [ ! -f "$app_file" ]; then
         continue
     fi
     
     # Skip certain files
-    case "$(basename "$app_file")" in
-        "argocd-infra-root-app.yaml"|"argocd-manifests.yaml")
-            continue
-            ;;
-    esac
+    if [[ "$(basename "$app_file")" =~ ^($SKIP_FILES)$ ]]; then
+        continue
+    fi
     
     app_name=$(get_app_name "$app_file")
-    chart_name=$(get_chart_name "$app_file")
+    kind=$(yq eval '.kind' "$app_file")
     
-    # Check if this is a chart-based application
-    if [ -n "$chart_name" ]; then
-        # Process as Helm chart
-        release_name=$(get_release_name "$app_file")
-        chart_version=$(get_chart_version "$app_file")
-        chart_repo=$(get_chart_repo "$app_file")
-        namespace=$(get_namespace "$app_file")
+    if [ "$kind" = "ApplicationSet" ]; then
+        # Parse ApplicationSet generators
+        generator_paths=$(yq eval '.spec.generators[] | select(.git) | .git.directories[].path' "$app_file" 2>/dev/null)
+        name_template=$(yq eval '.spec.template.metadata.name' "$app_file" 2>/dev/null)
         
-        # Skip if no chart information
-        if [ -z "$chart_version" ] || [ -z "$chart_repo" ]; then
-            echo "Error: Missing chart information for $app_file"
-            echo "Chart: $chart_name, Version: $chart_version, Repo: $chart_repo"
-            exit 1
-        fi
-        
-        # Extract values files from ArgoCD app manifest
-        values_args=$(get_values_files "$app_file")
-        
-        # Extract helm parameters from ArgoCD app manifest
-        helm_params=$(get_helm_parameters "$app_file")
-        
-        # Special handling for cert-manager CRDs
-        crds_args=""
-        if [ "$chart_name" == "cert-manager" ]; then
-            crds_args="--set crds.enabled=true"
-        fi
-        
-        echo "Generating manifests for $app_name (chart: $chart_name, version: $chart_version, release: $release_name)..."
-        
-        # Build helm template command using --repo
-        helm_cmd="helm template $release_name $chart_name --version $chart_version --repo $chart_repo --namespace $namespace"
-        
-        if [ -n "$values_args" ]; then
-            helm_cmd="$helm_cmd $values_args"
-        fi
-        
-        if [ -n "$helm_params" ]; then
-            helm_cmd="$helm_cmd $helm_params"
-        fi
-        
-        if [ -n "$crds_args" ]; then
-            helm_cmd="$helm_cmd $crds_args"
-        fi
-        
-        helm_cmd="$helm_cmd --output-dir $(pwd)/$MANIFESTS_DIR"
-        
-        # Execute the command in a temporary directory to avoid conflicts
-        echo "Executing: $helm_cmd"
-        (
-            cd /tmp
-            eval "$helm_cmd"
-        ) || {
-            echo "Error: Failed to generate manifests for $app_name"
-            echo "Command: $helm_cmd"
-            exit 1
-        }
-        
-        # Process any additional path-based sources (like cert-manager clusterissuers)
-        process_path_based_app "$app_file"
+        for gen_path in $generator_paths; do
+            # Remove /* from gen_path to get base_path
+            base_path=$(echo "$gen_path" | sed 's|/\*$||')
+            for dir in $base_path/*/; do
+                [ -d "$dir" ] || continue
+                dirname=$(basename "$dir")
+                path="$base_path/$dirname"
+                # Replace {{path.basename}} in name_template
+                temp_app_name=$(echo "$name_template" | sed "s|{{path.basename}}|$dirname|g")
+                echo "Processing ApplicationSet generated app: $temp_app_name"
+                output_dir="$MANIFESTS_DIR/$temp_app_name"
+                mkdir -p "$output_dir"
+                find "$path" \( -name "*.yaml" -o -name "*.yml" \) -exec cp {} "$output_dir/" \;
+            done
+        done
     else
-        # Process as path-based application
-        process_path_based_app "$app_file"
+        chart_name=$(get_chart_name "$app_file")
+        
+        # Check if this is a chart-based application
+        if [ -n "$chart_name" ]; then
+            # Process as Helm chart
+            release_name=$(get_release_name "$app_file")
+            chart_version=$(get_chart_version "$app_file")
+            chart_repo=$(get_chart_repo "$app_file")
+            namespace=$(get_namespace "$app_file")
+            
+            # Skip if no chart information
+            if [ -z "$chart_version" ] || [ -z "$chart_repo" ]; then
+                echo "Error: Missing chart information for $app_file"
+                echo "Chart: $chart_name, Version: $chart_version, Repo: $chart_repo"
+                exit 1
+            fi
+            
+            # Extract values files from ArgoCD app manifest
+            values_args=$(get_values_files "$app_file")
+            
+            # Extract helm parameters from ArgoCD app manifest
+            helm_params=$(get_helm_parameters "$app_file")
+            
+            echo "Generating manifests for $app_name (chart: $chart_name, version: $chart_version, release: $release_name)..."
+            
+            # Build helm template command using --repo
+            helm_cmd="helm template $release_name $chart_name --version $chart_version --repo $chart_repo --namespace $namespace"
+            
+            if [ -n "$values_args" ]; then
+                helm_cmd="$helm_cmd $values_args"
+            fi
+            
+            if [ -n "$helm_params" ]; then
+                helm_cmd="$helm_cmd $helm_params"
+            fi
+            
+            helm_cmd="$helm_cmd --output-dir $(pwd)/$MANIFESTS_DIR"
+            
+            # Execute the command in a temporary directory to avoid conflicts
+            echo "Executing: $helm_cmd"
+            (
+                cd /tmp
+                eval "$helm_cmd"
+            ) || {
+                echo "Error: Failed to generate manifests for $app_name"
+                echo "Command: $helm_cmd"
+                exit 1
+            }
+            
+            # Process any additional path-based sources
+            process_path_based_app "$app_file"
+        else
+            # Process as path-based application
+            process_path_based_app "$app_file"
+        fi
     fi
 done
 
