@@ -6,6 +6,7 @@ MANIFESTS_DIR=${1:-"manifests"}
 APPS_DIR=${2:-"kubernetes/oci/compute/cluster/argocd-apps"}
 BASE_PATH=${3:-"kubernetes/oci/compute/cluster"}
 SKIP_FILES=${4:-""}
+HELM_KUBEVERSION=${HELM_KUBEVERSION:-$(kubectl version --client | grep "Client Version:" | cut -d' ' -f3)}
 
 # Function to extract version from ArgoCD app manifest
 get_chart_version() {
