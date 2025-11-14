@@ -6,6 +6,8 @@ server:
     enabled: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
+      traefik.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      traefik.ingress.kubernetes.io/ssl-insecure-skip-verify: "true"
     extraTls:
       - hosts:
           - argocd.nasus.dev
