@@ -20,10 +20,6 @@ spec:
     logs:
       access:
         enabled: true
-    metrics:
-      prometheus:
-        serviceMonitor:
-          enabled: true
     ports:
       traefik:
         hostPort: 8080
@@ -31,5 +27,15 @@ spec:
       healthcheck:
         enabled: true
         matchRule: PathPrefix(`/health`)
+    metrics:
+      prometheus:
+        serviceMonitor:
+          enabled: true
+    tracing:
+      otlp:
+        enabled: true
+        http:
+          enabled: true
+          endpoint: "http://k8s-monitoring-alloy-receiver.monitoring:4318/v1/traces"
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.ip=127.0.0.1"
