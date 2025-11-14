@@ -26,6 +26,9 @@ spec:
             to: websecure
             scheme: https
             permanent: true
+      websecure:
+        middlewares:
+          - kube-system-compress@kubernetescrd
     ingressRoute:
       healthcheck:
         enabled: true
