@@ -28,6 +28,7 @@ spec:
             permanent: true
       websecure:
         middlewares:
+          - kube-system-rate-limit@kubernetescrd
           - kube-system-compress@kubernetescrd
     ingressRoute:
       healthcheck:

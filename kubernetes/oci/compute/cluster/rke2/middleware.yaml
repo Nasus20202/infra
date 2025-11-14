@@ -18,3 +18,13 @@ spec:
       - application/xml
       - image/svg+xml
       - image/x-icon
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: rate-limit
+  namespace: kube-system
+spec:
+  rateLimit:
+    average: 15
+    burst: 30
