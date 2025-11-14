@@ -17,9 +17,6 @@ spec:
         cpu: 25m
         memory: 100Mi
     priorityClassName: system-cluster-critical
-    logs:
-      access:
-        enabled: true
     ports:
       traefik:
         hostPort: 8080
@@ -27,15 +24,27 @@ spec:
       healthcheck:
         enabled: true
         matchRule: PathPrefix(`/health`)
+    experimental:
+      otlpLogs: true
     metrics:
-      prometheus:
-        serviceMonitor:
+      otlp:
+        enabled: true
+        http:
           enabled: true
+          endpoint: "http://k8s-monitoring-alloy-receiver.monitoring:4318/v1/metrics"
     tracing:
       otlp:
         enabled: true
         http:
           enabled: true
           endpoint: "http://k8s-monitoring-alloy-receiver.monitoring:4318/v1/traces"
+    logs:
+      access:
+        enabled: true
+        otlp:
+          enabled: true
+          http:
+            enabled: true
+            endpoint: "http://k8s-monitoring-alloy-receiver.monitoring:4318/v1/logs"
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.ip=127.0.0.1"
