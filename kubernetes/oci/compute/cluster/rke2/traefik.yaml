@@ -8,8 +8,8 @@ spec:
     providers:
       kubernetesIngress:
         allowCrossNamespace: true
-        ingressEndpoint:
-          ip: 127.0.0.1
+        publishedService:
+          enabled: false
       kubernetesGateway:
         enabled: true
     resources:
@@ -31,3 +31,5 @@ spec:
       healthcheck:
         enabled: true
         matchRule: PathPrefix(`/health`)
+    additionalArguments:
+      - "--providers.kubernetesingress.ingressendpoint.ip=127.0.0.1"
