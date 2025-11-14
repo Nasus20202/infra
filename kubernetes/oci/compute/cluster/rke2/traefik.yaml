@@ -8,6 +8,8 @@ spec:
     providers:
       kubernetesIngress:
         allowCrossNamespace: true
+        ingressEndpoint:
+          ip: 127.0.0.1
       kubernetesGateway:
         enabled: true
     resources:
@@ -22,7 +24,10 @@ spec:
       prometheus:
         serviceMonitor:
           enabled: true
+    ports:
+      traefik:
+        hostPort: 8080
     ingressRoute:
       healthcheck:
         enabled: true
-        matchRule: PathPrefix(`/ping`)
+        matchRule: PathPrefix(`/health`)

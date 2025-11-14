@@ -2,6 +2,7 @@ global:
   domain: argocd.nasus.dev
 
 server:
+  insecure: true
   ingress:
     enabled: true
     annotations:
@@ -91,6 +92,8 @@ redis:
       memory: 60Mi
 
 configs:
+  params:
+    server.insecure: true
   cm:
     accounts.nasus: login
   rbac:
