@@ -20,6 +20,12 @@ spec:
     ports:
       traefik:
         hostPort: 8080
+      web:
+        redirections:
+          entryPoint:
+            to: websecure
+            scheme: https
+            permanent: true
     ingressRoute:
       healthcheck:
         enabled: true
