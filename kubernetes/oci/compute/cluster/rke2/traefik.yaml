@@ -1,0 +1,22 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: rke2-traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    providers:
+      kubernetesGateway:
+        enabled: true
+    resources:
+      requests:
+        cpu: 25m
+        memory: 100Mi
+    priorityClassName: system-cluster-critical
+    logs:
+      access:
+        enabled: true
+    metrics:
+      prometheus:
+        serviceMonitor:
+          enabled: true
