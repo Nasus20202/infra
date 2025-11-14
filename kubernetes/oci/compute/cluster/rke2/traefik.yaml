@@ -6,6 +6,8 @@ metadata:
 spec:
   valuesContent: |-
     providers:
+      kubernetesIngress:
+        allowCrossNamespace: true
       kubernetesGateway:
         enabled: true
     resources:
