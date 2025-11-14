@@ -22,3 +22,7 @@ spec:
       prometheus:
         serviceMonitor:
           enabled: true
+    ingressRoute:
+      healthcheck:
+        enabled: true
+        matchRule: PathPrefix(`/ping`)
