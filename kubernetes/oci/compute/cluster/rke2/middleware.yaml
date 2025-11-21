@@ -26,5 +26,5 @@ metadata:
   namespace: kube-system
 spec:
   rateLimit:
-    average: 15
-    burst: 30
+    average: 50
+    burst: 100
