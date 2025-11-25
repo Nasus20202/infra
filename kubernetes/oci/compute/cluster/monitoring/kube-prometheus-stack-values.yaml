@@ -5,6 +5,7 @@ grafana:
     accessModes: ["ReadWriteOnce"]
   deploymentStrategy:
     type: Recreate
+    rollingUpdate: null
   sidecar:
     datasources:
       # skipReload: true
@@ -53,7 +54,7 @@ grafana:
           filterByTraceID: true
           filterBySpanID: false
   admin:
-    existingSecret: prometheus-grafana
+    existingSecret: prometheus-grafana # This should be disabled during initial setup to allow generation of admin password (or create the secret beforehand)
   ingress:
     enabled: true
     hosts:
