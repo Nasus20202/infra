@@ -37,6 +37,9 @@ spec:
     experimental:
       otlpLogs: true
     metrics:
+      prometheus:
+        serviceMonitor:
+          enabled: true
       otlp:
         enabled: true
         http:
