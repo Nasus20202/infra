@@ -42,6 +42,13 @@ applicationObservability:
       http:
         enabled: true
         port: 4318
+  metrics:
+    transforms:
+      datapoint:
+        - set(attributes["service_name"], resource.attributes["service.name"])
+        - set(attributes["service_version"], resource.attributes["service.version"])
+        - set(attributes["k8s_namespace_name"], resource.attributes["k8s.namespace.name"])
+        - set(attributes["k8s_pod_name"], resource.attributes["k8s.pod.name"])
 
 # Collectors
 alloy-singleton:
