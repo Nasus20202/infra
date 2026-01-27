@@ -27,4 +27,4 @@ metadata:
 spec:
   rateLimit:
     average: 50
-    burst: 100
+    burst: 200
