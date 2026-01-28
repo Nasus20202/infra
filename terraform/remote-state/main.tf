@@ -14,14 +14,20 @@ resource "aws_s3_bucket_versioning" "terraform_state" {
   }
 }
 
-resource "aws_dynamodb_table" "terraform_state_lock" {
-  name           = "nasus-tfstate-lock"
-  read_capacity  = 1
-  write_capacity = 1
-  hash_key       = "LockID"
+resource "aws_s3_bucket_lifecycle_configuration" "terraform_state" {
+  bucket = aws_s3_bucket.terraform_state.id
 
-  attribute {
-    name = "LockID"
-    type = "S"
+  rule {
+    id     = "${aws_s3_bucket.terraform_state.bucket}-lifecycle"
+    status = "Enabled"
+
+    noncurrent_version_expiration {
+      noncurrent_days           = 7
+      newer_noncurrent_versions = 10
+    }
+
+    expiration {
+      expired_object_delete_marker = true
+    }
   }
 }
