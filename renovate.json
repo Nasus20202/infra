@@ -3,6 +3,7 @@
   "extends": ["config:recommended"],
   "timezone": "Europe/Warsaw",
   "labels": ["version-update"],
+  "dependencyDashboardTitle": "Version Updates Dashboard",
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "commitMessagePrefix": "chore:",
