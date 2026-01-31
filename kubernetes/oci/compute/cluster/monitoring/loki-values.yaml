@@ -45,6 +45,7 @@ singleBinary:
       memory: 500Mi
     limits:
       memory: 1Gi
+      cpu: 500m
 
 gateway:
   enabled: false

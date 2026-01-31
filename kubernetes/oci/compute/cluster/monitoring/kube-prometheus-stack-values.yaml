@@ -101,6 +101,7 @@ prometheus:
         memory: 1Gi
       limits:
         memory: 2Gi
+        cpu: 500m
 
 kube-state-metrics:
   resources:
