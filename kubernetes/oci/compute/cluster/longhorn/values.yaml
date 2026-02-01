@@ -6,6 +6,7 @@ defaultSettings:
   storageOverProvisioningPercentage: "200"
   storageMinimalAvailablePercentage: "15"
   concurrentAutomaticEngineUpgradePerNodeLimit: "1"
+  guaranteedInstanceManagerCPU: "5" # 5% of 2 cores
 
 persistence:
   defaultClassReplicaCount: 1
@@ -18,3 +19,10 @@ defaultBackupStore:
 metrics:
   serviceMonitor:
     enabled: true
+
+# Fix for https://github.com/longhorn/longhorn/issues/12573
+# TODO: Remove this override when Longhorn version >= 1.11.1 is used
+image:
+  longhorn:
+    instanceManager:
+      tag: v1.10.2
