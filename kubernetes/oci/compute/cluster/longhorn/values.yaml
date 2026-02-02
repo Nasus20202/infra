@@ -25,4 +25,4 @@ metrics:
 image:
   longhorn:
     instanceManager:
-      tag: v1.10.2
+      tag: v1.11.0-hotfix-1
