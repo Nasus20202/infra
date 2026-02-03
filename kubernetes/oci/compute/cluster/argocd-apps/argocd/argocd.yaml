@@ -14,8 +14,8 @@ spec:
       helm:
         releaseName: argocd
         valueFiles:
-          - $values/kubernetes/oci/compute/cluster/argocd/values.yaml
-          - $values/kubernetes/oci/compute/cluster/argocd/notifications-values.yaml
+          - $values/kubernetes/oci/compute/cluster/applications/argocd/values.yaml
+          - $values/kubernetes/oci/compute/cluster/applications/argocd/notifications-values.yaml
     - repoURL: https://github.com/Nasus20202/infra.git
       targetRevision: main
       ref: values

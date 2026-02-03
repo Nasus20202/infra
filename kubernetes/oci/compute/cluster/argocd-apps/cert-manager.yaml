@@ -13,13 +13,13 @@ spec:
       targetRevision: "v1.19.3"
       helm:
         valueFiles:
-          - $values/kubernetes/oci/compute/cluster/cert-manager/values.yaml
+          - $values/kubernetes/oci/compute/cluster/applications/cert-manager/values.yaml
     - repoURL: https://github.com/Nasus20202/infra.git
       targetRevision: main
       ref: values
     - repoURL: https://github.com/Nasus20202/infra.git
       targetRevision: main
-      path: kubernetes/oci/compute/cluster/cert-manager/clusterissuer
+      path: kubernetes/oci/compute/cluster/applications/cert-manager/clusterissuer
   destination:
     name: in-cluster
     namespace: cert-manager

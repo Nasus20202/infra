@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/Nasus20202/infra.git
     targetRevision: main
-    path: kubernetes/oci/compute/cluster/upgrade-controller
+    path: kubernetes/oci/compute/cluster/applications/upgrade-controller
   destination:
     name: in-cluster
     namespace: system-upgrade

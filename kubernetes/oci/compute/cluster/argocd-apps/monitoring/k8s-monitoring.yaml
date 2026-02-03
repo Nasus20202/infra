@@ -13,7 +13,7 @@ spec:
       targetRevision: "3.7.5"
       helm:
         valueFiles:
-          - $values/kubernetes/oci/compute/cluster/monitoring/k8s-monitoring-values.yaml
+          - $values/kubernetes/oci/compute/cluster/applications/monitoring/k8s-monitoring-values.yaml
     - repoURL: https://github.com/Nasus20202/infra.git
       targetRevision: main
       ref: values

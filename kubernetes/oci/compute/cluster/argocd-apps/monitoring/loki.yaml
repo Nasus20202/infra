@@ -14,7 +14,7 @@ spec:
       helm:
         releaseName: loki
         valueFiles:
-          - $values/kubernetes/oci/compute/cluster/monitoring/loki-values.yaml
+          - $values/kubernetes/oci/compute/cluster/applications/monitoring/loki-values.yaml
     - repoURL: https://github.com/Nasus20202/infra.git
       targetRevision: main
       ref: values

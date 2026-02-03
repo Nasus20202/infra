@@ -25,16 +25,18 @@
     }
   ],
   "kubernetes": {
-    "managerFilePatterns": ["/kubernetes/oci/compute/cluster/.+\\.ya?ml$/"]
+    "managerFilePatterns": [
+      "/kubernetes/oci/compute/cluster/applications/.+\\.ya?ml$/"
+    ]
   },
   "argocd": {
     "managerFilePatterns": [
-      "/kubernetes/oci/compute/cluster/argocd-apps.+\\.ya?ml$/"
+      "/kubernetes/oci/compute/cluster/argocd-apps/.+\\.ya?ml$/"
     ]
   },
   "helm-values": {
     "managerFilePatterns": [
-      "/kubernetes/oci/compute/cluster/.+values\\.ya?ml$/"
+      "/kubernetes/oci/compute/cluster/applications/.+values\\.ya?ml$/"
     ]
   }
 }
