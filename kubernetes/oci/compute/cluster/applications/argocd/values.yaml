@@ -98,6 +98,12 @@ configs:
     server.insecure: true
   cm:
     accounts.nasus: login
+    # Ignore temporary finalizers to prevent unnecessary syncs
+    resource.customizations: |
+      argoproj.io/Application:
+        ignoreDifferences: |
+          jsonPointers:
+          - /metadata/finalizers
   rbac:
     policy.default: role:user
     policy.csv: |
