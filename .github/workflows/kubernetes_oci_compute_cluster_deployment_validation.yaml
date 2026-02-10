@@ -34,5 +34,5 @@ jobs:
           skip-resources: "CustomResourceDefinition,Alloy,Plan,HelmChartConfig"
           state-dir: ".argocd-state"
           comment-on-pr: "true"
-          commit-state: ${{ github.ref == 'refs/heads/main' && 'true' || 'false' }}
+          commit-state: ${{ github.event_name == 'push' }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
