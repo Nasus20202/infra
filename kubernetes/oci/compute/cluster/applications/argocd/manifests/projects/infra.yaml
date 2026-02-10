@@ -8,6 +8,7 @@ spec:
     - "https://argoproj.github.io/argo-helm"
     - "https://charts.jetstack.io"
     - "https://grafana.github.io/helm-charts"
+    - "https://grafana-community.github.io/helm-charts"
     - "https://prometheus-community.github.io/helm-charts"
     - "https://charts.longhorn.io"
   destinations:
