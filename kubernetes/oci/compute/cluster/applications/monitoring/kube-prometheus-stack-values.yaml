@@ -57,6 +57,7 @@ grafana:
     existingSecret: prometheus-grafana # This should be disabled during initial setup to allow generation of admin password (or create the secret beforehand)
   ingress:
     enabled: true
+    ingressClassName: traefik
     hosts:
       - grafana.nasus.dev
     tls:
