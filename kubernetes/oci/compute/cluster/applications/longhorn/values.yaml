@@ -19,10 +19,3 @@ defaultBackupStore:
 metrics:
   serviceMonitor:
     enabled: true
-
-# Fix for https://github.com/longhorn/longhorn/issues/12573
-# TODO: Remove this override when Longhorn version >= 1.11.1 is used
-image:
-  longhorn:
-    instanceManager:
-      tag: v1.11.0-hotfix-1
