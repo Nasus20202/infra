@@ -12,6 +12,9 @@ jobs:
     name: Validate ${{ github.event.head_commit.message }}
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -25,3 +28,16 @@ jobs:
           state-dir: ".argocd-state"
           comment-on-pr: "true"
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push state
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .argocd-state
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update ArgoCD manifest state [skip ci]"
+            git push
+          fi
