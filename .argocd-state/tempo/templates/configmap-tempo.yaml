@@ -1,0 +1,80 @@
+---
+# Source: tempo/templates/configmap-tempo.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tempo
+  namespace: monitoring
+  labels:
+    helm.sh/chart: tempo-1.25.0
+    app.kubernetes.io/name: tempo
+    app.kubernetes.io/instance: tempo
+    app.kubernetes.io/version: "2.9.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  overrides.yaml: |
+    overrides:
+      {}
+  tempo.yaml: |
+    memberlist:
+      cluster_label: "tempo.monitoring"
+    multitenancy_enabled: false
+    usage_report:
+      reporting_enabled: true
+    compactor:
+      compaction:
+        block_retention: 168h
+    distributor:
+      receivers:
+            jaeger:
+              protocols:
+                grpc:
+                  endpoint: 0.0.0.0:14250
+                thrift_binary:
+                  endpoint: 0.0.0.0:6832
+                thrift_compact:
+                  endpoint: 0.0.0.0:6831
+                thrift_http:
+                  endpoint: 0.0.0.0:14268
+            opencensus: null
+            otlp:
+              protocols:
+                grpc:
+                  endpoint: 0.0.0.0:4317
+                http:
+                  endpoint: 0.0.0.0:4318
+    ingester:
+          {}
+    server:
+          http_listen_port: 3200
+    storage:
+          trace:
+            backend: local
+            block:
+              version: vParquet4
+            local:
+              path: /var/tempo/traces
+            wal:
+              path: /var/tempo/wal
+    querier:
+          {}
+    query_frontend:
+          {}
+    overrides:
+          defaults:
+            compaction:
+              block_retention: 168h
+            metrics_generator:
+              generate_native_histograms: both
+              processors:
+              - service-graphs
+              - span-metrics
+              - local-blocks
+          per_tenant_override_config: /conf/overrides.yaml
+    metrics_generator:
+      storage:
+        path: "/tmp/tempo"
+        remote_write:
+          - url: http://prometheus-kube-prometheus-prometheus:9090/api/v1/write
+      traces_storage:
+        path: "/tmp/traces"

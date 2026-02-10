@@ -1,0 +1,27 @@
+---
+# Source: argo-cd/templates/argocd-configs/argocd-rbac-cm.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd
+  labels:
+    helm.sh/chart: argo-cd-9.4.1
+    app.kubernetes.io/name: argocd-rbac-cm
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: server
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: "v3.3.0"
+data:
+  policy.csv: |
+    p, role:user, applications, get, *, allow
+    p, role:user, applications, sync, *, allow
+    p, role:user, applicationsets, get, *, allow
+    p, role:user, clusters, get, *, allow
+    p, role:user, repositories, get, *, allow
+    p, role:user, logs, get, *, allow
+    g, admin, role:admin
+  policy.default: role:user
+  policy.matchMode: glob
+  scopes: '[groups]'

@@ -1,0 +1,74 @@
+---
+# Source: k8s-monitoring/charts/alloy-operator/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-monitoring-alloy-operator
+  namespace: monitoring
+  labels:
+    helm.sh/chart: alloy-operator-0.4.1
+    app.kubernetes.io/name: alloy-operator
+    app.kubernetes.io/instance: k8s-monitoring
+    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: alloy-operator
+      app.kubernetes.io/instance: k8s-monitoring
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: alloy-operator-0.4.1
+        app.kubernetes.io/name: alloy-operator
+        app.kubernetes.io/instance: k8s-monitoring
+        app.kubernetes.io/version: "1.5.2"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: k8s-monitoring-alloy-operator
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: alloy-operator
+          image: "ghcr.io/grafana/alloy-operator:1.5.2"
+          imagePullPolicy: IfNotPresent
+          args:
+            - --health-probe-bind-address=:8081
+            - --metrics-bind-address=:8082
+            - --leader-elect
+            - --leader-election-id=k8s-monitoring-alloy-operator
+
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+            - name: metrics
+              containerPort: 8082
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            limits:
+              memory: 100Mi
+            requests:
+              cpu: 20m
+              memory: 50Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+      nodeSelector:
+        kubernetes.io/os: linux

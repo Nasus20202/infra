@@ -1,0 +1,20 @@
+---
+# Source: kube-prometheus-stack/charts/grafana/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prometheus-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-11.1.0
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/version: "12.3.2"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: prometheus-grafana
+subjects:
+- kind: ServiceAccount
+  name: prometheus-grafana
+  namespace: monitoring

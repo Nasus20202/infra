@@ -1,0 +1,46 @@
+---
+# Source: longhorn/templates/uninstall-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+  name: longhorn-uninstall
+  namespace: longhorn-system
+  labels:
+    app.kubernetes.io/name: longhorn
+    helm.sh/chart: longhorn-1.11.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/version: v1.11.0
+spec:
+  activeDeadlineSeconds: 900
+  backoffLimit: 1
+  template:
+    metadata:
+      name: longhorn-uninstall
+      labels:
+        app.kubernetes.io/name: longhorn
+        helm.sh/chart: longhorn-1.11.0
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/instance: longhorn
+        app.kubernetes.io/version: v1.11.0
+    spec:
+      containers:
+      - name: longhorn-uninstall
+        image: docker.io/longhornio/longhorn-manager:v1.11.0
+        imagePullPolicy: IfNotPresent
+        command:
+        - longhorn-manager
+        - uninstall
+        - --force
+        env:
+        - name: LONGHORN_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        
+      restartPolicy: Never
+      priorityClassName: "longhorn-critical"
+      serviceAccountName: longhorn-service-account

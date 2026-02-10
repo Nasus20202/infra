@@ -1,0 +1,28 @@
+---
+# Source: kube-prometheus-stack/charts/grafana/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-grafana
+  namespace: monitoring
+  labels:
+    release: "prometheus"
+    helm.sh/chart: grafana-11.1.0
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/version: "12.3.2"
+spec:
+  endpoints:
+  - port: http-web
+    scrapeTimeout: 30s
+    honorLabels: true
+    path: /metrics
+    scheme: http
+  jobLabel: "prometheus"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/instance: prometheus
+  namespaceSelector:
+    matchNames:
+      - monitoring

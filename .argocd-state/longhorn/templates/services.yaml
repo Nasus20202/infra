@@ -1,0 +1,44 @@
+---
+# Source: longhorn/templates/services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: longhorn
+    helm.sh/chart: longhorn-1.11.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/version: v1.11.0
+    app: longhorn-admission-webhook
+  name: longhorn-admission-webhook
+  namespace: longhorn-system
+spec:
+  type: ClusterIP
+  selector:
+    longhorn.io/admission-webhook: longhorn-admission-webhook
+  ports:
+  - name: admission-webhook
+    port: 9502
+    targetPort: admission-wh
+---
+# Source: longhorn/templates/services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: longhorn
+    helm.sh/chart: longhorn-1.11.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/version: v1.11.0
+    app: longhorn-recovery-backend
+  name: longhorn-recovery-backend
+  namespace: longhorn-system
+spec:
+  type: ClusterIP
+  selector:
+    longhorn.io/recovery-backend: longhorn-recovery-backend
+  ports:
+  - name: recovery-backend
+    port: 9503
+    targetPort: recov-backend

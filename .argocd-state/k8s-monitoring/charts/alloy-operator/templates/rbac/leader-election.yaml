@@ -1,0 +1,66 @@
+---
+# Source: k8s-monitoring/charts/alloy-operator/templates/rbac/leader-election.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: k8s-monitoring-alloy-operator-leader-election-role
+  namespace: monitoring
+  labels:
+    helm.sh/chart: alloy-operator-0.4.1
+    app.kubernetes.io/name: alloy-operator
+    app.kubernetes.io/instance: k8s-monitoring
+    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+---
+# Source: k8s-monitoring/charts/alloy-operator/templates/rbac/leader-election.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: k8s-monitoring-alloy-operator-leader-election-rolebinding
+  namespace: monitoring
+  labels:
+    helm.sh/chart: alloy-operator-0.4.1
+    app.kubernetes.io/name: alloy-operator
+    app.kubernetes.io/instance: k8s-monitoring
+    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: k8s-monitoring-alloy-operator-leader-election-role
+subjects:
+  - kind: ServiceAccount
+    name: k8s-monitoring-alloy-operator
+    namespace: monitoring

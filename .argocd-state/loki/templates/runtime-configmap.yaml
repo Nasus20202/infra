@@ -1,0 +1,15 @@
+---
+# Source: loki/templates/runtime-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loki-runtime
+  namespace: monitoring
+  labels:
+    helm.sh/chart: loki-6.52.0
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/version: "3.6.4"
+data:
+  runtime-config.yaml: |
+    {}

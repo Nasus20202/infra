@@ -1,0 +1,106 @@
+---
+# Source: k8s-monitoring/templates/hooks/pre-delete_remove-alloy-and-finalizer.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: k8s-monitoring-remove-alloy-and-finalizer
+  namespace: monitoring
+  annotations:
+    helm.sh/hook: pre-delete
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+---
+# Source: k8s-monitoring/templates/hooks/pre-delete_remove-alloy-and-finalizer.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: k8s-monitoring-remove-alloy-and-finalizer
+  namespace: monitoring
+  annotations:
+    helm.sh/hook: pre-delete
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch", "patch"]
+  - apiGroups: ["collectors.grafana.com"]
+    resources: ["alloys"]
+    verbs: ["get", "list", "watch", "delete"]
+---
+# Source: k8s-monitoring/templates/hooks/pre-delete_remove-alloy-and-finalizer.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: k8s-monitoring-remove-alloy-and-finalizer
+  namespace: monitoring
+  annotations:
+    helm.sh/hook: pre-delete
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+subjects:
+  - kind: ServiceAccount
+    name: k8s-monitoring-remove-alloy-and-finalizer
+    namespace: monitoring
+roleRef:
+  kind: Role
+  name: k8s-monitoring-remove-alloy-and-finalizer
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: k8s-monitoring/templates/hooks/pre-delete_remove-alloy-and-finalizer.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k8s-monitoring-remove-alloy-and-finalizer
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: k8s-monitoring-remove-alloy-and-finalizer
+    app.kubernetes.io/instance: k8s-monitoring
+    helm.sh/chart: k8s-monitoring-3.8.0
+  annotations:
+    helm.sh/hook: pre-delete
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+spec:
+  ttlSecondsAfterFinished: 300
+  backoffLimit: 3
+  template:
+    metadata:
+      name: k8s-monitoring-remove-alloy-and-finalizer
+      labels:
+        app.kubernetes.io/name: k8s-monitoring
+        app.kubernetes.io/instance: k8s-monitoring
+        linkerd.io/inject: disabled
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/os: linux
+      serviceAccountName: k8s-monitoring-remove-alloy-and-finalizer
+      containers:
+        - name: remove-finalizers
+          image: "ghcr.io/grafana/helm-chart-toolbox-kubectl:0.1.2"
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/bash
+            - -ce
+            - |
+              echo "Deleting Alloy instance: alloy/k8s-monitoring-alloy-logs..."
+              kubectl delete alloy/k8s-monitoring-alloy-logs --ignore-not-found=true --wait
+              kubectl wait --for=delete alloy/k8s-monitoring-alloy-logs --timeout=60s || echo "Timed out waiting for deletion of alloy/k8s-monitoring-alloy-logs or it may not exist."
+
+              echo "Deleting Alloy instance: alloy/k8s-monitoring-alloy-receiver..."
+              kubectl delete alloy/k8s-monitoring-alloy-receiver --ignore-not-found=true --wait
+              kubectl wait --for=delete alloy/k8s-monitoring-alloy-receiver --timeout=60s || echo "Timed out waiting for deletion of alloy/k8s-monitoring-alloy-receiver or it may not exist."
+
+              kubectl patch \
+                --namespace=monitoring \
+                --type json \
+                --patch='[{"op": "remove", "path": "/metadata/finalizers"}]' \
+                deployment/k8s-monitoring-alloy-operator
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 4242
+            seccompProfile:
+              type: RuntimeDefault

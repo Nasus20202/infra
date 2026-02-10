@@ -1,0 +1,16 @@
+---
+# Source: longhorn/templates/default-resource.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: longhorn-default-resource
+  namespace: longhorn-system
+  labels:
+    app.kubernetes.io/name: longhorn
+    helm.sh/chart: longhorn-1.11.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/version: v1.11.0
+data:
+  default-resource.yaml: |-
+    backup-target-credential-secret: longhorn-backup-secret

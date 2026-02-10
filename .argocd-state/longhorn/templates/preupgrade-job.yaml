@@ -1,0 +1,53 @@
+---
+# Source: longhorn/templates/preupgrade-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation,hook-failed
+  name: longhorn-pre-upgrade
+  namespace: longhorn-system
+  labels:
+    app.kubernetes.io/name: longhorn
+    helm.sh/chart: longhorn-1.11.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/version: v1.11.0
+spec:
+  activeDeadlineSeconds: 900
+  backoffLimit: 1
+  template:
+    metadata:
+      name: longhorn-pre-upgrade
+      labels:
+        app.kubernetes.io/name: longhorn
+        helm.sh/chart: longhorn-1.11.0
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/instance: longhorn
+        app.kubernetes.io/version: v1.11.0
+    spec:
+      containers:
+      - name: longhorn-pre-upgrade
+        image: docker.io/longhornio/longhorn-manager:v1.11.0
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        command:
+        - longhorn-manager
+        - pre-upgrade
+        volumeMounts:
+        - name: proc
+          mountPath: /host/proc/
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        
+      volumes:
+      - name: proc
+        hostPath:
+          path: /proc/
+      restartPolicy: OnFailure
+      serviceAccountName: longhorn-service-account
