@@ -4,10 +4,10 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    helm.sh/chart: loki-6.52.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.4"
+    app.kubernetes.io/version: "3.6.5"
   name: loki-clusterrole
 rules:
 - apiGroups: [""] # "" indicates the core API group
