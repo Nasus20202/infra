@@ -1,24 +1,38 @@
 name: kubernetes/oci/compute/cluster - Deployment validation
 run-name: |
-  kubernetes/oci/compute/cluster - Validate `${{ github.event.head_commit.message }}`
+  kubernetes/oci/compute/cluster - Validate `${{ github.event.pull_request.title || github.event.head_commit.message || github.ref_name }}`
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - kubernetes/oci/compute/cluster/**
+  pull_request:
+    branches:
+      - main
     paths:
       - kubernetes/oci/compute/cluster/**
 
 jobs:
   validate-manifests:
-    name: Validate ${{ github.event.head_commit.message }}
+    name: Validate ${{ github.event.pull_request.title || github.event.head_commit.message || github.ref_name }}
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
       - name: Build and validate ArgoCD Manifests
-        uses: nasus20202/argocd-validate-action@main
+        uses: nasus20202/argocd-validate-action@v2
         with:
           apps-dir: "kubernetes/oci/compute/cluster/argocd-apps"
           base-path: "kubernetes/oci/compute/cluster"
           skip-resources: "CustomResourceDefinition,Alloy,Plan,HelmChartConfig"
+          state-dir: ".argocd-state"
+          comment-on-pr: "true"
+          commit-state: ${{ github.event_name == 'push' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
