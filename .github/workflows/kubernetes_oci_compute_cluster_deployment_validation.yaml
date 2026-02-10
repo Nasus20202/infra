@@ -20,24 +20,12 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Build and validate ArgoCD Manifests
-        uses: nasus20202/argocd-validate-action@v2
+        uses: nasus20202/argocd-validate-action@main
         with:
           apps-dir: "kubernetes/oci/compute/cluster/argocd-apps"
           base-path: "kubernetes/oci/compute/cluster"
           skip-resources: "CustomResourceDefinition,Alloy,Plan,HelmChartConfig"
           state-dir: ".argocd-state"
           comment-on-pr: "true"
+          commit-state: "true"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit and push state
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .argocd-state
-          if git diff --staged --quiet; then
-            echo "No changes to .argocd-state directory"
-          else
-            git commit -m "chore: update ArgoCD manifest state [skip ci]"
-            git push
-          fi
