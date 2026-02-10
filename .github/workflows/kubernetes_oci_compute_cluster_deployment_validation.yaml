@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Build and validate ArgoCD Manifests
-        uses: nasus20202/argocd-validate-action@main
+        uses: nasus20202/argocd-validate-action@v2
         with:
           apps-dir: "kubernetes/oci/compute/cluster/argocd-apps"
           base-path: "kubernetes/oci/compute/cluster"
