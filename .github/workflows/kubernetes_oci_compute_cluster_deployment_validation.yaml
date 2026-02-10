@@ -36,7 +36,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .argocd-state
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "No changes to .argocd-state directory"
           else
             git commit -m "chore: update ArgoCD manifest state [skip ci]"
             git push
