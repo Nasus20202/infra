@@ -8,11 +8,13 @@ on:
       - main
     paths:
       - kubernetes/oci/compute/cluster/**
+      - .github/workflows/kubernetes_oci_compute_cluster_deployment_validation.yaml
   pull_request:
     branches:
       - main
     paths:
       - kubernetes/oci/compute/cluster/**
+      - .github/workflows/kubernetes_oci_compute_cluster_deployment_validation.yaml
 
 jobs:
   validate-manifests:
