@@ -13,9 +13,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "81.6.4"
+    app.kubernetes.io/version: "81.6.5"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-81.6.4
+    chart: kube-prometheus-stack-81.6.5
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -30,9 +30,9 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "81.6.4"
+        app.kubernetes.io/version: "81.6.5"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-81.6.4
+        chart: kube-prometheus-stack-81.6.5
         release: "prometheus"
         heritage: "Helm"
         app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
         - name: patch
-          image: ghcr.io/jkroepke/kube-webhook-certgen:1.7.6
+          image: ghcr.io/jkroepke/kube-webhook-certgen:1.7.7
           imagePullPolicy: IfNotPresent
           args:
             - patch

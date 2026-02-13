@@ -11,9 +11,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "81.6.4"
+    app.kubernetes.io/version: "81.6.5"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-81.6.4
+    chart: kube-prometheus-stack-81.6.5
     release: "prometheus"
     heritage: "Helm"
 data:
