@@ -6,7 +6,7 @@ metadata:
   name: argocd-notifications-controller-metrics
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-9.4.1
+    helm.sh/chart: argo-cd-9.4.2
     app.kubernetes.io/name: argocd-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: notifications-controller
