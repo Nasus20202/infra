@@ -6,10 +6,10 @@ metadata:
   name: tempo
   namespace: monitoring
   labels:
-    helm.sh/chart: tempo-1.26.2
+    helm.sh/chart: tempo-1.26.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
-    app.kubernetes.io/version: "2.10.0"
+    app.kubernetes.io/version: "2.10.1"
     app.kubernetes.io/managed-by: Helm
 data:
   overrides.yaml: |
