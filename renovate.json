@@ -16,6 +16,8 @@
   "rebaseWhen": "conflicted",
   "separateMultipleMinor": true,
   "separateMultipleMajor": true,
+  "additionalBranchPrefix": "{{packageFile}}/",
+  "commitMessageSuffix": "in {{packageFile}}",
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "minor"],
@@ -24,6 +26,10 @@
     {
       "matchDatasources": ["docker"],
       "versioning": "docker"
+    },
+    {
+      "matchManagers": ["terraform"],
+      "ignoreTests": true
     }
   ],
   "kubernetes": {
