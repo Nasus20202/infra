@@ -6,7 +6,7 @@ metadata:
   name: tempo
   namespace: monitoring
   labels:
-    helm.sh/chart: tempo-1.26.4
+    helm.sh/chart: tempo-1.26.5
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/version: "2.10.1"
@@ -24,7 +24,7 @@ spec:
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
       annotations:
-        checksum/config: 412f709c6ea065a42084f5b7d1f4ca5c20ca8a2424523071aab4575b70370dc3
+        checksum/config: 0a4662c2ec028b25fae6b02fc4e0f8d182852c00e72cb68735ccb97d77504177
     spec:
       serviceAccountName: tempo
       automountServiceAccountToken: true
