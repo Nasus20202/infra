@@ -11,6 +11,7 @@ spec:
       - br
     includedContentTypes:
       - text/plain
+      - text/html
       - text/css
       - text/javascript
       - application/javascript
