@@ -29,10 +29,6 @@ data:
       jsonData:
         httpMethod: POST
         timeInterval: 30s
-        exemplarTraceIdDestinations:
-        - datasourceUid: tempo
-          name: traceID
-          urlDisplayLabel: 
     - name: "Alertmanager"
       type: alertmanager
       uid: alertmanager
@@ -43,40 +39,9 @@ data:
         implementation: prometheus
     - access: proxy
       isDefault: false
-      jsonData:
-        derivedFields:
-        - datasourceUid: Tempo
-          matcherRegex: 'traceid[": ]*(\w+)'
-          name: traceID
-          url: $${__value.raw}
-        - datasourceUid: Tempo
-          matcherRegex: traceid
-          matcherType: label
-          name: traceid
-          url: $${__value.raw}
       name: Loki
       orgId: 1
       type: loki
       uid: loki
       url: http://loki:3100
       version: 1
-    - access: proxy
-      isDefault: false
-      jsonData:
-        serviceMap:
-          datasourceUid: prometheus
-        tracesToLogsV2:
-          datasourceUid: loki
-          filterBySpanID: false
-          filterByTraceID: true
-          spanEndTimeShift: 10m
-          spanStartTimeShift: -10m
-          tags: []
-        tracesToMetrics:
-          datasourceUid: prometheus
-      name: Tempo
-      orgId: 1
-      type: tempo
-      uid: tempo
-      url: http://tempo:3200
-      version: 2
