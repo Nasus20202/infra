@@ -6,7 +6,7 @@ metadata:
   name: argocd-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-9.4.6
+    helm.sh/chart: argo-cd-9.4.7
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -119,5 +119,6 @@ data:
       - UpdateRequest
   statusbadge.enabled: "false"
   timeout.hard.reconciliation: 0s
-  timeout.reconciliation: 180s
+  timeout.reconciliation: 120s
+  timeout.reconciliation.jitter: 60s
   url: https://argocd.nasus.dev

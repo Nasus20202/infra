@@ -10,9 +10,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "82.4.3"
+    app.kubernetes.io/version: "82.5.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-82.4.3
+    chart: kube-prometheus-stack-82.5.0
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -81,3 +81,23 @@ spec:
           rate(node_network_transmit_drop_total{job="node-exporter", device!="lo"}[5m])
         )
       record: instance:node_network_transmit_drop_excluding_lo:rate5m
+    - expr: |-
+        sum without (device) (
+          rate(node_network_receive_bytes_total{job="node-exporter", device!~"lo|veth.+"}[5m])
+        )
+      record: instance:node_network_receive_bytes_physical:rate5m
+    - expr: |-
+        sum without (device) (
+          rate(node_network_transmit_bytes_total{job="node-exporter", device!~"lo|veth.+"}[5m])
+        )
+      record: instance:node_network_transmit_bytes_physical:rate5m
+    - expr: |-
+        sum without (device) (
+          rate(node_network_receive_drop_total{job="node-exporter", device!~"lo|veth.+"}[5m])
+        )
+      record: instance:node_network_receive_drop_physical:rate5m
+    - expr: |-
+        sum without (device) (
+          rate(node_network_transmit_drop_total{job="node-exporter", device!~"lo|veth.+"}[5m])
+        )
+      record: instance:node_network_transmit_drop_physical:rate5m
