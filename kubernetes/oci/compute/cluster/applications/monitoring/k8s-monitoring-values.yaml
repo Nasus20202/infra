@@ -5,14 +5,6 @@ destinations:
   - name: loki
     type: loki
     url: http://loki:3100/loki/api/v1/push
-  - name: tempo
-    type: otlp
-    url: http://tempo:4317
-    tls:
-      insecure: true
-    metrics: { enabled: false }
-    logs: { enabled: false }
-    traces: { enabled: true }
   - name: prometheus
     type: prometheus
     url: http://prometheus-kube-prometheus-prometheus:9090/api/v1/write
@@ -32,43 +24,10 @@ podLogs:
     pod: pod
 
 applicationObservability:
-  enabled: true
-  collector: alloy-receiver
-  receivers:
-    otlp:
-      grpc:
-        enabled: true
-        port: 4317
-      http:
-        enabled: true
-        port: 4318
-  metrics:
-    transforms:
-      datapoint:
-        - set(attributes["service_name"], resource.attributes["service.name"])
-        - set(attributes["service_version"], resource.attributes["service.version"])
-        - set(attributes["k8s_namespace_name"], resource.attributes["k8s.namespace.name"])
-        - set(attributes["k8s_pod_name"], resource.attributes["k8s.pod.name"])
+  enabled: false
 
 autoInstrumentation:
-  enabled: true
-  collector: alloy-receiver
-  beyla:
-    config:
-      data:
-        discovery:
-          services:
-            - k8s_namespace: .
-          exclude_services:
-            - k8s_namespace: kube-system
-            - k8s_namespace: longhorn-system
-            - k8s_namespace: monitoring
-    k8sCache:
-      resources:
-        requests:
-          memory: 50Mi
-        limits:
-          memory: 100Mi
+  enabled: false
 
 # Collectors
 alloy-singleton:
@@ -93,57 +52,7 @@ alloy-profiles:
   enabled: false
 
 alloy-receiver:
-  enabled: true
-  alloy:
-    extraPorts:
-      - name: otlp-grpc
-        port: 4317
-        targetPort: 4317
-        protocol: TCP
-      - name: otlp-http
-        port: 4318
-        targetPort: 4318
-        protocol: TCP
-      - name: faro
-        port: 12347
-        targetPort: 12347
-        protocol: TCP
-    resources:
-      requests:
-        cpu: 10m
-        memory: 200Mi
-      limits:
-        memory: 400Mi
-  extraConfig: |
-    faro.receiver "default" {
-      server {
-          listen_address = "0.0.0.0"
-          listen_port = 12347
-          cors_allowed_origins = ["*"]
-      }
-      output {
-          logs = [loki.write.loki.receiver]
-          traces = [otelcol.exporter.otlp.tempo.input]
-      }
-      extra_log_labels = {
-        app_name = "",
-        app_environment = "",
-        kind = "",
-        source = "faro-sdk",
-      }
-    }
-  ingress:
-    enabled: true
-    path: /
-    faroPort: 12347
-    annotations:
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    hosts:
-      - faro.grafana.nasus.dev
-    tls:
-      - secretName: grafana-faro-tls
-        hosts:
-          - faro.grafana.nasus.dev
+  enabled: false
 
 alloy-operator:
   crds:
