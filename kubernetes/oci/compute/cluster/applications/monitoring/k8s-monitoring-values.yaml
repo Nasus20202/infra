@@ -50,6 +50,26 @@ applicationObservability:
         - set(attributes["k8s_namespace_name"], resource.attributes["k8s.namespace.name"])
         - set(attributes["k8s_pod_name"], resource.attributes["k8s.pod.name"])
 
+autoInstrumentation:
+  enabled: true
+  collector: alloy-receiver
+  beyla:
+    config:
+      data:
+        discovery:
+          services:
+            - k8s_namespace: .
+          exclude_services:
+            - k8s_namespace: kube-system
+            - k8s_namespace: longhorn-system
+            - k8s_namespace: monitoring
+    k8sCache:
+      resources:
+        requests:
+          memory: 50Mi
+        limits:
+          memory: 100Mi
+
 # Collectors
 alloy-singleton:
   enabled: false
@@ -65,9 +85,9 @@ alloy-logs:
     resources:
       requests:
         cpu: 30m
-        memory: 300Mi
+        memory: 150Mi
       limits:
-        memory: 600Mi
+        memory: 300Mi
 
 alloy-profiles:
   enabled: false
