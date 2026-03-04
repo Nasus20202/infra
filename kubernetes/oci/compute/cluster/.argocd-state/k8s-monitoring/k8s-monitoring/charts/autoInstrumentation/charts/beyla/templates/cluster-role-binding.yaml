@@ -1,0 +1,22 @@
+---
+# Source: k8s-monitoring/charts/autoInstrumentation/charts/beyla/templates/cluster-role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: k8s-monitoring-beyla
+  labels:
+    helm.sh/chart: beyla-1.11.0
+    app.kubernetes.io/name: beyla
+    app.kubernetes.io/instance: k8s-monitoring
+    app.kubernetes.io/version: "2.8.4"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: beyla
+    app.kubernetes.io/component: rbac
+subjects:
+  - kind: ServiceAccount
+    name: k8s-monitoring-beyla
+    namespace: monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8s-monitoring-beyla

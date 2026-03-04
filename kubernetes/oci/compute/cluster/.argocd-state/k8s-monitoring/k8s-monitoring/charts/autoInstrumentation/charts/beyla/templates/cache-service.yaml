@@ -1,0 +1,23 @@
+---
+# Source: k8s-monitoring/charts/autoInstrumentation/charts/beyla/templates/cache-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: beyla-k8s-cache
+  namespace: monitoring
+  labels:
+    helm.sh/chart: beyla-1.11.0
+    app.kubernetes.io/name: beyla-k8s-cache
+    app.kubernetes.io/instance: k8s-monitoring
+    app.kubernetes.io/version: "2.8.4"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: beyla
+    app.kubernetes.io/component: networking
+spec:
+  ports:
+    - port: 50055
+      protocol: TCP
+      targetPort: grpc
+      name: grpc
+  selector:
+    app.kubernetes.io/name: beyla-k8s-cache

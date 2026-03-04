@@ -37,10 +37,10 @@ spec:
       varlog: true
     resources:
       limits:
-        memory: 600Mi
+        memory: 300Mi
       requests:
         cpu: 30m
-        memory: 300Mi
+        memory: 150Mi
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:

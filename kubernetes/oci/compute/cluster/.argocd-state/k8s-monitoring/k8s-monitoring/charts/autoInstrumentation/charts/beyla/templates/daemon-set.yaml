@@ -1,0 +1,74 @@
+---
+# Source: k8s-monitoring/charts/autoInstrumentation/charts/beyla/templates/daemon-set.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: k8s-monitoring-beyla
+  namespace: monitoring
+  labels:
+    helm.sh/chart: beyla-1.11.0
+    app.kubernetes.io/name: beyla
+    app.kubernetes.io/instance: k8s-monitoring
+    app.kubernetes.io/version: "2.8.4"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: beyla
+    app.kubernetes.io/component: workload
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: beyla
+      app.kubernetes.io/instance: k8s-monitoring
+  updateStrategy:
+    type: RollingUpdate
+  minReadySeconds: 0
+  template:
+    metadata:
+      annotations:
+        checksum/config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        k8s.grafana.com/job: default/beyla
+        k8s.grafana.com/logs.job: integrations/beyla
+      labels:
+        helm.sh/chart: beyla-1.11.0
+        app.kubernetes.io/name: beyla
+        app.kubernetes.io/instance: k8s-monitoring
+        app.kubernetes.io/version: "2.8.4"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/part-of: beyla
+        app.kubernetes.io/component: workload
+    spec:
+      serviceAccountName: k8s-monitoring-beyla
+      hostPID: true
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: beyla
+          image: docker.io/grafana/beyla:2.8.4
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          ports:
+          - name: metrics
+            containerPort: 9090
+            protocol: TCP
+          env:
+            - name: BEYLA_CONFIG_PATH
+              value: "/etc/beyla/config/beyla-config.yml"
+            - name: BEYLA_KUBE_META_CACHE_ADDRESS
+              value: beyla-k8s-cache:50055
+          volumeMounts:
+            - mountPath: /etc/beyla/config
+              name: beyla-config
+            - mountPath: /sys/fs/cgroup
+              name: cgroup
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+      volumes:
+        - name: beyla-config
+          configMap:
+            name: k8s-monitoring-beyla
+        - name: cgroup
+          hostPath:
+            path: /sys/fs/cgroup
