@@ -21,15 +21,17 @@ spec:
       traefik:
         hostPort: 8080
       web:
-        redirections:
-          entryPoint:
-            to: websecure
-            scheme: https
-            permanent: true
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
       websecure:
-        middlewares:
-          - kube-system-rate-limit@kubernetescrd
-          - kube-system-compress@kubernetescrd
+        http:
+          middlewares:
+            - kube-system-rate-limit@kubernetescrd
+            - kube-system-compress@kubernetescrd
     ingressRoute:
       healthcheck:
         enabled: true
