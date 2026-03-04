@@ -21,15 +21,17 @@ spec:
       traefik:
         hostPort: 8080
       web:
-        redirections:
-          entryPoint:
-            to: websecure
-            scheme: https
-            permanent: true
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
       websecure:
-        middlewares:
-          - kube-system-rate-limit@kubernetescrd
-          - kube-system-compress@kubernetescrd
+        http:
+          middlewares:
+            - kube-system-rate-limit@kubernetescrd
+            - kube-system-compress@kubernetescrd
     ingressRoute:
       healthcheck:
         enabled: true
@@ -52,12 +54,13 @@ spec:
           enabled: true
           endpoint: "http://k8s-monitoring-alloy-receiver.monitoring:4318/v1/traces"
     logs:
-      access:
+      general: &logs-configuration
         enabled: true
         otlp:
           enabled: true
           http:
             enabled: true
             endpoint: "http://k8s-monitoring-alloy-receiver.monitoring:4318/v1/logs"
+      access: *logs-configuration
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.ip=127.0.0.1"
