@@ -18,6 +18,7 @@ spec:
       app.kubernetes.io/name: grafana
       app.kubernetes.io/instance: prometheus
   strategy:
+    rollingUpdate: null
     type: Recreate
   template:
     metadata:
