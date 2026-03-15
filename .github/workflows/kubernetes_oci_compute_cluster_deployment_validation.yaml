@@ -33,7 +33,7 @@ jobs:
         with:
           apps-dir: "kubernetes/oci/compute/cluster/argocd-apps"
           state-dir: "kubernetes/oci/compute/cluster/.argocd-state"
-          skip-resources: "CustomResourceDefinition,Alloy,Plan,HelmChartConfig"
+          skip-resources: "CustomResourceDefinition,Alloy,Plan,HelmChartConfig,Alertmanager"
           comment-on-pr: "true"
           commit-state: ${{ github.event_name == 'push' }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
