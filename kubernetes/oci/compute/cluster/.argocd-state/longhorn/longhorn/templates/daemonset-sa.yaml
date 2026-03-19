@@ -5,10 +5,10 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.11.0
+    helm.sh/chart: longhorn-1.11.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.11.0
+    app.kubernetes.io/version: v1.11.1
     app: longhorn-manager
   name: longhorn-backend
   namespace: longhorn-system
@@ -27,10 +27,10 @@ kind: DaemonSet
 metadata:
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.11.0
+    helm.sh/chart: longhorn-1.11.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.11.0
+    app.kubernetes.io/version: v1.11.1
     app: longhorn-manager
   name: longhorn-manager
   namespace: longhorn-system
@@ -42,15 +42,15 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: longhorn
-        helm.sh/chart: longhorn-1.11.0
+        helm.sh/chart: longhorn-1.11.1
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: longhorn
-        app.kubernetes.io/version: v1.11.0
+        app.kubernetes.io/version: v1.11.1
         app: longhorn-manager
     spec:
       containers:
       - name: longhorn-manager
-        image: docker.io/longhornio/longhorn-manager:v1.11.0
+        image: docker.io/longhornio/longhorn-manager:v1.11.1
         imagePullPolicy: IfNotPresent
         securityContext:
           privileged: true
@@ -59,17 +59,17 @@ spec:
         - -d
         - daemon
         - --engine-image
-        - "docker.io/longhornio/longhorn-engine:v1.11.0"
+        - "docker.io/longhornio/longhorn-engine:v1.11.1"
         - --instance-manager-image
         - "docker.io/longhornio/longhorn-instance-manager:v1.11.0-hotfix-1"
         - --share-manager-image
-        - "docker.io/longhornio/longhorn-share-manager:v1.11.0"
+        - "docker.io/longhornio/longhorn-share-manager:v1.11.1"
         - --backing-image-manager-image
-        - "docker.io/longhornio/backing-image-manager:v1.11.0"
+        - "docker.io/longhornio/backing-image-manager:v1.11.1"
         - --support-bundle-manager-image
-        - "docker.io/longhornio/support-bundle-kit:v0.0.79"
+        - "docker.io/longhornio/support-bundle-kit:v0.0.81"
         - --manager-image
-        - "docker.io/longhornio/longhorn-manager:v1.11.0"
+        - "docker.io/longhornio/longhorn-manager:v1.11.1"
         - --service-account
         - longhorn-service-account
         - --upgrade-version-check
@@ -122,7 +122,7 @@ spec:
         
       - name: pre-pull-share-manager-image
         imagePullPolicy: IfNotPresent
-        image: docker.io/longhornio/longhorn-share-manager:v1.11.0
+        image: docker.io/longhornio/longhorn-share-manager:v1.11.1
         command: ["sh", "-c", "echo share-manager image pulled && sleep infinity"]
       volumes:
       - name: boot

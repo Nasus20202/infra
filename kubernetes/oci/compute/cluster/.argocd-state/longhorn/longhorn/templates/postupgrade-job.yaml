@@ -10,10 +10,10 @@ metadata:
   namespace: longhorn-system
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.11.0
+    helm.sh/chart: longhorn-1.11.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.11.0
+    app.kubernetes.io/version: v1.11.1
 spec:
   activeDeadlineSeconds: 900
   backoffLimit: 1
@@ -22,14 +22,14 @@ spec:
       name: longhorn-post-upgrade
       labels:
         app.kubernetes.io/name: longhorn
-        helm.sh/chart: longhorn-1.11.0
+        helm.sh/chart: longhorn-1.11.1
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: longhorn
-        app.kubernetes.io/version: v1.11.0
+        app.kubernetes.io/version: v1.11.1
     spec:
       containers:
       - name: longhorn-post-upgrade
-        image: docker.io/longhornio/longhorn-manager:v1.11.0
+        image: docker.io/longhornio/longhorn-manager:v1.11.1
         imagePullPolicy: IfNotPresent
         command:
         - longhorn-manager

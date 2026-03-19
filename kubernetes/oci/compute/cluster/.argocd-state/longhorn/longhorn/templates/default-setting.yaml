@@ -7,10 +7,10 @@ metadata:
   namespace: longhorn-system
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.11.0
+    helm.sh/chart: longhorn-1.11.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.11.0
+    app.kubernetes.io/version: v1.11.1
 data:
   default-setting.yaml: |-
     replica-soft-anti-affinity: true

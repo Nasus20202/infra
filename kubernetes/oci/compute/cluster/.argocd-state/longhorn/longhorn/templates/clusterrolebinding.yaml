@@ -6,10 +6,10 @@ metadata:
   name: longhorn-bind
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.11.0
+    helm.sh/chart: longhorn-1.11.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.11.0
+    app.kubernetes.io/version: v1.11.1
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -26,10 +26,10 @@ metadata:
   name: longhorn-support-bundle
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.11.0
+    helm.sh/chart: longhorn-1.11.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.11.0
+    app.kubernetes.io/version: v1.11.1
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
