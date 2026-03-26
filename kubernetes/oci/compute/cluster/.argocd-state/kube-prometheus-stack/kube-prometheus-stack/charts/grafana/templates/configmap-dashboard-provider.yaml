@@ -4,10 +4,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    helm.sh/chart: grafana-11.3.4
+    helm.sh/chart: grafana-11.3.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "12.4.1"
+    app.kubernetes.io/version: "12.4.2"
   name: prometheus-grafana-config-dashboards
   namespace: monitoring
 data:

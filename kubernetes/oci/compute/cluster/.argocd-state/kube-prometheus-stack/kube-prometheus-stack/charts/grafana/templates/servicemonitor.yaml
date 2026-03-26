@@ -7,10 +7,10 @@ metadata:
   namespace: monitoring
   labels:
     release: "prometheus"
-    helm.sh/chart: grafana-11.3.4
+    helm.sh/chart: grafana-11.3.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "12.4.1"
+    app.kubernetes.io/version: "12.4.2"
 spec:
   endpoints:
   - port: http-web
