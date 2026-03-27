@@ -6,13 +6,13 @@ metadata:
   name: argocd-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-9.4.16
+    helm.sh/chart: argo-cd-9.4.17
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v3.3.5"
+    app.kubernetes.io/version: "v3.3.6"
 data:
   accounts.nasus: login
   admin.enabled: "true"
