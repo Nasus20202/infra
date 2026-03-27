@@ -1,0 +1,65 @@
+---
+# Source: k8s-monitoring/templates/alloy.yaml
+apiVersion: collectors.grafana.com/v1alpha1
+kind: Alloy
+metadata:
+  name: k8s-monitoring-alloy-logs
+  namespace: monitoring
+  annotations:
+    helm.sdk.operatorframework.io/uninstall-wait: "true"
+spec:
+  alloy:
+    configMap:
+      create: false
+    mounts:
+      dockercontainers: true
+      extra:
+      - mountPath: /etc/release-info
+        name: release-info
+        readOnly: true
+      varlog: true
+    resources:
+      limits:
+        memory: 300Mi
+      requests:
+        cpu: 30m
+        memory: 150Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        add:
+        - CHOWN
+        - DAC_OVERRIDE
+        - FOWNER
+        - FSETID
+        - KILL
+        - SETGID
+        - SETUID
+        - SETPCAP
+        - NET_BIND_SERVICE
+        - NET_RAW
+        - SYS_CHROOT
+        - MKNOD
+        - AUDIT_WRITE
+        - SETFCAP
+        drop:
+        - ALL
+      seccompProfile:
+        type: RuntimeDefault
+  controller:
+    nodeSelector:
+      kubernetes.io/os: linux
+    podAnnotations:
+      k8s.grafana.com/logs.job: integrations/alloy
+    tolerations:
+    - effect: NoSchedule
+      operator: Exists
+    type: daemonset
+    volumes:
+      extra:
+      - configMap:
+          name: k8s-monitoring-release-info
+        name: release-info
+  crds:
+    create: false
+  nameOverride: alloy-logs
