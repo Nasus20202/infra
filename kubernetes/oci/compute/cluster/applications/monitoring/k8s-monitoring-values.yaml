@@ -2,10 +2,10 @@ cluster:
   name: compute-k8s
 
 destinations:
-  - name: loki
+  loki:
     type: loki
     url: http://loki:3100/loki/api/v1/push
-  - name: prometheus
+  prometheus:
     type: prometheus
     url: http://prometheus-kube-prometheus-prometheus:9090/api/v1/write
 
@@ -17,11 +17,9 @@ nodeLogs:
   enabled: true
   collector: alloy-logs
 
-podLogs:
+podLogsViaLoki:
   enabled: true
   collector: alloy-logs
-  structuredMetadata:
-    pod: pod
 
 applicationObservability:
   enabled: false
@@ -30,33 +28,20 @@ autoInstrumentation:
   enabled: false
 
 # Collectors
-alloy-singleton:
-  enabled: false
-
-alloy-metrics:
-  enabled: false
-
-alloy-logs:
-  enabled: true
-  alloy:
-    mounts:
-      varlog: true
-    resources:
-      requests:
-        cpu: 30m
-        memory: 150Mi
-      limits:
-        memory: 300Mi
-
-alloy-profiles:
-  enabled: false
-
-alloy-receiver:
-  enabled: false
+collectors:
+  alloy-logs:
+    # filesystem-log-reader enables varlog filesystem access (equivalent to mounts.varlog: true in v3)
+    # daemonset deploys one collector instance per node
+    presets: [filesystem-log-reader, daemonset]
+    alloy:
+      resources:
+        requests:
+          cpu: 30m
+          memory: 150Mi
+        limits:
+          memory: 300Mi
 
 alloy-operator:
-  crds:
-    deployAlloyCRD: true
   resources:
     requests:
       cpu: 20m
