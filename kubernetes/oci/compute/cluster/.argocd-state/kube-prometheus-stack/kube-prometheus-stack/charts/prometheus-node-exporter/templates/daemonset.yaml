@@ -6,13 +6,13 @@ metadata:
   name: prometheus-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.52.2
+    helm.sh/chart: prometheus-node-exporter-4.53.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "1.10.2"
+    app.kubernetes.io/version: "1.11.0"
     release: prometheus
 spec:
   selector:
@@ -29,13 +29,13 @@ spec:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
-        helm.sh/chart: prometheus-node-exporter-4.52.2
+        helm.sh/chart: prometheus-node-exporter-4.53.0
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: prometheus-node-exporter
         app.kubernetes.io/name: prometheus-node-exporter
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "1.10.2"
+        app.kubernetes.io/version: "1.11.0"
         release: prometheus
         jobLabel: node-exporter
     spec:
@@ -48,7 +48,7 @@ spec:
       serviceAccountName: prometheus-prometheus-node-exporter
       containers:
         - name: node-exporter
-          image: quay.io/prometheus/node-exporter:v1.10.2
+          image: quay.io/prometheus/node-exporter:v1.11.0
           imagePullPolicy: IfNotPresent
           args:
             - --path.procfs=/host/proc
