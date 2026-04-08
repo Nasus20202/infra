@@ -6,7 +6,7 @@ metadata:
   name: prometheus-grafana
   namespace: monitoring
   labels:
-    helm.sh/chart: grafana-11.3.7
+    helm.sh/chart: grafana-11.3.8
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/version: "12.4.2"
@@ -23,7 +23,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: grafana-11.3.7
+        helm.sh/chart: grafana-11.3.8
         app.kubernetes.io/name: grafana
         app.kubernetes.io/instance: prometheus
         app.kubernetes.io/version: "12.4.2"
@@ -67,7 +67,7 @@ spec:
       enableServiceLinks: true
       containers:
         - name: grafana-sc-dashboard
-          image: "quay.io/kiwigrid/k8s-sidecar:2.5.4"
+          image: "quay.io/kiwigrid/k8s-sidecar:2.5.5"
           imagePullPolicy: IfNotPresent
           env:
             - name: METHOD
@@ -107,7 +107,7 @@ spec:
             - name: sc-dashboard-volume
               mountPath: "/tmp/dashboards"
         - name: grafana-sc-datasources
-          image: "quay.io/kiwigrid/k8s-sidecar:2.5.4"
+          image: "quay.io/kiwigrid/k8s-sidecar:2.5.5"
           imagePullPolicy: IfNotPresent
           env:
             - name: METHOD
