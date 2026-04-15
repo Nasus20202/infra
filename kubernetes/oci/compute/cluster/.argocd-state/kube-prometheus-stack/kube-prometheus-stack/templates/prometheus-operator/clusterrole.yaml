@@ -8,9 +8,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "83.4.1"
+    app.kubernetes.io/version: "83.4.2"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-83.4.1
+    chart: kube-prometheus-stack-83.4.2
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
