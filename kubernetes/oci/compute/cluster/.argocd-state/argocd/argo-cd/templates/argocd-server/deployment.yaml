@@ -6,13 +6,13 @@ metadata:
   name: argocd-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-9.5.1
+    helm.sh/chart: argo-cd-9.5.2
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v3.3.6"
+    app.kubernetes.io/version: "v3.3.7"
 spec:
   replicas: 1
   revisionHistoryLimit: 3
@@ -23,23 +23,23 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 020073d2ecc94b781069d88e7d5832dd738ecda2e2a7908dc9d977e6772b80a1
-        checksum/cm: fb1a3bbbf909026ba4b4f47ecb8da7915bfcf2cf1b66541d6349b24a3ee157ad
+        checksum/cmd-params: 045b980072d2b82218969aaa2cb7fb8e60b74cce1adc23edd2dc4cced7c28ec8
+        checksum/cm: 3c6970e77e7dca19b753a7358820997ba1489b929ac0d64f37fc738013ece5e5
       labels:
-        helm.sh/chart: argo-cd-9.5.1
+        helm.sh/chart: argo-cd-9.5.2
         app.kubernetes.io/name: argocd-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: server
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v3.3.6"
+        app.kubernetes.io/version: "v3.3.7"
     spec:
       terminationGracePeriodSeconds: 30
       serviceAccountName: argocd-server
       automountServiceAccountToken: true
       containers:
       - name: server
-        image: quay.io/argoproj/argocd:v3.3.6
+        image: quay.io/argoproj/argocd:v3.3.7
         imagePullPolicy: IfNotPresent
         args:
         - /usr/local/bin/argocd-server

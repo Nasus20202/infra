@@ -10,9 +10,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "83.4.2"
+    app.kubernetes.io/version: "83.6.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-83.4.2
+    chart: kube-prometheus-stack-83.6.0
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -26,7 +26,7 @@ spec:
         apiVersion: v2
   image: "quay.io/prometheus/prometheus:v3.11.2"
   imagePullPolicy: "IfNotPresent"
-  version: v3.11.2
+  version: "v3.11.2"
   additionalArgs:
     - name: enable-feature
       value: native-histograms
