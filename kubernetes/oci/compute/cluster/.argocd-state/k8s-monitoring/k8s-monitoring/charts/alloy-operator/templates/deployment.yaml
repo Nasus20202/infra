@@ -6,7 +6,7 @@ metadata:
   name: k8s-monitoring-alloy-operator
   namespace: monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.5.3
+    helm.sh/chart: alloy-operator-0.5.4
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
     app.kubernetes.io/version: "1.7.0"
@@ -20,7 +20,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: alloy-operator-0.5.3
+        helm.sh/chart: alloy-operator-0.5.4
         app.kubernetes.io/name: alloy-operator
         app.kubernetes.io/instance: k8s-monitoring
         app.kubernetes.io/version: "1.7.0"

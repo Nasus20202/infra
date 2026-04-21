@@ -5,7 +5,7 @@ kind: ClusterRole
 metadata:
   name: k8s-monitoring-alloy-operator-alloy-manager
   labels:
-    helm.sh/chart: alloy-operator-0.5.3
+    helm.sh/chart: alloy-operator-0.5.4
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
     app.kubernetes.io/version: "1.7.0"
@@ -32,7 +32,7 @@ kind: ClusterRoleBinding
 metadata:
   name: k8s-monitoring-alloy-operator-alloy-manager
   labels:
-    helm.sh/chart: alloy-operator-0.5.3
+    helm.sh/chart: alloy-operator-0.5.4
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
     app.kubernetes.io/version: "1.7.0"
