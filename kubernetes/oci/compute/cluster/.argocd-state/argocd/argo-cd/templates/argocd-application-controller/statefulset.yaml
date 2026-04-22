@@ -6,7 +6,7 @@ metadata:
   name: argocd-application-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-9.5.3
+    helm.sh/chart: argo-cd-9.5.4
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -24,10 +24,10 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: b9ffb860628427bd7a79b8b1e8bac460dd5608f169e3dbc03c58abec5a260c0c
-        checksum/cm: d7e92c4aa93ab07dfe16e68db947569580bd9df6ebce38a7aeaf47855e8dbac4
+        checksum/cmd-params: 58f46152963c0a1e918372aef3ad2cebb969fdb7971ca915fd38b5fae7d9e3f1
+        checksum/cm: 23506fe3aecaa8a4335a0eb69b200662a89562604e7dc24a295877601dbd5877
       labels:
-        helm.sh/chart: argo-cd-9.5.3
+        helm.sh/chart: argo-cd-9.5.4
         app.kubernetes.io/name: argocd-application-controller
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: application-controller
