@@ -1,0 +1,73 @@
+---
+# Source: loki/templates/monolithic/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "loki"
+  namespace: "monitoring"
+  labels:
+    helm.sh/chart: loki-13.2.3
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/version: "3.7.1"
+    app.kubernetes.io/component: "single-binary"
+  annotations:
+spec:
+  type: ClusterIP
+  publishNotReadyAddresses: true
+  ports:
+    - name: http-metrics
+      port: 3100
+      targetPort: http-metrics
+      protocol: TCP
+    - name: grpc
+      port: 9095
+      targetPort: grpc
+      protocol: TCP
+    - name: grpclb
+      port: 9096
+      targetPort: grpc
+      protocol: TCP
+  selector:
+    
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/component: "single-binary"
+---
+# Source: loki/templates/monolithic/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "loki-headless"
+  namespace: monitoring
+  labels:
+    helm.sh/chart: loki-13.2.3
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/version: "3.7.1"
+    app.kubernetes.io/component: "single-binary"
+    prometheus.io/service-monitor: "false"
+    variant: headless
+  annotations:
+spec:
+  clusterIP: None
+  type: ClusterIP
+  publishNotReadyAddresses: true
+  ports:
+    - name: http-metrics
+      port: 3100
+      targetPort: http-metrics
+      protocol: TCP
+    - name: grpc
+      port: 9095
+      targetPort: grpc
+      protocol: TCP
+    - name: grpclb
+      port: 9096
+      targetPort: grpc
+      protocol: TCP
+  selector:
+    
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/component: "single-binary"

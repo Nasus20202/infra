@@ -8,9 +8,9 @@ metadata:
 spec:
   project: infra
   sources:
-    - repoURL: https://grafana.github.io/helm-charts
+    - repoURL: https://grafana-community.github.io/helm-charts
       chart: loki
-      targetRevision: "6.55.0"
+      targetRevision: "13.2.3"
       helm:
         releaseName: loki
         valueFiles:
