@@ -6,7 +6,7 @@ metadata:
   name: loki
   namespace: monitoring
   labels:
-    helm.sh/chart: loki-13.2.5
+    helm.sh/chart: loki-13.3.1
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.7.1"
@@ -36,7 +36,7 @@ spec:
         storage/size: 5Gi
         kubectl.kubernetes.io/default-container: "loki"
       labels:
-        helm.sh/chart: loki-13.2.5
+        helm.sh/chart: loki-13.3.1
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.7.1"
@@ -151,7 +151,7 @@ spec:
               cpu: 30m
               memory: 500Mi
         - name: loki-sc-rules
-          image: docker.io/kiwigrid/k8s-sidecar:2.6.0
+          image: docker.io/kiwigrid/k8s-sidecar:2.7.1
           imagePullPolicy: IfNotPresent
           ports:
             - name: http-sidecar
