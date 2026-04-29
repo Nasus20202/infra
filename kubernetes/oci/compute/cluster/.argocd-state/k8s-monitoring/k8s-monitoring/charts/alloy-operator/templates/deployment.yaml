@@ -6,10 +6,10 @@ metadata:
   name: k8s-monitoring-alloy-operator
   namespace: monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.5.4
+    helm.sh/chart: alloy-operator-0.5.6
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.7.0"
+    app.kubernetes.io/version: "1.8.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -20,10 +20,10 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: alloy-operator-0.5.4
+        helm.sh/chart: alloy-operator-0.5.6
         app.kubernetes.io/name: alloy-operator
         app.kubernetes.io/instance: k8s-monitoring
-        app.kubernetes.io/version: "1.7.0"
+        app.kubernetes.io/version: "1.8.0"
         app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: k8s-monitoring-alloy-operator
@@ -31,7 +31,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: alloy-operator
-          image: "ghcr.io/grafana/alloy-operator:1.7.0"
+          image: "ghcr.io/grafana/alloy-operator:1.8.0"
           imagePullPolicy: IfNotPresent
           args:
             - --health-probe-bind-address=:8081
