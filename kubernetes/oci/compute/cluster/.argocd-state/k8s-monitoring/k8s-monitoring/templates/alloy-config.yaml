@@ -17,7 +17,7 @@ data:
         job_name   = "integrations/kubernetes/eventhandler"
         log_format = "logfmt"
         forward_to = [loki.process.cluster_events.receiver]
-      }
+      } // loki.source.kubernetes_events "cluster_events"
     
       loki.process "cluster_events" {
     
@@ -83,13 +83,15 @@ data:
         }
     
         forward_to = argument.logs_destinations.value
-      }
-    }
+      } // loki.process "cluster_events"
+    } // declare "cluster_events"
     cluster_events "feature" {
       logs_destinations = [
         loki.write.loki.receiver,
       ]
     }
+    
+    
     
     
     // Feature: Node Logs
@@ -117,7 +119,7 @@ data:
         }
     
         forward_to = [] // No forward_to is used in this component, the defined rules are used in the loki.source.journal component
-      }
+      } // loki.relabel "journal"
     
       loki.source.journal "worker" {
         path = "/var/log/journal"
@@ -129,7 +131,7 @@ data:
           instance = sys.env("HOSTNAME"),
         }
         forward_to = [loki.process.journal_logs.receiver]
-      }
+      } // loki.source.journal "worker"
     
       loki.process "journal_logs" {
         stage.static_labels {
@@ -218,8 +220,8 @@ data:
         }
     
         forward_to = argument.logs_destinations.value
-      }
-    }
+      } // loki.process "journal_logs"
+    } // declare "node_logs"
     node_logs "feature" {
       logs_destinations = [
         loki.write.loki.receiver,
@@ -237,7 +239,7 @@ data:
           role = "pod"
           field = "spec.nodeName=" + sys.env("HOSTNAME")
         }
-      }
+      } // discovery.kubernetes "pods"
     
       discovery.relabel "filtered_pods" {
         targets = discovery.kubernetes.pods.targets
@@ -246,27 +248,28 @@ data:
           action = "replace"
           target_label = "namespace"
         }
+        rule {  // Drop anything with a "falsy" annotation value
+          source_labels = ["__meta_kubernetes_pod_annotation_logs_grafana_com_pods_enabled"]
+          regex = "(false|no|skip)"
+          action = "drop"
+        }
         rule {
           source_labels = ["__meta_kubernetes_pod_name"]
-          action = "replace"
           target_label = "pod"
         }
         rule {
           source_labels = ["__meta_kubernetes_pod_container_name"]
-          action = "replace"
           target_label = "container"
         }
         rule {
           source_labels = ["__meta_kubernetes_namespace", "__meta_kubernetes_pod_container_name"]
           separator = "/"
-          action = "replace"
           replacement = "$1"
           target_label = "job"
         }
     
         // set the container runtime as a label
         rule {
-          action = "replace"
           source_labels = ["__meta_kubernetes_pod_container_id"]
           regex = "^(\\S+):\\/\\/.+$"
           replacement = "$1"
@@ -281,7 +284,6 @@ data:
         // - pod.label[app.kubernetes.io/name]
         // - k8s.container.name
         rule {
-          action = "replace"
           source_labels = [
             "__meta_kubernetes_pod_annotation_resource_opentelemetry_io_service_name",
             "__meta_kubernetes_pod_label_app_kubernetes_io_name",
@@ -299,7 +301,6 @@ data:
         // - pod.annotation[resource.opentelemetry.io/service.namespace]
         // - pod.namespace
         rule {
-          action = "replace"
           source_labels = [
             "__meta_kubernetes_pod_annotation_resource_opentelemetry_io_service_namespace",
             "namespace",
@@ -346,7 +347,6 @@ data:
         rule {
           source_labels = ["__meta_kubernetes_pod_uid", "__meta_kubernetes_pod_container_name"]
           separator = "/"
-          action = "replace"
           replacement = "/var/log/pods/*$1/*.log"
           target_label = "__path__"
         }
@@ -357,21 +357,20 @@ data:
           source_labels = ["__meta_kubernetes_pod_annotation_kubernetes_io_config_mirror", "__meta_kubernetes_pod_container_name"]
           separator = "/"
           regex = "(.+/.+)"
-          action = "replace"
           replacement = "/var/log/pods/*$1/*.log"
           target_label = "__path__"
         }
-      }
+      } // discovery.relabel "filtered_pods"
     
       local.file_match "pod_logs" {
         path_targets = discovery.relabel.filtered_pods.output
-      }
+      } // local.file_match "pod_logs"
     
       loki.source.file "pod_logs" {
         targets    = local.file_match.pod_logs.targets
         tail_from_end = true
         forward_to = [loki.process.pod_logs.receiver]
-      }
+      } // loki.source.file "pod_logs"
     
       loki.process "pod_logs" {
         stage.match {
@@ -421,14 +420,13 @@ data:
         }
     
         forward_to = argument.logs_destinations.value
-      }
-    }
+      } // loki.secretfilter "pod_logs"
+    } // declare "pod_logs_via_loki"
     pod_logs_via_loki "feature" {
       logs_destinations = [
         loki.write.loki.receiver,
       ]
     }
-    
     
     
     
@@ -441,7 +439,7 @@ data:
       textfile {
         directory = "/etc/release-info"
       }
-    }
+    } // prometheus.exporter.unix "kubernetes_monitoring_telemetry"
     
     discovery.relabel "kubernetes_monitoring_telemetry" {
       targets = prometheus.exporter.unix.kubernetes_monitoring_telemetry.targets
@@ -455,7 +453,7 @@ data:
         action = "replace"
         replacement = "integrations/kubernetes/kubernetes_monitoring_telemetry"
       }
-    }
+    } // discovery.relabel "kubernetes_monitoring_telemetry"
     
     prometheus.scrape "kubernetes_monitoring_telemetry" {
       job_name   = "integrations/kubernetes/kubernetes_monitoring_telemetry"
@@ -465,7 +463,7 @@ data:
         enabled = true
       }
       forward_to = [prometheus.relabel.kubernetes_monitoring_telemetry.receiver]
-    }
+    } // prometheus.scrape "kubernetes_monitoring_telemetry"
     
     prometheus.relabel "kubernetes_monitoring_telemetry" {
       rule {
@@ -476,7 +474,8 @@ data:
       forward_to = [
         prometheus.remote_write.prometheus.receiver,
       ]
-    }
+    } // prometheus.relabel "kubernetes_monitoring_telemetry"
+    
     
     
     
@@ -484,7 +483,7 @@ data:
     // Destination: loki (loki)
     otelcol.exporter.loki "loki" {
       forward_to = [loki.write.loki.receiver]
-    }
+    } // otelcol.exporter.loki "loki"
     
     loki.write "loki" {
       endpoint {
@@ -501,14 +500,14 @@ data:
         "cluster" = "compute-k8s",
         "k8s_cluster_name" = "compute-k8s",
       }
-    }
+    } // loki.write "loki"
     
     // Destination: prometheus (prometheus)
     otelcol.exporter.prometheus "prometheus" {
       add_metric_suffixes = true
       resource_to_telemetry_conversion = false
       forward_to = [prometheus.remote_write.prometheus.receiver]
-    }
+    } // otelcol.exporter.prometheus "prometheus"
     
     prometheus.remote_write "prometheus" {
       endpoint {
@@ -542,4 +541,4 @@ data:
         "cluster" = "compute-k8s",
         "k8s_cluster_name" = "compute-k8s",
       }
-    }
+    } // prometheus.remote_write "prometheus"
