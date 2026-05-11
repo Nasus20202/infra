@@ -48,7 +48,7 @@ spec:
       serviceAccountName: prometheus-prometheus-node-exporter
       containers:
         - name: node-exporter
-          image: quay.io/prometheus/node-exporter:v1.11.1
+          image: quay.io/prometheus/node-exporter:v1.11.1-distroless
           imagePullPolicy: IfNotPresent
           args:
             - --path.procfs=/host/proc
