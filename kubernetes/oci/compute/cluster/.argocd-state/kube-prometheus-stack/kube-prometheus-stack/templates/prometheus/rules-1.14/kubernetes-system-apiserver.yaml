@@ -10,9 +10,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.0.1"
+    app.kubernetes.io/version: "85.0.2"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.0.1
+    chart: kube-prometheus-stack-85.0.2
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -70,6 +70,15 @@ spec:
       for: 15m
       labels:
         severity: critical
+    - alert: KubeAPIInstanceUnreachable
+      annotations:
+        description: A KubeAPI instance has been unreachable for more than 15 minutes.
+        runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubeapiinstanceunreachable
+        summary: KubeAPI instance is unreachable.
+      expr: up{job="apiserver"} == 0
+      for: 15m
+      labels:
+        severity: warning
     - alert: KubeAPITerminatedRequests
       annotations:
         description: The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests on cluster {{ $labels.cluster }}.
