@@ -6,7 +6,7 @@ metadata:
   name: loki
   namespace: monitoring
   labels:
-    helm.sh/chart: loki-14.2.1
+    helm.sh/chart: loki-15.0.1
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.7.2"
@@ -32,11 +32,11 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 7c7f5ac724685671586b6510f94a25d9a184840c7b513daa711d979a84153813
+        checksum/config: f7c1edd88f4d96e9d427e82c501134dd2aba9e495eae14aa99369e84ba000a2a
         storage/size: 5Gi
         kubectl.kubernetes.io/default-container: "loki"
       labels:
-        helm.sh/chart: loki-14.2.1
+        helm.sh/chart: loki-15.0.1
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.7.2"
@@ -87,6 +87,7 @@ spec:
           args:
             - -config.file=/etc/loki/config/config.yaml
             - -config.expand-env=true
+            - -memberlist.advertise-addr=$(POD_IP)
             - -target=all
           ports:
             - name: http-metrics
@@ -103,7 +104,7 @@ spec:
               value: 870MiB
             - name: GOGC
               value: "80"
-            - name: HASH_RING_INSTANCE_ADDR
+            - name: POD_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP

@@ -6,7 +6,7 @@ metadata:
   name: loki
   namespace: monitoring
   labels:
-    helm.sh/chart: loki-14.2.1
+    helm.sh/chart: loki-15.0.1
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.7.2"
@@ -58,7 +58,6 @@ data:
       volume_enabled: true
     memberlist:
       abort_if_cluster_join_fails: true
-      advertise_addr: ${HASH_RING_INSTANCE_ADDR}
       advertise_port: 7946
       bind_port: 7946
       join_members:
