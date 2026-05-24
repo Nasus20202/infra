@@ -1,17 +1,16 @@
 ---
-# Source: loki/templates/monolithic/statefulset.yaml
+# Source: loki/templates/monolithic/workload.yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: loki
-  namespace: monitoring
+  name: "loki"
+  namespace: "monitoring"
   labels:
-    helm.sh/chart: loki-17.0.1
+    helm.sh/chart: loki-17.1.1
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.7.2"
     app.kubernetes.io/component: single-binary
-    app.kubernetes.io/part-of: memberlist
 spec:
   replicas: 1
   podManagementPolicy: Parallel
@@ -19,11 +18,10 @@ spec:
     rollingUpdate:
       partition: 0
   serviceName: loki-headless
-  revisionHistoryLimit: 10
-  
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete
     whenScaled: Delete
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -36,7 +34,7 @@ spec:
         storage/size: 5Gi
         kubectl.kubernetes.io/default-container: "loki"
       labels:
-        helm.sh/chart: loki-17.0.1
+        helm.sh/chart: loki-17.1.1
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.7.2"
