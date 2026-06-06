@@ -10,15 +10,15 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.1.1"
+    app.kubernetes.io/version: "86.2.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.1.1
+    chart: kube-prometheus-stack-86.2.0
     release: "prometheus"
     heritage: "Helm"
 spec:
-  image: "quay.io/prometheus/alertmanager:v0.32.1"
+  image: "quay.io/prometheus/alertmanager:v0.32.2"
   imagePullPolicy: "IfNotPresent"
-  version: "v0.32.1"
+  version: "v0.32.2"
   replicas: 1
   listenLocal: false
   serviceAccountName: prometheus-kube-prometheus-alertmanager
