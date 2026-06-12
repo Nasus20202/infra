@@ -27,3 +27,4 @@ subjects:
   - kind: ServiceAccount
     name: prometheus-kube-prometheus-admission
     namespace: monitoring
+

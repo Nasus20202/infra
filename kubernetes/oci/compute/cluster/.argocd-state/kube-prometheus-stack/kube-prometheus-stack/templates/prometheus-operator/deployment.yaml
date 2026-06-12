@@ -113,3 +113,4 @@ spec:
       serviceAccountName: prometheus-kube-prometheus-operator
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 30
+

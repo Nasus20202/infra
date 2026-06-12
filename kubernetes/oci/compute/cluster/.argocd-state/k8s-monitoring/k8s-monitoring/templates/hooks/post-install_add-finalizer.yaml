@@ -43,6 +43,7 @@ roleRef:
   kind: Role
   name: k8s-monitoring-add-finalizer
   apiGroup: rbac.authorization.k8s.io
+
 ---
 # Source: k8s-monitoring/templates/hooks/post-install_add-finalizer.yaml
 apiVersion: batch/v1

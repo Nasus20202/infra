@@ -27,3 +27,4 @@ data:
     root_url = https://grafana.nasus.dev
     [unified_storage]
     index_path = /var/lib/grafana-search/bleve
+

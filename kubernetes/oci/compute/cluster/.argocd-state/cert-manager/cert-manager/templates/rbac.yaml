@@ -535,6 +535,7 @@ subjects:
   - name: cert-manager
     namespace: cert-manager
     kind: ServiceAccount
+
 ---
 # Source: cert-manager/templates/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1

@@ -61,3 +61,4 @@ spec:
       nodeSelector:
         kubernetes.io/os: linux
       serviceAccountName: argocd-redis-secret-init
+

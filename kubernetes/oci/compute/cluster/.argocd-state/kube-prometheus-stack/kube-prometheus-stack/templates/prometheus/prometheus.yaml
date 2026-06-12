@@ -95,3 +95,4 @@ spec:
   portName: http-web
   maximumStartupDurationSeconds: 300
   hostNetwork: false
+

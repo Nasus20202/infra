@@ -64,3 +64,4 @@ subjects:
   - kind: ServiceAccount
     name: k8s-monitoring-alloy-operator
     namespace: monitoring
+

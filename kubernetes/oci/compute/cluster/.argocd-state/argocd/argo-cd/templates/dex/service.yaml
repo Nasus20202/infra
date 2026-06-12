@@ -30,3 +30,4 @@ spec:
   selector:
     app.kubernetes.io/name: argocd-dex-server
     app.kubernetes.io/instance: argocd
+

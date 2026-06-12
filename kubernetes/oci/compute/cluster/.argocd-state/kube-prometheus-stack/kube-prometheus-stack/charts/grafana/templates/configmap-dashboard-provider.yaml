@@ -25,3 +25,4 @@ data:
         options:
           foldersFromFilesStructure: false
           path: /tmp/dashboards
+

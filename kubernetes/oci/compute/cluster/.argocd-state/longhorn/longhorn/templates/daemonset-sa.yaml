@@ -20,6 +20,7 @@ spec:
   - name: manager
     port: 9500
     targetPort: manager
+
 ---
 # Source: longhorn/templates/daemonset-sa.yaml
 apiVersion: apps/v1

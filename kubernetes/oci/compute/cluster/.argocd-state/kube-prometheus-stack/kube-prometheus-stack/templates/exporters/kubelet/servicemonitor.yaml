@@ -112,3 +112,4 @@ spec:
       sourceLabels:
       - __metrics_path__
       targetLabel: metrics_path
+

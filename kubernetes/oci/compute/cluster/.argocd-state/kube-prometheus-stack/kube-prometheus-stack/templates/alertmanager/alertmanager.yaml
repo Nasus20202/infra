@@ -51,3 +51,4 @@ spec:
               - {key: alertmanager, operator: In, values: [prometheus-kube-prometheus-alertmanager]}
   portName: http-web
   hostNetwork: false
+

@@ -21,6 +21,7 @@ spec:
     port: 80
     targetPort: http
     nodePort: null
+
 ---
 # Source: longhorn/templates/deployment-ui.yaml
 apiVersion: apps/v1

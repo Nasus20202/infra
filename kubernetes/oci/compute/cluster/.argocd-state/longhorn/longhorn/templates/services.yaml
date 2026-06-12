@@ -42,3 +42,4 @@ spec:
   - name: recovery-backend
     port: 9503
     targetPort: recov-backend
+

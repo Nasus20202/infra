@@ -247,3 +247,4 @@ spec:
             name: prometheus-grafana-config-dashboards
         - name: sc-datasources-volume
           emptyDir: {}
+

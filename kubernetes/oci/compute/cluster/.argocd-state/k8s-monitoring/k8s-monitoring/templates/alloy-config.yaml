@@ -542,3 +542,4 @@ data:
         "k8s_cluster_name" = "compute-k8s",
       }
     } // prometheus.remote_write "prometheus"
+

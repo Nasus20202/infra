@@ -296,3 +296,4 @@ spec:
               - key: applicationsetcontroller.profile.enabled
                 path: profiler.enabled
       dnsPolicy: ClusterFirst
+

@@ -23,3 +23,4 @@ data:
     disable-revision-counter: "{\"v1\":\"true\"}"
     concurrent-automatic-engine-upgrade-per-node-limit: "1"
     guaranteed-instance-manager-cpu: "5"
+

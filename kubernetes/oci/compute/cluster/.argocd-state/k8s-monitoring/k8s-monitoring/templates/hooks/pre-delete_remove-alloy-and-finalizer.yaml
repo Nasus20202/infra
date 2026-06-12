@@ -43,6 +43,7 @@ roleRef:
   kind: Role
   name: k8s-monitoring-remove-alloy-and-finalizer
   apiGroup: rbac.authorization.k8s.io
+
 ---
 # Source: k8s-monitoring/templates/hooks/pre-delete_remove-alloy-and-finalizer.yaml
 apiVersion: batch/v1

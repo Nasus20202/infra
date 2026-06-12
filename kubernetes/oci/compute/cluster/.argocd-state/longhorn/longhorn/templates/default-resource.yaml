@@ -14,3 +14,4 @@ metadata:
 data:
   default-resource.yaml: |-
     backup-target-credential-secret: longhorn-backup-secret
+

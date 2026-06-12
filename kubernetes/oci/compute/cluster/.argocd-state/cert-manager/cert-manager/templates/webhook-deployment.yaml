@@ -102,3 +102,4 @@ spec:
               memory: 50Mi
       nodeSelector:
         kubernetes.io/os: "linux"
+

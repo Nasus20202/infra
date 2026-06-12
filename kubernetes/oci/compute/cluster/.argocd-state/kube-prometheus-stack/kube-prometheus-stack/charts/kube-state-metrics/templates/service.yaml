@@ -26,3 +26,4 @@ spec:
   selector:    
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
+

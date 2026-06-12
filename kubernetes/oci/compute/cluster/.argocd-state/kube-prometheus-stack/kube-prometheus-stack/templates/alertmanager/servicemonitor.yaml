@@ -31,3 +31,4 @@ spec:
     path: "/metrics"
   - port: reloader-web
     path: "/metrics"
+

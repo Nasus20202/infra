@@ -23,3 +23,4 @@ spec:
   selector:
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
+

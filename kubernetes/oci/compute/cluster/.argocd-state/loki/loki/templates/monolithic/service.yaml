@@ -6,7 +6,7 @@ metadata:
   name: "loki"
   namespace: "monitoring"
   labels:
-    helm.sh/chart: loki-17.3.1
+    helm.sh/chart: loki-17.3.2
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.7.2"
@@ -41,7 +41,7 @@ metadata:
   name: "loki-headless"
   namespace: monitoring
   labels:
-    helm.sh/chart: loki-17.3.1
+    helm.sh/chart: loki-17.3.2
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.7.2"
@@ -71,3 +71,4 @@ spec:
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/component: "single-binary"
+

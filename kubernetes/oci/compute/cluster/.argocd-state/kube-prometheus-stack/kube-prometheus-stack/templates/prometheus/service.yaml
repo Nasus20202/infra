@@ -31,3 +31,4 @@ spec:
     operator.prometheus.io/name: prometheus-kube-prometheus-prometheus
   sessionAffinity: None
   type: "ClusterIP"
+

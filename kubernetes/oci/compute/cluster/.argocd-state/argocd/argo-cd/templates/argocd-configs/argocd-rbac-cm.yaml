@@ -25,3 +25,4 @@ data:
   policy.default: role:user
   policy.matchMode: glob
   scopes: '[groups]'
+

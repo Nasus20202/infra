@@ -21,3 +21,4 @@ subjects:
 - kind: ServiceAccount
   name: argocd-dex-server
   namespace: argocd
+

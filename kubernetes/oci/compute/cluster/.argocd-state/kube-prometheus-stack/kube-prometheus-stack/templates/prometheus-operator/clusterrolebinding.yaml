@@ -24,3 +24,4 @@ subjects:
 - kind: ServiceAccount
   name: prometheus-kube-prometheus-operator
   namespace: monitoring
+

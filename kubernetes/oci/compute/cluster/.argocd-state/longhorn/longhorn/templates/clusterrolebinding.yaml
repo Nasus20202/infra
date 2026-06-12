@@ -38,3 +38,4 @@ subjects:
 - kind: ServiceAccount
   name: longhorn-support-bundle
   namespace: longhorn-system
+

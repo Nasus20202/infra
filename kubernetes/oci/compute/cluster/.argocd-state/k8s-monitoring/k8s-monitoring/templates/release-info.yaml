@@ -20,3 +20,6 @@ data:
     # TYPE grafana_kubernetes_monitoring_collector_info gauge
     grafana_kubernetes_monitoring_collector_info{kind="daemonset", name="alloy-logs", presets="filesystem-log-reader,daemonset", type="alloy"} 1
     # EOF
+    
+
+

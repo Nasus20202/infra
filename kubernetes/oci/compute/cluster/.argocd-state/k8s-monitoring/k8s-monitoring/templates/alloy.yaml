@@ -63,3 +63,4 @@ spec:
   crds:
     create: false
   nameOverride: alloy-logs
+

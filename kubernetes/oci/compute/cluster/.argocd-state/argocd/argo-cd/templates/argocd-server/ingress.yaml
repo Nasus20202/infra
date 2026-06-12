@@ -33,3 +33,4 @@ spec:
     - hosts:
       - argocd.nasus.dev
       secretName: argocd-server-tls
+

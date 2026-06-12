@@ -6,7 +6,7 @@ metadata:
   name: loki
   namespace: monitoring
   labels:
-    helm.sh/chart: loki-17.3.1
+    helm.sh/chart: loki-17.3.2
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.7.2"
@@ -115,3 +115,4 @@ data:
       use_thanos_objstore: false
     tracing:
       enabled: false
+
