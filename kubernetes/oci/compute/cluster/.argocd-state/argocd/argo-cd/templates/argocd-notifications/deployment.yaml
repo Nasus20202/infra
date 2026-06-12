@@ -6,7 +6,7 @@ metadata:
   name: argocd-notifications-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-9.5.20
+    helm.sh/chart: argo-cd-9.5.21
     app.kubernetes.io/name: argocd-notifications-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: notifications-controller
@@ -25,9 +25,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 546996bd34d21dd9a0a57d1914293860da5ef9fff36ccea4fbb21009bf769682
+        checksum/cmd-params: 0a7a9d23dadc0f691784944ac452da9be9c593ce3c13629a188c1f55cac5706b
       labels:
-        helm.sh/chart: argo-cd-9.5.20
+        helm.sh/chart: argo-cd-9.5.21
         app.kubernetes.io/name: argocd-notifications-controller
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: notifications-controller
