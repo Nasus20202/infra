@@ -6,10 +6,10 @@ metadata:
   name: loki-memberlist
   namespace: monitoring
   labels:
-    helm.sh/chart: loki-18.1.0
+    helm.sh/chart: loki-18.1.1
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.3"
   annotations:
 spec:
   type: ClusterIP

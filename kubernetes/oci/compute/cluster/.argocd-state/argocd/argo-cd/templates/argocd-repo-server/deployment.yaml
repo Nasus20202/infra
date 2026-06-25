@@ -6,7 +6,7 @@ metadata:
   name: argocd-repo-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-9.6.0
+    helm.sh/chart: argo-cd-9.7.0
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -23,10 +23,10 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 9ca291bc525092e66bd6e7f35222a3557b3e77929644c4ddfe6588b24019ea91
-        checksum/cm: 85bf1f93863ee20a78aa69b4ccb95a575f762972e322ed8f79e88b79b992d2f2
+        checksum/cmd-params: 7a88064db676cf1027299fc2273713785478cbff759a4178ce53430f058a384f
+        checksum/cm: 9f92866e0e4048e5db9abe7a4a08a2ba99dab2c5b061bd1437779c258cab523a
       labels:
-        helm.sh/chart: argo-cd-9.6.0
+        helm.sh/chart: argo-cd-9.7.0
         app.kubernetes.io/name: argocd-repo-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: repo-server
