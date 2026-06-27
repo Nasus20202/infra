@@ -1,9 +1,8 @@
 ---
-# Source: argo-cd/templates/argocd-application-controller/clusterrolebinding.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+# Source: argo-cd/templates/argocd-application-controller/networkpolicy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
-  name: argocd-application-controller
   labels:
     helm.sh/chart: argo-cd-10.0.0
     app.kubernetes.io/name: argocd-application-controller
@@ -12,12 +11,18 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
     app.kubernetes.io/version: "v3.4.4"
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: argocd-application-controller
-subjects:
-- kind: ServiceAccount
   name: argocd-application-controller
   namespace: argocd
+spec:
+  ingress:
+  - from:
+    - namespaceSelector: {}
+    ports:
+    - port: metrics
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: argocd-application-controller
+      app.kubernetes.io/instance: argocd
+  policyTypes:
+  - Ingress
 
