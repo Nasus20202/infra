@@ -6,7 +6,7 @@ metadata:
   name: "loki"
   namespace: "monitoring"
   labels:
-    helm.sh/chart: loki-18.2.0
+    helm.sh/chart: loki-18.3.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.7.3"
@@ -18,9 +18,6 @@ spec:
     rollingUpdate:
       partition: 0
   serviceName: loki-headless
-  persistentVolumeClaimRetentionPolicy:
-    whenDeleted: Delete
-    whenScaled: Delete
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -34,7 +31,7 @@ spec:
         storage/size: 5Gi
         kubectl.kubernetes.io/default-container: "loki"
       labels:
-        helm.sh/chart: loki-18.2.0
+        helm.sh/chart: loki-18.3.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.7.3"
