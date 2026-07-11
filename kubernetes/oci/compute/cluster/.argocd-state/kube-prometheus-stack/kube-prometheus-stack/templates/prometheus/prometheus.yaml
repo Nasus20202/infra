@@ -10,9 +10,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "87.12.2"
+    app.kubernetes.io/version: "87.14.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-87.12.2
+    chart: kube-prometheus-stack-87.14.0
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -24,9 +24,9 @@ spec:
         port: http-web
         pathPrefix: "/"
         apiVersion: v2
-  image: "quay.io/prometheus/prometheus:v3.13.0-distroless"
+  image: "quay.io/prometheus/prometheus:v3.13.1-distroless"
   imagePullPolicy: "IfNotPresent"
-  version: "v3.13.0-distroless"
+  version: "v3.13.1-distroless"
   additionalArgs:
     - name: enable-feature
       value: native-histograms
