@@ -6,13 +6,13 @@ metadata:
   name: argocd-application-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-10.3.2
+    helm.sh/chart: argo-cd-10.3.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v3.5.0"
+    app.kubernetes.io/version: "v3.5.1"
 spec:
   replicas: 1
   revisionHistoryLimit: 5
@@ -24,16 +24,16 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 8518c3d265f4687bb5a4a6b9ca3d7baae10259e8d59212d72fc3a6521a07d022
-        checksum/cm: 557ff2b23434d70246e1ebee34d74aa7102c6abbb617c62213ce7e7c35e906f9
+        checksum/cmd-params: ed65c31c87c1b87e44dcd4c9955d12616f680bd709f49e75068498e7bb7b7d24
+        checksum/cm: c7cb0ea039bf931a6095ce91199e5abcb6e37a493dcf190fdfe6432a1a264738
       labels:
-        helm.sh/chart: argo-cd-10.3.2
+        helm.sh/chart: argo-cd-10.3.3
         app.kubernetes.io/name: argocd-application-controller
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: application-controller
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v3.5.0"
+        app.kubernetes.io/version: "v3.5.1"
     spec:
       terminationGracePeriodSeconds: 30
       serviceAccountName: argocd-application-controller
@@ -42,7 +42,7 @@ spec:
       - args:
         - /usr/local/bin/argocd-application-controller
         - --metrics-port=8082
-        image: quay.io/argoproj/argocd:v3.5.0
+        image: quay.io/argoproj/argocd:v3.5.1
         imagePullPolicy: IfNotPresent
         name: application-controller
         env:
