@@ -5,10 +5,10 @@ apiVersion: v1
 metadata:
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.12.0
+    helm.sh/chart: longhorn-1.12.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.12.0
+    app.kubernetes.io/version: v1.12.1
     app: longhorn-ui
   name: longhorn-frontend
   namespace: longhorn-system
@@ -29,10 +29,10 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.12.0
+    helm.sh/chart: longhorn-1.12.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.12.0
+    app.kubernetes.io/version: v1.12.1
     app: longhorn-ui
   name: longhorn-ui
   namespace: longhorn-system
@@ -45,10 +45,10 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: longhorn
-        helm.sh/chart: longhorn-1.12.0
+        helm.sh/chart: longhorn-1.12.1
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: longhorn
-        app.kubernetes.io/version: v1.12.0
+        app.kubernetes.io/version: v1.12.1
         app: longhorn-ui
     spec:
       serviceAccountName: longhorn-ui-service-account
@@ -66,7 +66,7 @@ spec:
             weight: 1
       containers:
       - name: longhorn-ui
-        image: docker.io/longhornio/longhorn-ui:v1.12.0
+        image: docker.io/longhornio/longhorn-ui:v1.12.1
         imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: nginx-cache
