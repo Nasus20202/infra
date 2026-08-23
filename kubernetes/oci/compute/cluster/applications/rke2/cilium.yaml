@@ -11,22 +11,6 @@ spec:
     encryption:
       enabled: false # Disabled to reduce CPU usage
       type: wireguard
-    hubble:
-      enabled: true
-      relay:
-        enabled: true
-      ui:
-        enabled: true
-      metrics:
-        enabled: 
-          - dns:query
-          - drop
-          - tcp
-          - flow
-          - icmp
-          - http
-        serviceMonitor:
-          enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
