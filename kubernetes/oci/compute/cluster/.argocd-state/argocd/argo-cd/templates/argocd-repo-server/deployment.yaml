@@ -6,13 +6,13 @@ metadata:
   name: argocd-repo-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-10.4.0
+    helm.sh/chart: argo-cd-10.4.1
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v3.5.1"
+    app.kubernetes.io/version: "v3.5.2"
 spec:
   replicas: 1
   revisionHistoryLimit: 3
@@ -23,23 +23,23 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: d0477239ed2358dfb649902c178c882c3930650fe01522b7883554aedc8c5166
-        checksum/cm: a632c72ba54eb30626a860bb9ac08a7ec9e358a844da2dd1633cc1fc9046a114
+        checksum/cmd-params: 1fccaeafe4e9b985dfc919e1ba919e67230b935d3041997f060bcedd192ff38e
+        checksum/cm: 2adea550536d21e77b7aeed6ba47db3d085cf0312685c3f0a3f31cd5bd74f0e1
       labels:
-        helm.sh/chart: argo-cd-10.4.0
+        helm.sh/chart: argo-cd-10.4.1
         app.kubernetes.io/name: argocd-repo-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: repo-server
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v3.5.1"
+        app.kubernetes.io/version: "v3.5.2"
     spec:
       terminationGracePeriodSeconds: 30
       serviceAccountName: argocd-repo-server
       automountServiceAccountToken: true
       containers:
       - name: repo-server
-        image: quay.io/argoproj/argocd:v3.5.1
+        image: quay.io/argoproj/argocd:v3.5.2
         imagePullPolicy: IfNotPresent
         args:
         - /usr/local/bin/argocd-repo-server
@@ -369,7 +369,7 @@ spec:
         - '-c'
         args:
         - /bin/cp --update=none /usr/local/bin/argocd /var/run/argocd/argocd && /bin/ln -sf /var/run/argocd/argocd /var/run/argocd/argocd-cmp-server
-        image: quay.io/argoproj/argocd:v3.5.1
+        image: quay.io/argoproj/argocd:v3.5.2
         imagePullPolicy: IfNotPresent
         name: copyutil
         resources:
