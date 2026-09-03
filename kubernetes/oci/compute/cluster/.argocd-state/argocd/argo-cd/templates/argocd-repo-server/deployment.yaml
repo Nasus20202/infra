@@ -6,7 +6,7 @@ metadata:
   name: argocd-repo-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-10.6.0
+    helm.sh/chart: argo-cd-10.7.0
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -23,10 +23,10 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: fa953c836acc9506d7d66f470d68b270a3ed0b86f67791440186e079bdeea57b
-        checksum/cm: 9bdd6511b153970c37a7654af5847bcfd4f98e843c6410d5ebda0c8e0e223a97
+        checksum/cmd-params: 7169a66dffe48e8cacc4d5fee2ffe558d692709d8ddaf19ef44fa89b031b0fe5
+        checksum/cm: ea9c3db049245bc263c3456909ecdf34fc708e87abee35e5fe785b8b111623c7
       labels:
-        helm.sh/chart: argo-cd-10.6.0
+        helm.sh/chart: argo-cd-10.7.0
         app.kubernetes.io/name: argocd-repo-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: repo-server
@@ -416,6 +416,7 @@ spec:
       - name: tls-certs
         configMap:
           name: argocd-tls-certs-cm
+          optional: true
       - name: gpg-keys
         configMap:
           name: argocd-gpg-keys-cm
