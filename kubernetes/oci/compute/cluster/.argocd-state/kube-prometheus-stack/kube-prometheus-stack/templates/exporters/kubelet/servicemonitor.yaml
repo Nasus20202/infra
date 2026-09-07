@@ -9,9 +9,9 @@ metadata:
     app: kube-prometheus-stack-kubelet    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "89.2.4"
+    app.kubernetes.io/version: "90.0.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-89.2.4
+    chart: kube-prometheus-stack-90.0.0
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -30,9 +30,16 @@ spec:
   - port: https-metrics
     scheme: https    
     tlsConfig:
-      caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      ca:
+        configMap:
+          key: ca.crt
+          name: kube-root-ca.crt
       insecureSkipVerify: true
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    authorization:
+      credentials:
+        key: token
+        name: 'prometheus-kube-prometheus-prometheus-token'
+      type: Bearer
     honorLabels: true
     honorTimestamps: true
     metricRelabelings:
@@ -54,9 +61,16 @@ spec:
     honorTimestamps: true
     trackTimestampsStaleness: true    
     tlsConfig:
-      caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      ca:
+        configMap:
+          key: ca.crt
+          name: kube-root-ca.crt
       insecureSkipVerify: true
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    authorization:
+      credentials:
+        key: token
+        name: 'prometheus-kube-prometheus-prometheus-token'
+      type: Bearer
     metricRelabelings:
     - action: drop
       regex: container_cpu_(cfs_throttled_seconds_total|load_average_10s|system_seconds_total|user_seconds_total)
@@ -104,9 +118,16 @@ spec:
     honorLabels: true
     honorTimestamps: true    
     tlsConfig:
-      caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      ca:
+        configMap:
+          key: ca.crt
+          name: kube-root-ca.crt
       insecureSkipVerify: true
-    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    authorization:
+      credentials:
+        key: token
+        name: 'prometheus-kube-prometheus-prometheus-token'
+      type: Bearer
     relabelings:
     - action: replace
       sourceLabels:

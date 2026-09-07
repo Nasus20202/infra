@@ -9,9 +9,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "89.2.4"
+    app.kubernetes.io/version: "90.0.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-89.2.4
+    chart: kube-prometheus-stack-90.0.0
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -30,9 +30,9 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "89.2.4"
+        app.kubernetes.io/version: "90.0.0"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-89.2.4
+        chart: kube-prometheus-stack-90.0.0
         release: "prometheus"
         heritage: "Helm"
         app: kube-prometheus-stack-operator
@@ -54,7 +54,7 @@ spec:
             - --config-reloader-memory-request=0
             - --config-reloader-memory-limit=0
             - --thanos-default-base-image=quay.io/thanos/thanos:v0.42.4
-            - --secret-field-selector=type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1
+            - --secret-field-selector=type!=kubernetes.io/dockercfg,type!=helm.sh/release.v1
             - --web.enable-tls=true
             - --web.cert-file=/cert/cert
             - --web.key-file=/cert/key
