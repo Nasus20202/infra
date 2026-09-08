@@ -16,6 +16,9 @@ persistence:
 defaultBackupStore:
   backupTargetCredentialSecret: longhorn-backup-secret
 
+networkPolicies:
+  restrictInternalTraffic: false
+
 metrics:
   serviceMonitor:
     enabled: true
