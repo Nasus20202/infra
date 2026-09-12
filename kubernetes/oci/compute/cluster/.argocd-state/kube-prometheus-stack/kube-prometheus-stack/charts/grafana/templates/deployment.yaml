@@ -6,7 +6,7 @@ metadata:
   name: prometheus-grafana
   namespace: monitoring
   labels:
-    helm.sh/chart: grafana-13.2.2
+    helm.sh/chart: grafana-13.2.4
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/version: "13.2.1"
@@ -23,12 +23,12 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: grafana-13.2.2
+        helm.sh/chart: grafana-13.2.4
         app.kubernetes.io/name: grafana
         app.kubernetes.io/instance: prometheus
         app.kubernetes.io/version: "13.2.1"
       annotations:
-        checksum/config: af76f769ac45398c814226bb75a77c826760dbbd7aa4f4454525e4e4340c5de2
+        checksum/config: 56b18d1b9b44e58b6c79cf48fb090117334e8cb2c48b62dd1e3bc6cce2860d9a
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana
     spec:
