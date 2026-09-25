@@ -8,9 +8,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "91.5.1"
+    app.kubernetes.io/version: "91.5.2"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-91.5.1
+    chart: kube-prometheus-stack-91.5.2
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -21,13 +21,9 @@ rules:
   - monitoring.coreos.com
   resources:
   - alertmanagers
-  - alertmanagers/finalizers
   - prometheusagents
-  - prometheusagents/finalizers
   - prometheuses
-  - prometheuses/finalizers
   - thanosrulers
-  - thanosrulers/finalizers
   verbs:
   - patch
 - apiGroups:
@@ -47,6 +43,15 @@ rules:
   - update
   - patch
   - delete
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - alertmanagers/finalizers
+  - prometheusagents/finalizers
+  - prometheuses/finalizers
+  - thanosrulers/finalizers
+  verbs:
+  - update
 - apiGroups:
   - monitoring.coreos.com
   resources:
