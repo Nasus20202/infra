@@ -8,6 +8,7 @@ metadata:
   annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+
 ---
 # Source: k8s-monitoring/templates/hooks/pre-delete_remove-alloy-and-finalizer.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -25,6 +26,7 @@ rules:
   - apiGroups: ["collectors.grafana.com"]
     resources: ["alloys"]
     verbs: ["get", "list", "watch", "delete"]
+
 ---
 # Source: k8s-monitoring/templates/hooks/pre-delete_remove-alloy-and-finalizer.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -101,3 +103,4 @@ spec:
             runAsUser: 4242
             seccompProfile:
               type: RuntimeDefault
+

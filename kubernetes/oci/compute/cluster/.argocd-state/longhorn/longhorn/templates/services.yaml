@@ -20,6 +20,7 @@ spec:
   - name: admission-webhook
     port: 9502
     targetPort: admission-wh
+
 ---
 # Source: longhorn/templates/services.yaml
 apiVersion: v1

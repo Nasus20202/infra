@@ -152,3 +152,4 @@ spec:
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 100%
+

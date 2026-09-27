@@ -9,6 +9,7 @@ metadata:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
     "helm.sh/hook-weight": "5"
+
 ---
 # Source: k8s-monitoring/templates/hooks/post-install_add-finalizer.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -24,6 +25,7 @@ rules:
   - apiGroups: ["apps"]
     resources: ["deployments"]
     verbs: ["get", "list", "watch", "patch"]
+
 ---
 # Source: k8s-monitoring/templates/hooks/post-install_add-finalizer.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -97,3 +99,4 @@ spec:
             runAsUser: 4242
             seccompProfile:
               type: RuntimeDefault
+

@@ -22,6 +22,7 @@ rules:
   - apiGroups: ["cert-manager.io"]
     resources: ["certificaterequests"]
     verbs: ["create"]
+
 ---
 # Source: cert-manager/templates/startupapicheck-rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1

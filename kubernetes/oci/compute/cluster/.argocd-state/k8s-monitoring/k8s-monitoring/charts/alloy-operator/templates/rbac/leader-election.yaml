@@ -43,6 +43,7 @@ rules:
     verbs:
       - create
       - patch
+
 ---
 # Source: k8s-monitoring/charts/alloy-operator/templates/rbac/leader-election.yaml
 apiVersion: rbac.authorization.k8s.io/v1

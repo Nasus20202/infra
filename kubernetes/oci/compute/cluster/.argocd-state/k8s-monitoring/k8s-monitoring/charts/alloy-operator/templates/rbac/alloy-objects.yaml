@@ -35,6 +35,7 @@ rules:
   - apiGroups: ["rbac.authorization.k8s.io"]
     resources: ["clusterroles", "clusterrolebindings", "roles", "rolebindings"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "bind", "escalate"]
+
 ---
 # Source: k8s-monitoring/charts/alloy-operator/templates/rbac/alloy-objects.yaml
 apiVersion: rbac.authorization.k8s.io/v1
