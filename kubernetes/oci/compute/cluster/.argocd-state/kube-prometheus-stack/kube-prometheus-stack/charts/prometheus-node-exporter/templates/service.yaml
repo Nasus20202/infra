@@ -15,8 +15,6 @@ metadata:
     app.kubernetes.io/version: "1.12.1"
     release: prometheus
     jobLabel: node-exporter
-  annotations:
-    prometheus.io/scrape: "true"
 spec:
   type: ClusterIP
   ports:
