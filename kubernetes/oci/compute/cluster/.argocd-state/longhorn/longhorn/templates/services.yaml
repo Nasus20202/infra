@@ -5,10 +5,10 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.12.1
+    helm.sh/chart: longhorn-1.13.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.12.1
+    app.kubernetes.io/version: v1.13.0
     app: longhorn-admission-webhook
   name: longhorn-admission-webhook
   namespace: longhorn-system
@@ -28,10 +28,10 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.12.1
+    helm.sh/chart: longhorn-1.13.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.12.1
+    app.kubernetes.io/version: v1.13.0
     app: longhorn-recovery-backend
   name: longhorn-recovery-backend
   namespace: longhorn-system

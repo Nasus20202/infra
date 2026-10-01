@@ -6,10 +6,10 @@ metadata:
   name: longhorn-bind
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.12.1
+    helm.sh/chart: longhorn-1.13.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.12.1
+    app.kubernetes.io/version: v1.13.0
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -27,10 +27,10 @@ metadata:
   name: longhorn-support-bundle
   labels:
     app.kubernetes.io/name: longhorn
-    helm.sh/chart: longhorn-1.12.1
+    helm.sh/chart: longhorn-1.13.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: longhorn
-    app.kubernetes.io/version: v1.12.1
+    app.kubernetes.io/version: v1.13.0
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -38,5 +38,47 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: longhorn-support-bundle
+  namespace: longhorn-system
+
+---
+# Source: longhorn/templates/clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: longhorn-csi-bind
+  labels:
+    app.kubernetes.io/name: longhorn
+    helm.sh/chart: longhorn-1.13.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/version: v1.13.0
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: longhorn-csi-role
+subjects:
+- kind: ServiceAccount
+  name: longhorn-csi-service-account
+  namespace: longhorn-system
+
+---
+# Source: longhorn/templates/clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: longhorn-csi-secret-bind
+  labels:
+    app.kubernetes.io/name: longhorn
+    helm.sh/chart: longhorn-1.13.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: longhorn
+    app.kubernetes.io/version: v1.13.0
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: longhorn-csi-secret-role
+subjects:
+- kind: ServiceAccount
+  name: longhorn-csi-service-account
   namespace: longhorn-system
 
