@@ -10,9 +10,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "91.9.0"
+    app.kubernetes.io/version: "92.2.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-91.9.0
+    chart: kube-prometheus-stack-92.2.0
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -24,6 +24,8 @@ spec:
   serviceAccountName: prometheus-kube-prometheus-alertmanager
   automountServiceAccountToken: true
   externalUrl: http://prometheus-kube-prometheus-alertmanager.monitoring:9093
+  nodeSelector:
+    kubernetes.io/os: linux
   paused: false
   logFormat: "logfmt"
   logLevel:  "info"

@@ -10,9 +10,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "91.9.0"
+    app.kubernetes.io/version: "92.2.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-91.9.0
+    chart: kube-prometheus-stack-92.2.0
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -32,6 +32,8 @@ spec:
       value: native-histograms
   enableRemoteWriteReceiver: true
   externalUrl: http://prometheus-kube-prometheus-prometheus.monitoring:9090
+  nodeSelector:
+    kubernetes.io/os: linux
   paused: false
   replicas: 1
   shards: 1
