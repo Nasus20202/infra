@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["github>Nasus20202/argocd-renovate"],
-  "automergeSchedule": ["* 0-7 * * *"],
   "packageRules": [
     {
       "matchManagers": ["terraform"],
