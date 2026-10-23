@@ -1,0 +1,51 @@
+name: Terraform validation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  fmt:
+    name: Terraform fmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Check formatting
+        run: terraform fmt -check -recursive -diff terraform
+
+  validate:
+    name: Terraform validate (${{ matrix.dir }})
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir:
+          - terraform/oci/compute
+          - terraform/remote-state
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Init without backend
+        working-directory: ${{ matrix.dir }}
+        run: terraform init -backend=false -input=false
+
+      - name: Validate
+        working-directory: ${{ matrix.dir }}
+        run: terraform validate
