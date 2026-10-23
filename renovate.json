@@ -1,10 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>Nasus20202/argocd-renovate"],
-  "packageRules": [
-    {
-      "matchManagers": ["terraform"],
-      "ignoreTests": true
-    }
-  ]
+  "extends": ["github>Nasus20202/argocd-renovate"]
 }
