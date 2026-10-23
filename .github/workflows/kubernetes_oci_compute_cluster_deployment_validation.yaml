@@ -12,13 +12,10 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - kubernetes/oci/compute/cluster/**
-      - .github/workflows/kubernetes_oci_compute_cluster_deployment_validation.yaml
 
 jobs:
   validate-manifests:
-    name: Validate ${{ github.event.pull_request.title || github.event.head_commit.message || github.ref_name }}
+    name: Validate manifests
 
     runs-on: ubuntu-latest
     permissions:
