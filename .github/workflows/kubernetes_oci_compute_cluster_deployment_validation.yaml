@@ -23,16 +23,18 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      # The state commit is pushed to a protected branch, so it needs a token
-      # that is allowed to bypass the "require pull request" rule.
+      # The app token pushes the state commit to the protected branch (the app is
+      # on the ruleset bypass list) and posts the PR comment. It is not available
+      # to Dependabot/fork PRs (no secrets), so fall back to GITHUB_TOKEN there.
       - name: Generate GitHub App token
         id: app-token
-        if: github.event_name == 'push'
+        continue-on-error: true
         uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           permission-contents: write
+          permission-pull-requests: write
 
       - name: Checkout repository
         uses: actions/checkout@v7
