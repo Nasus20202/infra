@@ -22,8 +22,21 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      # The state commit is pushed to a protected branch, so it needs a token
+      # that is allowed to bypass the "require pull request" rule.
+      - name: Generate GitHub App token
+        id: app-token
+        if: github.event_name == 'push'
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       - name: Build and validate ArgoCD Manifests
         uses: nasus20202/argocd-validate-action@v3
@@ -33,4 +46,4 @@ jobs:
           skip-resources: "CustomResourceDefinition,Plan"
           comment-on-pr: "true"
           commit-state: ${{ github.event_name == 'push' }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
