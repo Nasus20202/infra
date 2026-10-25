@@ -50,9 +50,6 @@ singleBinary:
 gateway:
   enabled: false
 
-minio:
-  enabled: false
-
 chunksCache:
   enabled: false
 
@@ -86,8 +83,6 @@ distributor:
 compactor:
   replicas: 0
 indexGateway:
-  replicas: 0
-bloomCompactor:
   replicas: 0
 bloomGateway:
   replicas: 0
