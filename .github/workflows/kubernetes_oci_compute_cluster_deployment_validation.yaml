@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - kubernetes/oci/compute/cluster/**
+      - "!kubernetes/oci/compute/cluster/.argocd-state/**"
       - .github/workflows/kubernetes_oci_compute_cluster_deployment_validation.yaml
   pull_request:
     branches:
