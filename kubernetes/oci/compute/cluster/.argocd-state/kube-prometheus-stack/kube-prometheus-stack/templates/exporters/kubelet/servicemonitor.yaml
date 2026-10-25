@@ -9,9 +9,9 @@ metadata:
     app: kube-prometheus-stack-kubelet    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "92.11.0"
+    app.kubernetes.io/version: "92.13.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-92.11.0
+    chart: kube-prometheus-stack-92.13.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -81,7 +81,7 @@ spec:
       sourceLabels:
       - __name__
     - action: drop
-      regex: container_memory_(mapped_file|swap)
+      regex: container_memory_mapped_file
       sourceLabels:
       - __name__
     - action: drop
