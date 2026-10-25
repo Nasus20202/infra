@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - kubernetes/oci/compute/cluster/**
+      - "!kubernetes/oci/compute/cluster/.argocd-state/**"
       - .github/workflows/kubernetes_oci_compute_cluster_deployment_validation.yaml
   pull_request:
     branches:
@@ -22,8 +23,23 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      # The app token pushes the state commit to the protected branch (the app is
+      # on the ruleset bypass list) and posts the PR comment. It is not available
+      # to Dependabot/fork PRs (no secrets), so fall back to GITHUB_TOKEN there.
+      - name: Generate GitHub App token
+        id: app-token
+        continue-on-error: true
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.ARGOCD_VALIDATE_ACTION_CLIENT_ID }}
+          private-key: ${{ secrets.ARGOCD_VALIDATE_ACTION_APP_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
 
       - name: Build and validate ArgoCD Manifests
         uses: nasus20202/argocd-validate-action@v3
@@ -33,4 +49,4 @@ jobs:
           skip-resources: "CustomResourceDefinition,Plan"
           comment-on-pr: "true"
           commit-state: ${{ github.event_name == 'push' }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
