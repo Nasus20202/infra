@@ -36,6 +36,16 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
 
+      # Look up the numeric id of the app's bot user so commits get the app's
+      # noreply email (and avatar) instead of github-actions[bot].
+      - name: Resolve app bot identity
+        id: app-bot
+        if: steps.app-token.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: echo "id=$(gh api "/users/${APP_SLUG}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
@@ -43,6 +53,11 @@ jobs:
 
       - name: Build and validate ArgoCD Manifests
         uses: nasus20202/argocd-validate-action@v3
+        env:
+          GIT_AUTHOR_NAME: ${{ steps.app-bot.outputs.id && format('{0}[bot]', steps.app-token.outputs.app-slug) || 'github-actions[bot]' }}
+          GIT_AUTHOR_EMAIL: ${{ steps.app-bot.outputs.id && format('{0}+{1}[bot]@users.noreply.github.com', steps.app-bot.outputs.id, steps.app-token.outputs.app-slug) || '41898282+github-actions[bot]@users.noreply.github.com' }}
+          GIT_COMMITTER_NAME: ${{ steps.app-bot.outputs.id && format('{0}[bot]', steps.app-token.outputs.app-slug) || 'github-actions[bot]' }}
+          GIT_COMMITTER_EMAIL: ${{ steps.app-bot.outputs.id && format('{0}+{1}[bot]@users.noreply.github.com', steps.app-bot.outputs.id, steps.app-token.outputs.app-slug) || '41898282+github-actions[bot]@users.noreply.github.com' }}
         with:
           apps-dir: "kubernetes/oci/compute/cluster/argocd-apps"
           state-dir: "kubernetes/oci/compute/cluster/.argocd-state"
