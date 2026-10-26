@@ -10,7 +10,7 @@ spec:
   sources:
     - repoURL: https://argoproj.github.io/argo-helm
       chart: argo-cd
-      targetRevision: "10.11.1"
+      targetRevision: "10.11.3"
       helm:
         releaseName: argocd
         valueFiles:
