@@ -185,6 +185,14 @@ spec:
                       directory:
                         description: Directory holds path/directory specific options
                         properties:
+                          disableExtensionFilter:
+                            description: |-
+                              DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                              manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                              .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                              so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                              glob patterns instead.
+                            type: boolean
                           exclude:
                             description: Exclude contains a glob pattern to match
                               paths against that should be explicitly excluded from
@@ -577,6 +585,14 @@ spec:
                         directory:
                           description: Directory holds path/directory specific options
                           properties:
+                            disableExtensionFilter:
+                              description: |-
+                                DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                glob patterns instead.
+                              type: boolean
                             exclude:
                               description: Exclude contains a glob pattern to match
                                 paths against that should be explicitly excluded from
@@ -1091,6 +1107,14 @@ spec:
                   directory:
                     description: Directory holds path/directory specific options
                     properties:
+                      disableExtensionFilter:
+                        description: |-
+                          DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                          manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                          .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                          so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                          glob patterns instead.
+                        type: boolean
                       exclude:
                         description: Exclude contains a glob pattern to match paths
                           against that should be explicitly excluded from being used
@@ -1471,6 +1495,14 @@ spec:
                       directory:
                         description: Directory specifies path/directory specific options
                         properties:
+                          disableExtensionFilter:
+                            description: |-
+                              DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                              manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                              .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                              so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                              glob patterns instead.
+                            type: boolean
                           exclude:
                             description: Exclude contains a glob pattern to match
                               paths against that should be explicitly excluded from
@@ -1888,6 +1920,14 @@ spec:
                     directory:
                       description: Directory holds path/directory specific options
                       properties:
+                        disableExtensionFilter:
+                          description: |-
+                            DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                            manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                            .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                            so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                            glob patterns instead.
+                          type: boolean
                         exclude:
                           description: Exclude contains a glob pattern to match paths
                             against that should be explicitly excluded from being
@@ -2386,10 +2426,8 @@ spec:
                     format: date-time
                     type: string
                   message:
-                    description: |-
-                      Message is a human-readable informational message describing the health status
-
-                      Deprecated: this field is not used and will be removed in a future release.
+                    description: Message is a human-readable informational message
+                      describing the health status
                     type: string
                   status:
                     description: Status holds the status code of the application
@@ -2449,6 +2487,14 @@ spec:
                         directory:
                           description: Directory holds path/directory specific options
                           properties:
+                            disableExtensionFilter:
+                              description: |-
+                                DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                glob patterns instead.
+                              type: boolean
                             exclude:
                               description: Exclude contains a glob pattern to match
                                 paths against that should be explicitly excluded from
@@ -2844,6 +2890,14 @@ spec:
                           directory:
                             description: Directory holds path/directory specific options
                             properties:
+                              disableExtensionFilter:
+                                description: |-
+                                  DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                  manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                  .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                  so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                  glob patterns instead.
+                                type: boolean
                               exclude:
                                 description: Exclude contains a glob pattern to match
                                   paths against that should be explicitly excluded
@@ -3391,6 +3445,14 @@ spec:
                                 description: Directory holds path/directory specific
                                   options
                                 properties:
+                                  disableExtensionFilter:
+                                    description: |-
+                                      DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                      manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                      .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                      so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                      glob patterns instead.
+                                    type: boolean
                                   exclude:
                                     description: Exclude contains a glob pattern to
                                       match paths against that should be explicitly
@@ -3808,6 +3870,14 @@ spec:
                                   description: Directory holds path/directory specific
                                     options
                                   properties:
+                                    disableExtensionFilter:
+                                      description: |-
+                                        DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                        manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                        .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                        so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                        glob patterns instead.
+                                      type: boolean
                                     exclude:
                                       description: Exclude contains a glob pattern
                                         to match paths against that should be explicitly
@@ -4357,6 +4427,14 @@ spec:
                           directory:
                             description: Directory holds path/directory specific options
                             properties:
+                              disableExtensionFilter:
+                                description: |-
+                                  DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                  manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                  .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                  so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                  glob patterns instead.
+                                type: boolean
                               exclude:
                                 description: Exclude contains a glob pattern to match
                                   paths against that should be explicitly excluded
@@ -4761,6 +4839,14 @@ spec:
                               description: Directory holds path/directory specific
                                 options
                               properties:
+                                disableExtensionFilter:
+                                  description: |-
+                                    DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                    manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                    .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                    so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                    glob patterns instead.
+                                  type: boolean
                                 exclude:
                                   description: Exclude contains a glob pattern to
                                     match paths against that should be explicitly
@@ -5290,6 +5376,14 @@ spec:
                                 description: Directory specifies path/directory specific
                                   options
                                 properties:
+                                  disableExtensionFilter:
+                                    description: |-
+                                      DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                      manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                      .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                      so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                      glob patterns instead.
+                                    type: boolean
                                   exclude:
                                     description: Exclude contains a glob pattern to
                                       match paths against that should be explicitly
@@ -5753,6 +5847,14 @@ spec:
                                 description: Directory specifies path/directory specific
                                   options
                                 properties:
+                                  disableExtensionFilter:
+                                    description: |-
+                                      DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                      manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                      .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                      so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                      glob patterns instead.
+                                    type: boolean
                                   exclude:
                                     description: Exclude contains a glob pattern to
                                       match paths against that should be explicitly
@@ -6285,6 +6387,14 @@ spec:
                           directory:
                             description: Directory holds path/directory specific options
                             properties:
+                              disableExtensionFilter:
+                                description: |-
+                                  DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                  manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                  .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                  so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                  glob patterns instead.
+                                type: boolean
                               exclude:
                                 description: Exclude contains a glob pattern to match
                                   paths against that should be explicitly excluded
@@ -6689,6 +6799,14 @@ spec:
                               description: Directory holds path/directory specific
                                 options
                               properties:
+                                disableExtensionFilter:
+                                  description: |-
+                                    DisableExtensionFilter controls whether the built-in file-extension filter is skipped during
+                                    manifest generation. When false (the default), only files with a .yaml, .yml, .json, or
+                                    .jsonnet extension are considered as potential manifests. Set it to true to disable the filter
+                                    so that files with custom extensions (e.g. *.yaml.sealed) can be matched by the include/exclude
+                                    glob patterns instead.
+                                  type: boolean
                                 exclude:
                                   description: Exclude contains a glob pattern to
                                     match paths against that should be explicitly
