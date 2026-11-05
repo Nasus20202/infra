@@ -3,14 +3,18 @@
   become: true
 
   tasks:
+    # Use a sysctl.d drop-in: the default /etc/sysctl.conf does not exist on
+    # Ubuntu 26.04 and the previous setting was lost.
     - name: Increase max user instance
       ansible.posix.sysctl:
         name: fs.inotify.max_user_instances
         value: 8192
+        sysctl_file: /etc/sysctl.d/99-inotify.conf
         sysctl_set: true
 
     - name: Increase max user watches
       ansible.posix.sysctl:
         name: fs.inotify.max_user_watches
         value: 524288
+        sysctl_file: /etc/sysctl.d/99-inotify.conf
         sysctl_set: true
