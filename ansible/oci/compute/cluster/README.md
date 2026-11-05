@@ -4,6 +4,7 @@ This module provides a set of resources to manage a RKE2 cluster with 2 nodes cr
 
 #### Playbooks
 
+- [`configure-apparmor.yaml`](./configure-apparmor.yaml) - Stop the kernel from stacking `&unconfined` onto container AppArmor profiles (breaks signals between container processes, e.g. PostgreSQL, on kernel 7.0.0-1015)
 - [`configure-fail2ban.yaml`](./configure-fail2ban.yaml) - Install and configure fail2ban on all nodes
 - [`configure-iptables.yaml`](./configure-iptables.yaml) - Add non persistent iptables rules to allow traffic between nodes
 - [`configure-journalctl.yaml`](./configure-journalctl.yaml) - Configure journalctl disk space limit

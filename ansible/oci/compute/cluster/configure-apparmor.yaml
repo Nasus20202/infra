@@ -1,0 +1,32 @@
+# Kernel 7.0.0-1015-oracle (Ubuntu stable patchset 2026-10-05, includes
+# CVE-2026-90231 "apparmor: fix unconfined user namespace restriction forced
+# stack") now always applies kernel.apparmor_restrict_unprivileged_unconfined
+# to already-confined tasks. Every container process therefore gets the label
+# "cri-containerd.apparmor.d//&unconfined" instead of "cri-containerd.apparmor.d".
+#
+# containerd's default AppArmor profile only allows signals between processes
+# labelled exactly "cri-containerd.apparmor.d", so the stacked label causes
+#   apparmor="DENIED" operation="signal" signal=urg peer="...//&unconfined"
+# PostgreSQL wakes its IO workers / checkpointer / backends with SIGURG, so
+# CloudNativePG instances hang in "authentication" and "startup" forever
+# (also: apache2 SIGUSR1, SIGTERM to postgres).
+#
+# This reverts to the effective behaviour of the previous kernel (1013). Only
+# the unconfined restriction is relaxed, the userns restriction stays enabled.
+# Ubuntu's own /usr/lib/sysctl.d/10-apparmor.conf recommends overriding with a
+# higher numbered file in /etc/sysctl.d instead of editing the packaged one.
+#
+# Already running containers keep their label, restart the pods afterwards.
+- name: Configure AppArmor unconfined restriction
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Do not force-stack "&unconfined" onto confined container processes
+      ansible.posix.sysctl:
+        name: kernel.apparmor_restrict_unprivileged_unconfined
+        value: "0"
+        sysctl_file: /etc/sysctl.d/20-apparmor.conf
+        sysctl_set: true
+        reload: true
+        state: present
