@@ -6,7 +6,7 @@ metadata:
   name: argocd-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-10.12.1
+    helm.sh/chart: argo-cd-10.14.0
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -46,7 +46,9 @@ data:
     jqPathExpressions:
       - '.metadata.annotations."notified.notifications.argoproj.io"'
       - '.metadata.annotations."argocd.argoproj.io/refresh"'
+      - '.metadata.annotations."argocd.argoproj.io/refresh-timestamp"'
       - '.metadata.annotations."argocd.argoproj.io/hydrate"'
+      - '.metadata.annotations."argocd.argoproj.io/hydrate-timestamp"'
       - '.operation'
   resource.customizations.ignoreResourceUpdates.argoproj.io_Rollout: |
     jqPathExpressions:

@@ -9,9 +9,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "92.18.0"
+    app.kubernetes.io/version: "92.20.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-92.18.0
+    chart: kube-prometheus-stack-92.20.0
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -27,17 +27,14 @@ spec:
   template:
     metadata:
       labels:
-        
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "92.18.0"
-        app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-92.18.0
-        release: "prometheus"
-        heritage: "Helm"
         app: kube-prometheus-stack-operator
-        app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
         app.kubernetes.io/component: prometheus-operator
+        app.kubernetes.io/instance: prometheus
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
+        app.kubernetes.io/part-of: kube-prometheus-stack
+        heritage: Helm
+        release: prometheus
     spec:
       containers:
         - name: kube-prometheus-stack
