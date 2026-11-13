@@ -6,10 +6,10 @@ metadata:
   name: "loki"
   namespace: "monitoring"
   labels:
-    helm.sh/chart: loki-21.2.1
+    helm.sh/chart: loki-21.2.3
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.9"
+    app.kubernetes.io/version: "3.7.10"
     app.kubernetes.io/component: single-binary
 spec:
   replicas: 1
@@ -75,7 +75,7 @@ spec:
           emptyDir: {}
       containers:
         - name: loki
-          image: docker.io/grafana/loki:3.7.9
+          image: docker.io/grafana/loki:3.7.10
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
