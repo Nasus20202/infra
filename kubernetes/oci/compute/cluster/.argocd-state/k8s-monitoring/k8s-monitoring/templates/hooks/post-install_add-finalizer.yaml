@@ -56,7 +56,7 @@ metadata:
   labels:
     app.kubernetes.io/name: k8s-monitoring-add-finalizer
     app.kubernetes.io/instance: k8s-monitoring
-    helm.sh/chart: k8s-monitoring-4.6.0
+    helm.sh/chart: k8s-monitoring-4.6.1
   annotations:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-weight: "15"
@@ -79,16 +79,15 @@ spec:
       serviceAccountName: k8s-monitoring-add-finalizer
       containers:
         - name: add-finalizers
-          image: "ghcr.io/grafana/helm-chart-toolbox-kubectl:0.1.2"
+          image: "registry.k8s.io/kubectl:v1.34.9"
           imagePullPolicy: IfNotPresent
           command:
-            - /bin/bash
-            - -ce
-            - |
-              kubectl patch \
-                --namespace=monitoring \
-                --patch='{"metadata":{"finalizers":["k8s.grafana.com/finalizer"]}}' \
-                deployment/k8s-monitoring-alloy-operator
+            - kubectl
+          args:
+            - patch
+            - --namespace=monitoring
+            - --patch={"metadata":{"finalizers":["k8s.grafana.com/finalizer"]}}
+            - deployment/k8s-monitoring-alloy-operator
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
