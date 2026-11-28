@@ -13,20 +13,20 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "93.11.1"
+    app.kubernetes.io/version: "94.2.0"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-93.11.1
+    chart: kube-prometheus-stack-94.2.0
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
     app.kubernetes.io/component: prometheus-operator-webhook
 rules:
+  # create cannot be restricted by resourceNames, so it is granted on its own.
   - apiGroups:
       - ""
     resources:
       - secrets
     verbs:
-      - get
       - create
   - apiGroups:
       - ""
@@ -35,5 +35,7 @@ rules:
     resourceNames:
       - prometheus-kube-prometheus-admission
     verbs:
+      - get
+      # Allows migrating an existing Opaque secret to kubernetes.io/tls.
       - delete
 
